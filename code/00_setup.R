@@ -11,6 +11,7 @@ library(lme4)
 library(performance)
 library(ggeffects)
 library(plotrix)
+library(tidyterra)
 
 select <- dplyr::select
 
@@ -23,3 +24,4 @@ theme_update(text = element_text(size=16, color = "black"),
              panel.border=element_rect(linewidth=1.5))
 
 options(scipen = 9999)
+#gcinfo(TRUE)

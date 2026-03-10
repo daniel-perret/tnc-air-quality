@@ -1,0 +1,335 @@
+---
+title: "Air Quality Modeling"
+output: html_document
+date: "2026-03-03"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r echo=F}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      prompt = FALSE,
+                      error = TRUE,
+                      message = FALSE,
+                      cache = FALSE,
+                      cache.lazy = FALSE,
+                      eval = TRUE,
+                      eval.after = "fig.cap")
+
+library(tidyverse)
+library(rFIA)
+library(ggplot2)
+library(terra)
+library(sf)
+library(ggmap)
+#library(rgdal)
+library(lme4)
+library(performance)
+library(ggeffects)
+library(plotrix)
+
+select <- dplyr::select
+
+# setting my preferred ggplot2 theme
+theme_set(theme_bw())
+theme_update(text = element_text(size=16, color = "black"),
+             panel.grid.major = element_blank(),
+             panel.grid.minor = element_blank(),
+             strip.background = element_blank(),
+             panel.border=element_rect(linewidth=1.5))
+
+```
+
+## Summary
+
+Here I adapt Mark's air quality modeling code for my own use, with an eye toward troubleshooting emissions data and workflows. In particular, Mark's methods for chunking the CONUS rasters up to pyromes and processing separately may be useful. I'm working from the code document he shared "MK_air_quality_modeling_flamstat_v8.R"
+
+
+### load spatial base data
+```{r}
+pyromes <- vect("../../../SHARED_DATA/pyromes/Data/Pyromes_CONUS_20200206.shp")
+
+w.pyromes <- pyromes[1:45,]
+
+states <- sf::st_read("../../../base_spatialdata/state_boundaries/state_boundaries.shp")
+
+```
+
+### load conditional wildfire emissions rasters
+
+These rasters are the output of successive ToFuD, FlamStat, and FVS runs. It's my understanding that these represent all "2021" conditional emissions -- see workflow diagram in figures folder. There are serious issues here regarding conditional emissions, in particular, lots of situations where treatment emissions exceed those of the untreated scenario.
+
+
+```{r}
+
+ce_baseline <- rast("../data/flamstat/emissions_rasters/C_Emissions_FlamStat_NT.tif")
+ce_Rx_fire <- rast("../data/flamstat/emissions_rasters/C_Emissions_FlamStat_RxFire.tif")
+ce_Tx_fire <- rast("../data/flamstat/emissions_rasters/C_Emissions_FlamStat_Mech.tif")
+
+```
+
+### load FSIM burn probabilities
+
+**download this**
+```{r}
+
+fsim_bp <- rast("../../../SHARED_DATA/FSIM/RDS-2020-0016-2__BP_CONUS/BP_CONUS/BP_CONUS.tif")
+
+```
+
+
+### loop to get conditional emissions and difference scenarios
+
+```{r}
+
+i <- 1
+
+t_0 <- Sys.time()
+
+for(i in 1:nrow(w.pyromes)){
+  time_1 <- Sys.time()
+  # filter to just pyrome in question
+  pyrome <- pyromes[i,] %>% project(crs("EPSG:5070"))
+  
+  # print out pyrome output
+  print(paste(pyrome$PYROME, pyrome$NAME))
+  
+  # filter conditional emissions to just the pyrome boundary
+  py_ce_baseline <- ce_baseline %>% crop(pyrome, mask = T)
+  py_ce_Rx_fire <- ce_Rx_fire %>% crop(pyrome, mask = T)
+  py_ce_Tx_fire <- ce_Tx_fire %>% crop(pyrome, mask = T)
+  
+  gc()
+  
+  # write out rasters
+  writeRaster(py_ce_baseline, 
+              paste0("../data/flamstat/by_pyrome/emissions/conditional/baseline/baseline_conditional_emission_pyrome_",
+                     pyrome$PYROME,".tif"), overwrite = T)
+  writeRaster(py_ce_Rx_fire, 
+              paste0("../data/flamstat/by_pyrome/emissions/conditional/Rx_fire/Rxfire_conditional_emission_pyrome_",
+                     pyrome$PYROME,".tif"), overwrite = T)
+  writeRaster(py_ce_Tx_fire, 
+              paste0("../data/flamstat/by_pyrome/emissions/conditional/Tx_fire/Txfire_conditional_emission_pyrome_",
+                     pyrome$PYROME,".tif"), overwrite = T)
+  
+  # filter burn probability to just the pyrome boundary
+  #py_bp <- fsim_bp %>% crop(pyrome, mask = T)
+  
+  gc()
+  
+  ## get difference from baseline to treated ##
+  py_ce_diff_Rx_fire <- py_ce_Rx_fire  - py_ce_baseline
+  py_ce_diff_Tx_fire <- py_ce_Tx_fire - py_ce_baseline
+  
+  gc()
+  
+  # write out rasters
+  writeRaster(py_ce_diff_Rx_fire, 
+              paste0("../data/flamstat/by_pyrome/emissions/conditional/differences/Rxfire_conditional_diff_pyrome_", 
+                     pyrome$PYROME, ".tif"), overwrite = T)
+  writeRaster(py_ce_diff_Tx_fire, 
+              paste0("../data/flamstat/by_pyrome/emissions/conditional/differences/Txfire_conditional_diff_pyrome_", 
+                     pyrome$PYROME, ".tif"), overwrite = T)
+  
+  rm(py_ce_baseline)
+  rm(py_ce_Rx_fire)
+  rm(py_ce_Tx_fire)
+  rm(py_ce_diff_Rx_fire)
+  rm(py_ce_diff_Tx_fire)
+  gc()
+  
+  time_2 <- Sys.time()
+  
+  print(time_2 - time_1)
+}
+
+print(paste0("Total time: ", Sys.time()- t_0))
+
+```
+
+### loop to get expected emissions and difference scenarios
+
+```{r}
+
+i <- 1
+time_0 <- Sys.time()
+
+for(i in 1:nrow(w.pyromes)){
+  time_1 <- Sys.time()
+  # filter to just pyrome in question
+  pyrome <- pyromes[i,]
+  
+  # print out pyrome output
+  print(paste(pyrome$PYROME, pyrome$NAME))
+  
+  # read conditional rasters
+  py_ce_baseline <- rast(paste0("../data/flamstat/by_pyrome/emissions/conditional/baseline/baseline_conditional_emission_pyrome_",pyrome$PYROME,".tif"))
+  py_ce_Rx_fire <- rast(paste0("../data/flamstat/by_pyrome/emissions/conditional/Rx_fire/Rxfire_conditional_emission_pyrome_",pyrome$PYROME,".tif"))
+  py_ce_Tx_fire <- rast(paste0("../data/flamstat/by_pyrome/emissions/conditional/Tx_fire/Txfire_conditional_emission_pyrome_",pyrome$PYROME,".tif"))
+  
+  gc()
+  
+  # filter burn probability to just the pyrome boundary
+  py_bp <- fsim_bp %>% crop(pyrome, mask = T)
+  
+  gc()
+  
+  ## multiply conditional emissions by burn probability to get annual expected emissions ##
+  py_expected_baseline <- py_ce_baseline * py_bp
+  py_expected_Rx_fire <- py_ce_Rx_fire * py_bp
+  py_expected_Tx_fire <- py_ce_Tx_fire * py_bp
+  
+  rm(py_ce_baseline)
+  rm(py_ce_Rx_fire)
+  rm(py_ce_Tx_fire)
+  rm(py_bp)
+  gc()
+  
+  # write out rasters
+  writeRaster(py_expected_baseline,
+              paste0("../data/flamstat/by_pyrome/emissions/expected/baseline/baseline_expected_emission_pyrome",
+                     pyrome$PYROME,".tif"), overwrite = T)
+  writeRaster(py_expected_Rx_fire,
+              paste0("../data/flamstat/by_pyrome/emissions/expected/Rx_fire/Rxfire_expected_emission_pyrome",
+                     pyrome$PYROME,".tif"), overwrite = T)
+  writeRaster(py_expected_Tx_fire,
+              paste0("../data/flamstat/by_pyrome/emissions/expected/Tx_fire/Txfire_expected_emission_pyrome",
+                     pyrome$PYROME,".tif"), overwrite = T)
+  
+  gc()
+  
+  ## get difference from baseline to treated ##
+  py_expected_diff_Rx_fire <- py_expected_Rx_fire - py_expected_baseline
+  py_expected_diff_Tx_fire <- py_expected_Tx_fire - py_expected_baseline
+  
+  
+  gc()
+  # write out rasters
+  writeRaster(py_expected_diff_Rx_fire,
+              paste0("../data/flamstat/by_pyrome/emissions/expected/differences/Rxfire_expected_diff_pyrome_",
+                     pyrome$PYROME, ".tif"), overwrite = T)
+  writeRaster(py_expected_diff_Tx_fire,
+              paste0("../data/flamstat/by_pyrome/emissions/expected/differences/Txfire_expected_diff_pyrome_",
+                     pyrome$PYROME, ".tif"), overwrite = T)
+  
+  # remove files
+  rm(py_expected_baseline)
+  rm(py_expected_Rx_fire)
+  rm(py_expected_Tx_fire)
+  
+  rm(py_expected_diff_Rx_fire)
+  rm(py_expected_diff_Tx_fire)
+  
+  gc()
+  
+  time_2 <- Sys.time()
+  
+  print(time_2 - time_1)
+}
+
+print(paste0("Total time: ",Sys.time()-time_0))
+
+```
+
+### merge resulting pyrome-level conditional and expected emissions rasters
+
+```{r}
+# Run as background job -- rastermerge_gb1.R
+# Conditional emissions
+
+ce_baseline_list <- list.files("../data/flamstat/by_pyrome/emissions/conditional/baseline/", full.names=T)
+ce_baseline <- sprc(ce_baseline_list) %>% merge()
+writeRaster(ce_baseline, "../data/flamstat/emissions_rasters/dp_merged/conditional_baseline_conus.tif")
+gc()
+rm(ce_baseline)
+
+ce_Rx_fire_list <- list.files("../data/flamstat/by_pyrome/emissions/conditional/Rx_fire/", full.names=T)
+ce_Rx_fire <- sprc(ce_Rx_fire_list) %>% merge()
+writeRaster(ce_Rx_fire, "../data/flamstat/emissions_rasters/dp_merged/conditional_Rx_fire_conus.tif")
+gc()
+rm(ce_Rx_fire)
+
+ce_Tx_fire_list <- list.files("../data/flamstat/by_pyrome/emissions/conditional/Tx_fire/", full.names=T)
+ce_Tx_fire <- sprc(ce_Tx_fire_list) %>% merge()
+writeRaster(ce_Tx_fire, "../data/flamstat/emissions_rasters/dp_merged/conditional_Tx_fire_conus.tif")
+gc()
+rm(ce_Tx_fire)
+
+ce_Rx_diff_list <- list.files("../data/flamstat/by_pyrome/emissions/conditional/differences/Rx*", full.names=T)
+ce_Rx_diff <- sprc(ce_Tx_fire_list) %>% merge()
+writeRaster(ce_Tx_diff, "../data/flamstat/emissions_rasters/dp_merged/conditional_Rx_fire_diff_conus.tif")
+gc()
+rm(ce_Rx_diff)
+
+ce_Tx_diff_list <- list.files("../data/flamstat/by_pyrome/emissions/conditional/differences/Tx*", full.names=T)
+ce_Tx_diff <- sprc(ce_Tx_fire_list) %>% merge()
+writeRaster(ce_Tx_diff, "../data/flamstat/emissions_rasters/dp_merged/conditional_Tx_fire_diff_conus.tif")
+gc()
+rm(ce_Tx_diff)
+
+
+# Expected emissions
+
+exp_baseline_list <- list.files("../data/flamstat/by_pyrome/emissions/expected/baseline/", full.names=T)
+exp_baseline <- sprc(exp_baseline_list) %>% merge()
+writeRaster(exp_baseline, "../data/flamstat/emissions_rasters/dp_merged/expected_baseline_conus.tif")
+gc()
+rm(exp_baseline)
+
+exp_Rx_fire_list <- list.files("../data/flamstat/by_pyrome/emissions/expected/Rx_fire/", full.names=T)
+exp_Rx_fire <- sprc(exp_Rx_fire_list) %>% merge()
+writeRaster(expexp_Rx_fire, "../data/flamstat/emissions_rasters/dp_merged/expected_Rx_fire_conus.tif")
+gc()
+rm(exp_Rx_fire)
+
+exp_Tx_fire_list <- list.files("../data/flamstat/by_pyrome/emissions/expected/Tx_fire/", full.names=T)
+exp_Tx_fire <- sprc(exp_Tx_fire_list) %>% merge()
+writeRaster(exp_Tx_fire, "../data/flamstat/emissions_rasters/dp_merged/expected_Tx_fire_conus.tif")
+gc()
+rm(exp_Tx_fire)
+
+exp_Rx_diff_list <- list.files("../data/flamstat/by_pyrome/emissions/expected/differences/Rx*", full.names=T)
+exp_Rx_diff <- sprc(exp_Tx_fire_list) %>% merge()
+writeRaster(exp_Tx_diff, "../data/flamstat/emissions_rasters/dp_merged/expected_Rx_fire_diff_conus.tif")
+gc()
+rm(exp_Rx_diff)
+
+exp_Tx_diff_list <- list.files("../data/flamstat/by_pyrome/emissions/expected/differences/Tx*", full.names=T)
+exp_Tx_diff <- sprc(exp_Tx_fire_list) %>% merge()
+writeRaster(exp_Tx_diff, "../data/flamstat/emissions_rasters/dp_merged/expected_Tx_fire_diff_conus.tif")
+gc()
+rm(exp_Tx_diff)
+
+```
+
+
+### Can I use this same approach to compare e.g., flame length rasters?
+
+```{r}
+
+rx.fl <- rast("data/flamstat/flamelength_rasters/Rx_fire_FVS_flamelength_masked.tif")/1000
+
+wfnt20_rx20 <- rast("data/flamstat/RH_comparisons/ConWFNT20_RxFire20_comp/ConWFNT20_RxFire20_comp.tif")
+
+rx.fl <- rx.fl %>% crop(ext(wfnt20_rx20))
+
+terra::plot(rx.fl, wfnt20_rx20, maxcells = 1000,
+            pch = 19, rgb(0,0,0,0.5), cex = 1.5)
+
+rx2 <- rx.fl
+rx.fl[wfnt20_rx20>0] <- NA
+
+x <- values(rx.fl,na.rm=T)
+
+y <- rx.fl %>% 
+  spatSample(., size=1e5, na.rm=T)
+
+y %>% 
+  ggplot(.,
+         aes(x = Rx_fire_FVS_flamelength_masked)) + 
+  geom_density()
+
+```
+

@@ -1,0 +1,1993 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="361.51721mm"
+   height="209.48645mm"
+   viewBox="0 0 361.51721 209.48645"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   sodipodi:docname="flamstat_workflow_v4.svg"
+   inkscape:export-filename="flamstat_workflow4.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.145513"
+     inkscape:cx="510.68823"
+     inkscape:cy="331.29262"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1072"
+     inkscape:window-y="1025"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="165.52644"
+       y="745.56451"
+       width="127.97003"
+       height="31.992508"
+       id="rect35" />
+    <rect
+       x="114.06024"
+       y="719.13593"
+       width="0"
+       height="18.082722"
+       id="rect34" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.287548,-1.9193556)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.255129;stroke-opacity:1"
+       id="rect132"
+       width="361.51721"
+       height="209.48645"
+       x="21.287548"
+       y="1.9193556"
+       sodipodi:insensitive="true" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="130.63863"
+       y="35.392139"
+       id="text13"><tspan
+         sodipodi:role="line"
+         id="tspan13"
+         style="fill:#000000;stroke-width:0.264583"
+         x="130.63863"
+         y="35.392139" /></text>
+    <rect
+       style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.376619;stroke-opacity:1"
+       id="rect12"
+       width="189.42003"
+       height="52.067299"
+       x="35.127911"
+       y="20.295261" />
+    <rect
+       style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.351246;stroke-opacity:1"
+       id="rect232"
+       width="189.1619"
+       height="45.349831"
+       x="35.127911"
+       y="79.514824" />
+    <rect
+       style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.351246;stroke-opacity:1"
+       id="rect233"
+       width="189.1619"
+       height="45.349831"
+       x="35.127911"
+       y="79.558784" />
+    <rect
+       style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.351246;stroke-opacity:1"
+       id="rect13"
+       width="189.1619"
+       height="45.349831"
+       x="35.127911"
+       y="132.10484" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text35"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect35);display:inline;fill:#000000;stroke:none;stroke-width:0.999999;stroke-opacity:1" />
+    <g
+       id="g57"
+       transform="translate(156.79402,-6.3094085)">
+      <g
+         id="g227">
+        <rect
+           style="fill:#de8787;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           id="rect37"
+           width="39.747211"
+           height="12.513011"
+           x="75.814117"
+           y="121.44982" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.88056px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="78.274467"
+           y="129.07722"
+           id="text41"><tspan
+             sodipodi:role="line"
+             id="tspan41"
+             style="font-size:3.88056px;stroke-width:0.264583"
+             x="78.274467"
+             y="129.07722">Rx 2020 emissions</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g53"
+       transform="translate(121.46316,-17.465661)">
+      <rect
+         style="fill:#de8787;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="rect38"
+         width="39.747211"
+         height="12.513011"
+         x="111.14498"
+         y="58.884766" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.88056px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="131.41365"
+         y="64.087761"
+         id="text42"><tspan
+           sodipodi:role="line"
+           id="tspan42"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="131.41365"
+           y="64.087761">NT 2020 WF </tspan><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="131.41365"
+           y="68.938461"
+           id="tspan85">emissions</tspan></text>
+    </g>
+    <g
+       id="g54"
+       transform="translate(10.870226,-2.4433125)">
+      <rect
+         style="fill:#de8787;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="rect36"
+         width="39.747211"
+         height="12.513011"
+         x="221.73792"
+         y="58.884762" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.88056px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="241.70531"
+         y="64.087753"
+         id="text43"><tspan
+           sodipodi:role="line"
+           id="tspan43"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="241.70531"
+           y="64.087753">NT 2021</tspan><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="241.70531"
+           y="68.938454"
+           id="tspan47"> WF emissions</tspan></text>
+    </g>
+    <g
+       id="g197"
+       transform="translate(10.870226,-23.815996)">
+      <rect
+         style="fill:#de8787;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="rect196"
+         width="39.747211"
+         height="12.513011"
+         x="221.73792"
+         y="124.21004" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.88056px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="242.00848"
+         y="129.41302"
+         id="text197"><tspan
+           sodipodi:role="line"
+           id="tspan196"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="242.00848"
+           y="129.41302">Rx 2021 WF </tspan><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="242.00848"
+           y="134.26372"
+           id="tspan197">emissions</tspan></text>
+    </g>
+    <g
+       id="g55"
+       transform="translate(10.870226,28.245935)">
+      <rect
+         style="fill:#de8787;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="rect40"
+         width="39.747211"
+         height="12.513011"
+         x="221.73792"
+         y="124.21004" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.88056px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="242.00848"
+         y="129.41302"
+         id="text44"><tspan
+           sodipodi:role="line"
+           id="tspan44"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="242.00848"
+           y="129.41302">Tx 2021 WF </tspan><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="242.00848"
+           y="134.26372"
+           id="tspan46">emissions</tspan></text>
+    </g>
+    <g
+       id="g206"
+       transform="matrix(0.68799095,0,0,1,113.26518,62.364547)">
+      <g
+         id="g205">
+        <g
+           id="g204">
+          <path
+             d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+             style="stroke-width:0.130738"
+             id="path203" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.631409;stroke-opacity:1"
+         id="rect205"
+         width="155.3076"
+         height="2.5454366"
+         x="-60.801163"
+         y="27.422403" />
+    </g>
+    <g
+       id="g209"
+       transform="matrix(0.68799095,0,0,1,113.26518,1.9350203)">
+      <g
+         id="g208">
+        <g
+           id="g207">
+          <path
+             d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+             style="stroke-width:0.130738"
+             id="path206" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.631409;stroke-opacity:1"
+         id="rect208"
+         width="155.3076"
+         height="2.5454366"
+         x="-60.801163"
+         y="27.422403" />
+    </g>
+    <g
+       id="g212"
+       transform="matrix(0.68799095,0,0,1,111.18642,19.247263)">
+      <g
+         id="g211">
+        <g
+           id="g210">
+          <path
+             d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+             style="stroke-width:0.130738"
+             id="path209" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.631409;stroke-opacity:1"
+         id="rect211"
+         width="155.3076"
+         height="2.5454366"
+         x="-60.801163"
+         y="27.422403" />
+    </g>
+    <g
+       id="g193"
+       transform="matrix(0.68799095,0,0,1,111.18642,33.946337)"
+       style="fill:#000000;fill-opacity:1">
+      <g
+         id="g192"
+         style="fill:#000000;fill-opacity:1">
+        <g
+           id="g191"
+           style="fill:#000000;fill-opacity:1">
+          <path
+             d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+             style="stroke-width:0.130738;fill:#000000;fill-opacity:1"
+             id="path190" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.631409;stroke-opacity:1"
+         id="rect212"
+         width="155.3076"
+         height="2.5454366"
+         x="-60.801163"
+         y="27.422403" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.631409;stroke-opacity:1"
+         id="rect192"
+         width="155.3076"
+         height="2.5454366"
+         x="-60.801163"
+         y="27.422403" />
+    </g>
+    <g
+       id="g170"
+       transform="matrix(0.68799095,0,0,1,111.18642,79.350144)">
+      <g
+         id="g169">
+        <g
+           id="g168">
+          <path
+             d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+             style="stroke-width:0.130738"
+             id="path167" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.631409;stroke-opacity:1"
+         id="rect169"
+         width="155.3076"
+         height="2.5454366"
+         x="-60.801163"
+         y="27.422403" />
+    </g>
+    <g
+       id="g136"
+       transform="matrix(0.43941506,0,0,1,90.015319,79.338537)">
+      <g
+         id="g134">
+        <g
+           id="g133" />
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.465709;stroke-opacity:1"
+         id="rect136"
+         width="84.489754"
+         height="2.5454366"
+         x="10.016687"
+         y="27.422403" />
+    </g>
+    <g
+       id="g142"
+       transform="translate(-82.358088,47.218302)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.160588;stroke-opacity:1"
+         id="rect141"
+         width="25.31403"
+         height="8.7526932"
+         x="194.18777"
+         y="39.616749" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="199.57619"
+         y="44.821167"
+         id="text141"><tspan
+           sodipodi:role="line"
+           id="tspan141"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="199.57619"
+           y="44.821167">FlamStat</tspan></text>
+    </g>
+    <g
+       id="g186"
+       transform="translate(-148.04269,60.649325)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.164968;stroke-opacity:1;fill-opacity:1"
+         id="rect185"
+         width="25.309652"
+         height="9.238204"
+         x="261.1785"
+         y="42.601719" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="273.83163"
+         y="46.173351"
+         id="text186"><tspan
+           sodipodi:role="line"
+           id="tspan185"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="46.173351">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="50.142101"
+           id="tspan186">(grow)</tspan></text>
+    </g>
+    <g
+       id="g143"
+       transform="translate(-111.78498,60.322679)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.164968;stroke-opacity:1"
+         id="rect142"
+         width="25.309652"
+         height="9.238204"
+         x="261.1785"
+         y="42.601719" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="273.83163"
+         y="46.173351"
+         id="text143"><tspan
+           sodipodi:role="line"
+           id="tspan142"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="46.173351">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="50.142101"
+           id="tspan143">(wildfire)</tspan></text>
+    </g>
+    <g
+       id="g155"
+       transform="translate(-127.51658,19.845973)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.170169;stroke-opacity:1"
+         id="rect145"
+         width="25.304451"
+         height="9.8318806"
+         x="211.53633"
+         y="66.441216" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="224.53502"
+         y="70.286217"
+         id="text149"><tspan
+           sodipodi:role="line"
+           id="tspan146"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="224.53502"
+           y="70.286217">LFTFC</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="224.53502"
+           y="74.254967"
+           id="tspan148">(ToFuDelta)</tspan></text>
+    </g>
+    <g
+       id="g147"
+       transform="translate(92.862143,-4.7207521)" />
+    <g
+       id="g150"
+       transform="translate(-5.6334371,11.764929)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.75;stroke-dasharray:none;stroke-opacity:1"
+         id="rect146"
+         width="83.493179"
+         height="30.348265"
+         x="288.81506"
+         y="-55.463135"
+         transform="scale(1,-1)"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="200.12823"
+         y="40.347374"
+         id="text147"
+         transform="translate(92.862144,-4.7207521)"><tspan
+           sodipodi:role="line"
+           id="tspan147"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="200.12823"
+           y="40.347374">FlamStat</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;direction:ltr;white-space:pre;inline-size:56.8745;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="304.69571"
+         y="41.876907"
+         id="text148"
+         transform="translate(8.7931674,-12.517347)"><tspan
+           x="304.69571"
+           y="41.876907"
+           id="tspan1">FlamStat burns stands independently </tspan><tspan
+           x="304.69571"
+           y="45.845659"
+           id="tspan2">under a distribution of wind and weather </tspan><tspan
+           x="304.69571"
+           y="49.814409"
+           id="tspan3">conditions to generate conditional flame </tspan><tspan
+           x="304.69571"
+           y="53.783159"
+           id="tspan4">length distributions. These FlamStat </tspan><tspan
+           x="304.69571"
+           y="57.751909"
+           id="tspan5">runs uused surface (FBFM40) and </tspan><tspan
+           x="304.69571"
+           y="61.720659"
+           id="tspan6">canopy (CC, CH, CBH, CBD) fuels </tspan><tspan
+           x="304.69571"
+           y="65.689409"
+           id="tspan7">information from LandFire 2020.</tspan></text>
+    </g>
+    <g
+       id="g152"
+       transform="translate(-3.7798787,36.263387)">
+      <g
+         id="g149">
+        <g
+           id="g139"
+           transform="translate(92.59756,99.525081)">
+          <rect
+             style="fill:#ffffff;stroke:#000000;stroke-width:0.713394;stroke-dasharray:none;stroke-opacity:1"
+             id="rect138"
+             width="83.767899"
+             height="23.550056"
+             x="194.34564"
+             y="27.028446"
+             ry="0" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+             x="206.4183"
+             y="38.049065"
+             id="text139"><tspan
+               sodipodi:role="line"
+               id="tspan139"
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+               x="206.4183"
+               y="38.049065">LFTFC</tspan><tspan
+               sodipodi:role="line"
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+               x="206.4183"
+               y="42.017815"
+               id="tspan149">(ToFuDelta)</tspan></text>
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;direction:ltr;white-space:pre;inline-size:56.8745;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="304.69571"
+           y="41.876907"
+           id="text140"
+           transform="translate(8.7156728,89.744112)"><tspan
+             x="304.69571"
+             y="41.876907"
+             id="tspan8">The Landfire Total Fuel Change tool </tspan><tspan
+             x="304.69571"
+             y="45.845659"
+             id="tspan9">applies a series of rulesets that change </tspan><tspan
+             x="304.69571"
+             y="49.814409"
+             id="tspan10">surface and canopy fuels to reflect </tspan><tspan
+             x="304.69571"
+             y="53.783159"
+             id="tspan11">management actions like prescribed </tspan><tspan
+             x="304.69571"
+             y="57.751909"
+             id="tspan12">fire, thinning, or thin + burn.</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g151"
+       transform="translate(-4.8550314,33.339257)">
+      <g
+         id="g29"
+         transform="translate(92.862143,17.916977)">
+        <rect
+           style="fill:#ffffff;stroke:#000000;stroke-width:0.75;stroke-dasharray:none;stroke-opacity:1"
+           id="rect28"
+           width="83.488052"
+           height="87.357651"
+           x="195.17451"
+           y="20.074451"
+           ry="0" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="200.12823"
+           y="64.888863"
+           id="text28"><tspan
+             sodipodi:role="line"
+             id="tspan28"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+             x="200.12823"
+             y="64.888863">FVS</tspan></text>
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;direction:ltr;white-space:pre;inline-size:56.8745;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="304.69571"
+         y="41.876907"
+         id="text144"
+         transform="translate(8.6060787,0.16384819)"><tspan
+           x="304.69571"
+           y="41.876907"
+           id="tspan15"><tspan
+   style="font-weight:bold"
+   id="tspan14">FVS (grow) </tspan>advances stands one year, </tspan><tspan
+           x="304.69571"
+           y="45.845659"
+           id="tspan16">accounting for tree growth, mortality, </tspan><tspan
+           x="304.69571"
+           y="49.814409"
+           id="tspan17">fuel accumulation, fuel decay, and other </tspan><tspan
+           x="304.69571"
+           y="53.783159"
+           id="tspan19">processes. <tspan
+   style="font-weight:bold"
+   id="tspan18">This results in new </tspan></tspan><tspan
+           x="304.69571"
+           y="57.751909"
+           id="tspan21"><tspan
+             style="font-weight:bold"
+             id="tspan20">surface and canopy fuels. </tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;direction:ltr;white-space:pre;inline-size:56.8745;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="304.69571"
+         y="41.876907"
+         id="text146"
+         transform="translate(8.6060787,25.127433)"><tspan
+           x="304.69571"
+           y="41.876907"
+           id="tspan23"><tspan
+   style="font-weight:bold"
+   id="tspan22">FVS (Rx fire) </tspan>simulates a prescribed </tspan><tspan
+           x="304.69571"
+           y="45.845659"
+           id="tspan24">fire in a stand, given existing stand </tspan><tspan
+           x="304.69571"
+           y="49.814409"
+           id="tspan25">conditions. User specifies burn </tspan><tspan
+           x="304.69571"
+           y="53.783159"
+           id="tspan26">conditions (weather and fuel moisture), </tspan><tspan
+           x="304.69571"
+           y="57.751909"
+           id="tspan29">and <tspan
+   style="font-weight:bold"
+   id="tspan27">FVS decides on fuel model and </tspan></tspan><tspan
+           x="304.69571"
+           y="61.720659"
+           id="tspan31"><tspan
+   style="font-weight:bold"
+   id="tspan30">fire intensity.</tspan> Outputs include </tspan><tspan
+           x="304.69571"
+           y="65.689409"
+           id="tspan32">emissions, mortality, etc. </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;direction:ltr;white-space:pre;inline-size:56.8745;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="304.69571"
+         y="41.876907"
+         id="text138"
+         transform="translate(8.5378658,57.810399)"><tspan
+           x="304.69571"
+           y="41.876907"
+           id="tspan34"><tspan
+   style="font-weight:bold"
+   id="tspan33">FVS (wildfire) </tspan>simulates a wildfire in a </tspan><tspan
+           x="304.69571"
+           y="45.845659"
+           id="tspan35">stand, given existing stand conditions. </tspan><tspan
+           x="304.69571"
+           y="49.814409"
+           id="tspan36">User specifies burn conditions -- </tspan><tspan
+           x="304.69571"
+           y="53.783159"
+           id="tspan37">weather, fuel moisture, and fire intensity. </tspan><tspan
+           x="304.69571"
+           y="57.751909"
+           id="tspan38">Here we simulated wildfire in each flame </tspan><tspan
+           x="304.69571"
+           y="61.720659"
+           id="tspan39">length bin (0-2 ft, 2-4 ft, 4-6 ft, 6-8 ft, </tspan><tspan
+           x="304.69571"
+           y="65.689409"
+           id="tspan40">8-12 ft, 12+ft).</tspan></text>
+    </g>
+    <g
+       id="g199"
+       transform="translate(135.12477,105.80122)">
+      <g
+         id="g198">
+        <path
+           d="m 92.927622,-0.74461233 v 1.721859 H 85.906865 V 3.5181767 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.49654903 z"
+           style="stroke-width:0.130738"
+           id="path197" />
+      </g>
+    </g>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.209742;stroke-opacity:1"
+       id="rect225"
+       width="17.137173"
+       height="2.5454366"
+       x="94.209145"
+       y="-203.93616"
+       transform="rotate(90)" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.209742;stroke-opacity:1"
+       id="rect226"
+       width="17.137173"
+       height="2.5454366"
+       x="94.209145"
+       y="-203.93616"
+       transform="rotate(90)" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.209742;stroke-opacity:1"
+       id="rect227"
+       width="17.137173"
+       height="2.5454366"
+       x="94.209145"
+       y="-203.93616"
+       transform="rotate(90)" />
+    <rect
+       style="fill:#87cdde;stroke:#000000;stroke-width:0.178852;stroke-opacity:1"
+       id="rect200"
+       width="32.288334"
+       height="9.0100574"
+       x="186.50838"
+       y="86.603607" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:23.4774;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="35.850605"
+       y="40.060528"
+       id="text200"
+       transform="translate(166.56055,49.902624)"><tspan
+         x="35.850605"
+         y="40.060528"
+         id="tspan45">Conditional FL<tspan
+   y="40.060528"
+   id="tspan48"> </tspan></tspan><tspan
+         x="35.850605"
+         y="44.029279"
+         id="tspan49">probabilities</tspan></text>
+    <g
+       id="g202"
+       transform="translate(166.8872,66.587706)">
+      <rect
+         style="fill:#87cdde;stroke:#000000;stroke-width:0.190939;stroke-opacity:1"
+         id="rect201"
+         width="36.849293"
+         height="8.9979706"
+         x="17.340696"
+         y="37.033669" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:38.5031;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="35.850605"
+         y="40.060528"
+         id="text201"
+         transform="translate(-0.32664609,0.32664609)"><tspan
+           x="35.850605"
+           y="40.060528"
+           id="tspan50">Total emissions 
+</tspan><tspan
+           x="35.850605"
+           y="44.029279"
+           id="tspan51">(for each FL)</tspan></text>
+    </g>
+    <g
+       id="g218"
+       transform="translate(0.69997834,7.5128601)">
+      <g
+         id="g122"
+         transform="translate(134.52687,150.52523)">
+        <g
+           id="g121">
+          <path
+             d="m 92.927622,-0.74461233 v 1.721859 H 85.906865 V 3.5181767 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.49654903 z"
+             style="stroke-width:0.130738"
+             id="path120" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.209742;stroke-opacity:1"
+         id="rect122"
+         width="17.137173"
+         height="2.5454366"
+         x="138.93315"
+         y="-203.33826"
+         transform="rotate(90)" />
+      <rect
+         style="fill:#87cdde;stroke:#000000;stroke-width:0.178852;stroke-opacity:1"
+         id="rect90"
+         width="32.288334"
+         height="9.0100574"
+         x="185.91048"
+         y="131.32761" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:23.4774;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="35.850605"
+         y="40.060528"
+         id="text90"
+         transform="translate(165.96265,94.626627)"><tspan
+           x="35.850605"
+           y="40.060528"
+           id="tspan52">Conditional FL<tspan
+   y="40.060528"
+   id="tspan53"> </tspan></tspan><tspan
+           x="35.850605"
+           y="44.029279"
+           id="tspan54">probabilities</tspan></text>
+      <g
+         id="g92"
+         transform="translate(166.2893,111.31171)">
+        <rect
+           style="fill:#87cdde;stroke:#000000;stroke-width:0.190939;stroke-opacity:1"
+           id="rect90-9"
+           width="36.849293"
+           height="8.9979706"
+           x="17.340696"
+           y="37.033669" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:38.5031;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="35.850605"
+           y="40.060528"
+           id="text90-5"
+           transform="translate(-0.32664609,0.32664609)"><tspan
+             x="35.850605"
+             y="40.060528"
+             id="tspan55">Total emissions 
+</tspan><tspan
+             x="35.850605"
+             y="44.029279"
+             id="tspan56">(for each FL)</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g57-2"
+       transform="translate(156.79402,46.209915)">
+      <rect
+         style="fill:#de8787;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="rect37-7"
+         width="39.747211"
+         height="12.513011"
+         x="75.814117"
+         y="121.44982" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.88056px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="78.274467"
+         y="129.07722"
+         id="text41-7"><tspan
+           sodipodi:role="line"
+           id="tspan41-9"
+           style="font-size:3.88056px;stroke-width:0.264583"
+           x="78.274467"
+           y="129.07722">Tx 2020 emissions</tspan></text>
+    </g>
+    <g
+       id="g225"
+       transform="translate(80.298967,114.3871)">
+      <g
+         id="g224">
+        <g
+           id="g223">
+          <path
+             d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+             style="stroke-width:0.130738"
+             id="path222" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.55728;stroke-opacity:1"
+         id="rect224"
+         width="120.98155"
+         height="2.5454366"
+         x="-26.475109"
+         y="27.422403" />
+    </g>
+    <g
+       id="g232">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.178429;stroke-opacity:1"
+         id="rect228"
+         width="12.402212"
+         height="2.5454366"
+         x="106.33525"
+         y="-98.843147"
+         transform="rotate(90)" />
+      <g
+         id="g231"
+         transform="translate(126.35607,90.917826)">
+        <g
+           id="g230">
+          <g
+             id="g229">
+            <path
+               d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+               style="stroke-width:0.130738"
+               id="path228" />
+          </g>
+        </g>
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.565495;stroke-opacity:1"
+           id="rect230"
+           width="124.57466"
+           height="2.5454366"
+           x="-30.068216"
+           y="27.422403" />
+      </g>
+    </g>
+    <g
+       id="g228"
+       transform="translate(0,51.507127)">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.178429;stroke-opacity:1"
+         id="rect199"
+         width="12.402212"
+         height="2.5454366"
+         x="106.33525"
+         y="-98.843147"
+         transform="rotate(90)" />
+      <g
+         id="g196"
+         transform="translate(126.35607,90.917826)">
+        <g
+           id="g195">
+          <g
+             id="g194">
+            <path
+               d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+               style="stroke-width:0.130738"
+               id="path193" />
+          </g>
+        </g>
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.565495;stroke-opacity:1"
+           id="rect195"
+           width="124.57466"
+           height="2.5454366"
+           x="-30.068216"
+           y="27.422403" />
+      </g>
+    </g>
+    <g
+       id="g170-5"
+       transform="translate(78.220204,131.36366)">
+      <g
+         id="g169-0">
+        <g
+           id="g168-9">
+          <path
+             d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+             style="stroke-width:0.130738"
+             id="path167-0" />
+        </g>
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.55728;stroke-opacity:1"
+         id="rect169-0"
+         width="120.98155"
+         height="2.5454366"
+         x="-26.176676"
+         y="27.422403" />
+    </g>
+    <g
+       id="g136-9"
+       transform="matrix(0.43941506,0,0,1,93.290376,131.36109)">
+      <g
+         id="g134-3">
+        <g
+           id="g133-4" />
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.465709;stroke-opacity:1"
+         id="rect136-4"
+         width="84.489754"
+         height="2.5454366"
+         x="10.016687"
+         y="27.422403" />
+    </g>
+    <g
+       id="g142-7"
+       transform="translate(-82.358088,99.240861)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.160588;stroke-opacity:1"
+         id="rect141-8"
+         width="25.31403"
+         height="8.7526932"
+         x="194.18777"
+         y="39.616749" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="199.57619"
+         y="44.821167"
+         id="text141-8"><tspan
+           sodipodi:role="line"
+           id="tspan141-2"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="199.57619"
+           y="44.821167">FlamStat</tspan></text>
+    </g>
+    <g
+       id="g188"
+       transform="translate(-148.04269,112.67187)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.164968;stroke-opacity:1;fill-opacity:1"
+         id="rect186"
+         width="25.309652"
+         height="9.238204"
+         x="261.1785"
+         y="42.601719" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="273.83163"
+         y="46.173351"
+         id="text188"><tspan
+           sodipodi:role="line"
+           id="tspan187"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="46.173351">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="50.142101"
+           id="tspan188">(grow)</tspan></text>
+    </g>
+    <g
+       id="g143-9"
+       transform="translate(-111.78498,112.34523)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.164968;stroke-opacity:1"
+         id="rect142-1"
+         width="25.309652"
+         height="9.238204"
+         x="261.1785"
+         y="42.601719" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="273.83163"
+         y="46.173351"
+         id="text143-3"><tspan
+           sodipodi:role="line"
+           id="tspan142-5"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="46.173351">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="50.142101"
+           id="tspan143-9">(wildfire)</tspan></text>
+    </g>
+    <g
+       id="g145-8"
+       transform="translate(-175.85477,112.93983)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.168994;stroke-opacity:1"
+         id="rect143-4"
+         width="25.305626"
+         height="9.696125"
+         x="261.18051"
+         y="42.372757" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="274.01169"
+         y="46.164658"
+         id="text145-0"><tspan
+           sodipodi:role="line"
+           id="tspan144-7"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="274.01169"
+           y="46.164658">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="274.01169"
+           y="50.133408"
+           id="tspan145-6">(Thin + burn)</tspan></text>
+    </g>
+    <g
+       id="g155-3"
+       transform="translate(-127.51658,71.541882)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.170169;stroke-opacity:1"
+         id="rect145-6"
+         width="25.304451"
+         height="9.8318806"
+         x="211.53633"
+         y="66.441216" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="224.53502"
+         y="70.286217"
+         id="text149-1"><tspan
+           sodipodi:role="line"
+           id="tspan146-5"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="224.53502"
+           y="70.286217">LFTFC</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="224.53502"
+           y="74.254967"
+           id="tspan148-4">(ToFuDelta)</tspan></text>
+    </g>
+    <g
+       id="g176-8"
+       transform="matrix(1.3314192,0,0,1,-6.0722043,34.345995)"
+       style="fill:#000000">
+      <g
+         id="g175-9"
+         style="fill:#000000">
+        <g
+           id="g174-8"
+           style="fill:#000000" />
+      </g>
+    </g>
+    <g
+       id="g142-1"
+       transform="translate(-95.286842,-13.182647)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.160588;stroke-opacity:1"
+         id="rect141-0"
+         width="25.31403"
+         height="8.7526932"
+         x="194.18777"
+         y="39.616749" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="199.57619"
+         y="44.821167"
+         id="text141-7"><tspan
+           sodipodi:role="line"
+           id="tspan141-3"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="199.57619"
+           y="44.821167">FlamStat</tspan></text>
+    </g>
+    <g
+       id="g190"
+       transform="translate(-161.34261,15.617159)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.164968;stroke-opacity:1;fill-opacity:1"
+         id="rect188"
+         width="25.309652"
+         height="9.238204"
+         x="260.24573"
+         y="42.601719" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="273.83163"
+         y="46.173351"
+         id="text190"><tspan
+           sodipodi:role="line"
+           id="tspan189"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="46.173351">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="50.142101"
+           id="tspan190">(grow)</tspan></text>
+    </g>
+    <g
+       id="g143-4"
+       transform="translate(-110.8522,15.290513)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.164968;stroke-opacity:1;fill-opacity:1"
+         id="rect142-9"
+         width="25.309652"
+         height="9.238204"
+         x="260.24573"
+         y="42.601719" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="273.83163"
+         y="46.173351"
+         id="text143-6"><tspan
+           sodipodi:role="line"
+           id="tspan142-51"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="46.173351">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="273.83163"
+           y="50.142101"
+           id="tspan143-0">(wildfire)</tspan></text>
+    </g>
+    <g
+       id="g135"
+       transform="translate(-126.94453,-50.916403)">
+      <g
+         id="g131"
+         transform="translate(-35.330851,51.892193)">
+        <rect
+           style="fill:#ffffff;stroke:#000000;stroke-width:0.164968;stroke-opacity:1"
+           id="rect131"
+           width="25.309652"
+           height="9.238204"
+           x="261.1785"
+           y="42.601719" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="238.50169"
+         y="97.950294"
+         id="text132"><tspan
+           sodipodi:role="line"
+           id="tspan131"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="238.50169"
+           y="97.950294">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="238.50169"
+           y="101.91904"
+           id="tspan132">(wildfire)</tspan></text>
+    </g>
+    <path
+       id="path160"
+       style="fill:none;stroke:#000000;stroke-width:1.85397;stroke-dasharray:none"
+       d="m 198.26959,55.569575 a 7.2333039,7.9321745 0 0 1 -7.15016,-7.931638 7.2333039,7.9321745 0 0 1 7.15016,-7.931652" />
+    <g
+       id="g222"
+       transform="translate(-3.9527657)">
+      <g
+         id="g220">
+        <g
+           id="g173"
+           transform="translate(130.34102,19.324257)">
+          <g
+             id="g172">
+            <path
+               d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+               style="stroke-width:0.130738"
+               id="path171" />
+          </g>
+        </g>
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.224227;stroke-opacity:1"
+           id="rect173"
+           width="19.586153"
+           height="2.5454366"
+           x="205.26131"
+           y="46.746662" />
+        <g
+           id="g124-5"
+           transform="translate(130.66766,33.043393)">
+          <g
+             id="g114-1">
+            <path
+               d="m 101.42042,25.713721 v 1.721859 h -7.020757 v 2.54093 h 7.020757 v 1.722375 l 2.11821,-1.496549 2.11925,-1.496033 -2.11925,-1.496549 z"
+               style="stroke-width:0.130738;fill:#000000;fill-opacity:1"
+               id="path113-2" />
+          </g>
+        </g>
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.224227;stroke-opacity:1"
+           id="rect124-0"
+           width="19.586153"
+           height="2.5454366"
+           x="205.58795"
+           y="60.465797" />
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.220462;stroke-opacity:1"
+           id="rect177"
+           width="18.933725"
+           height="2.5454366"
+           x="33.02652"
+           y="-217.13184"
+           transform="rotate(90)" />
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.122897;stroke-opacity:1"
+           id="rect1"
+           width="5.8837123"
+           height="2.5454366"
+           x="54.86301"
+           y="-202.23404"
+           transform="rotate(90)" />
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.112836;stroke-opacity:1"
+           id="rect245"
+           width="4.9598179"
+           height="2.5454366"
+           x="35.57671"
+           y="-202.23404"
+           transform="rotate(90)" />
+        <rect
+           style="fill:#87cdde;stroke:#000000;stroke-width:0.178852;stroke-opacity:1"
+           id="rect90-8"
+           width="32.288334"
+           height="9.0100574"
+           x="190.58238"
+           y="27.086918" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:23.4774;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="35.850605"
+           y="40.060528"
+           id="text90-08"
+           transform="translate(170.63455,-9.6140628)"><tspan
+             x="35.850605"
+             y="40.060528"
+             id="tspan57">Conditional FL<tspan
+   y="40.060528"
+   id="tspan58"> </tspan></tspan><tspan
+             x="35.850605"
+             y="44.029279"
+             id="tspan59">probabilities</tspan></text>
+      </g>
+      <g
+         id="g221">
+        <g
+           id="g158"
+           transform="translate(170.9612,20.384252)">
+          <rect
+             style="fill:#87cdde;stroke:#000000;stroke-width:0.190939;stroke-opacity:1;fill-opacity:1"
+             id="rect156"
+             width="36.849293"
+             height="8.9979706"
+             x="17.340696"
+             y="37.033669" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:38.5031;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+             x="35.850605"
+             y="40.060528"
+             id="text158"
+             transform="translate(-0.32664609,0.32664609)"><tspan
+               x="35.850605"
+               y="40.060528"
+               id="tspan60">Total emissions 
+</tspan><tspan
+               x="35.850605"
+               y="44.029279"
+               id="tspan61">(for each FL)</tspan></text>
+        </g>
+        <g
+           id="g92-1"
+           transform="translate(170.9612,6.6294695)">
+          <rect
+             style="fill:#87cdde;stroke:#000000;stroke-width:0.190939;stroke-opacity:1"
+             id="rect90-9-9"
+             width="36.849293"
+             height="8.9979706"
+             x="17.340696"
+             y="37.033669" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:38.5031;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+             x="35.850605"
+             y="40.060528"
+             id="text90-5-8"
+             transform="translate(-0.32664609,0.32664609)"><tspan
+               x="35.850605"
+               y="40.060528"
+               id="tspan62">Total emissions 
+</tspan><tspan
+               x="35.850605"
+               y="44.029279"
+               id="tspan63">(for each FL)</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g73"
+       transform="translate(21.075198,49.761268)">
+      <rect
+         style="fill:#ffe680;stroke:#000000;stroke-width:0.234287;stroke-opacity:1"
+         id="rect8"
+         width="32.232899"
+         height="15.487544"
+         x="19.648893"
+         y="33.788883" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:22.2579;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="35.850605"
+         y="40.060528"
+         id="text10"
+         transform="translate(0,-0.97993827)"><tspan
+           x="35.850605"
+           y="40.060528"
+           id="tspan64">Landfire
+</tspan><tspan
+           x="35.850605"
+           y="44.029279"
+           id="tspan65">(surface and<tspan
+   y="44.029279"
+   id="tspan66"> </tspan></tspan><tspan
+           x="35.850605"
+           y="47.998029"
+           id="tspan67">canopy fuels)</tspan></text>
+    </g>
+    <g
+       id="g70"
+       transform="translate(19.336681,82.999911)">
+      <rect
+         style="fill:#ffe680;stroke:#000000;stroke-width:0.234287;stroke-opacity:1"
+         id="rect68"
+         width="32.232899"
+         height="15.487544"
+         x="21.387411"
+         y="18.063717" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:22.6783;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="28.443031"
+         y="25.3153"
+         id="text70"
+         transform="translate(9.1460905,-2.5674383)"><tspan
+           x="28.443031"
+           y="25.3153"
+           id="tspan68">TreeMap
+</tspan><tspan
+           x="28.443031"
+           y="29.28405"
+           id="tspan69">(FIA plot<tspan
+   y="29.28405"
+   id="tspan70"> </tspan></tspan><tspan
+           x="28.443031"
+           y="33.2528"
+           id="tspan71">information)</tspan></text>
+    </g>
+    <g
+       id="g73-8"
+       transform="translate(21.075198,102.23459)">
+      <rect
+         style="fill:#ffe680;stroke:#000000;stroke-width:0.234287;stroke-opacity:1"
+         id="rect8-7"
+         width="32.232899"
+         height="15.487544"
+         x="19.648893"
+         y="33.788883" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:22.2579;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="35.850605"
+         y="40.060528"
+         id="text10-4"
+         transform="translate(0,-0.97993827)"><tspan
+           x="35.850605"
+           y="40.060528"
+           id="tspan72">Landfire
+</tspan><tspan
+           x="35.850605"
+           y="44.029279"
+           id="tspan73">(surface and<tspan
+   y="44.029279"
+   id="tspan74"> </tspan></tspan><tspan
+           x="35.850605"
+           y="47.998029"
+           id="tspan75">canopy fuels)</tspan></text>
+    </g>
+    <g
+       id="g70-5"
+       transform="translate(19.336681,135.47324)">
+      <rect
+         style="fill:#ffe680;stroke:#000000;stroke-width:0.234287;stroke-opacity:1"
+         id="rect68-0"
+         width="32.232899"
+         height="15.487544"
+         x="21.387411"
+         y="18.063717" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:22.6783;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="28.443031"
+         y="25.3153"
+         id="text70-2"
+         transform="translate(9.1460905,-2.5674383)"><tspan
+           x="28.443031"
+           y="25.3153"
+           id="tspan76">TreeMap
+</tspan><tspan
+           x="28.443031"
+           y="29.28405"
+           id="tspan77">(FIA plot<tspan
+   y="29.28405"
+   id="tspan78"> </tspan></tspan><tspan
+           x="28.443031"
+           y="33.2528"
+           id="tspan79">information)</tspan></text>
+    </g>
+    <g
+       id="g70-2"
+       transform="translate(19.336681,29.455012)">
+      <rect
+         style="fill:#ffe680;stroke:#000000;stroke-width:0.266297;stroke-opacity:1"
+         id="rect68-5"
+         width="32.20089"
+         height="20.02858"
+         x="21.403416"
+         y="15.7932" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:22.6783;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="28.443031"
+         y="25.3153"
+         id="text70-0"
+         transform="translate(9.1460905,-2.5674383)"><tspan
+           x="28.443031"
+           y="25.3153"
+           id="tspan80">TreeMap
+</tspan><tspan
+           x="28.443031"
+           y="29.28405"
+           id="tspan81">(imputed FIA<tspan
+   y="29.28405"
+   id="tspan82"> </tspan></tspan><tspan
+           x="28.443031"
+           y="33.2528"
+           id="tspan83">plots)</tspan></text>
+    </g>
+    <g
+       id="g73-7"
+       transform="translate(21.075198,-11.765235)">
+      <rect
+         style="fill:#ffe680;stroke:#000000;stroke-width:0.234287;stroke-opacity:1"
+         id="rect8-3"
+         width="32.232899"
+         height="15.487544"
+         x="19.648893"
+         y="33.788883" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:22.2579;display:inline;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="35.850605"
+         y="40.060528"
+         id="text10-3"
+         transform="translate(0,-0.97993827)"><tspan
+           x="35.850605"
+           y="40.060528"
+           id="tspan84">Landfire
+</tspan><tspan
+           x="35.850605"
+           y="44.029279"
+           id="tspan86">(surface and<tspan
+   y="44.029279"
+   id="tspan87"> </tspan></tspan><tspan
+           x="35.850605"
+           y="47.998029"
+           id="tspan88">canopy fuels)</tspan></text>
+    </g>
+    <g
+       id="g180"
+       transform="translate(35.961567,-156.61938)">
+      <rect
+         style="fill:#ffe680;stroke:#000000;stroke-width:0.172331;stroke-opacity:1"
+         id="rect179"
+         width="32.294853"
+         height="8.363286"
+         x="253.84752"
+         y="163.92728" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+         x="262.35587"
+         y="168.93213"
+         id="text180"><tspan
+           sodipodi:role="line"
+           id="tspan180"
+           style="stroke-width:0.264583"
+           x="262.35587"
+           y="168.93213">Input data</tspan></text>
+    </g>
+    <g
+       id="g181"
+       transform="translate(73.52587,-156.61938)">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.172331;stroke-opacity:1"
+         id="rect180"
+         width="32.294853"
+         height="8.363286"
+         x="253.84752"
+         y="163.92728" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+         x="265.40607"
+         y="169.22668"
+         id="text181"><tspan
+           sodipodi:role="line"
+           id="tspan181"
+           style="stroke-width:0.264583"
+           x="265.40607"
+           y="169.22668">Model</tspan></text>
+    </g>
+    <g
+       id="g182"
+       transform="translate(35.961567,-143.55354)">
+      <rect
+         style="fill:#87cdde;fill-opacity:1;stroke:#000000;stroke-width:0.172331;stroke-opacity:1"
+         id="rect181"
+         width="32.294853"
+         height="8.363286"
+         x="253.84752"
+         y="163.92728" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+         x="254.16124"
+         y="168.93213"
+         id="text182"><tspan
+           sodipodi:role="line"
+           id="tspan182"
+           style="stroke-width:0.264583"
+           x="254.16124"
+           y="168.93213">Intermediate product</tspan></text>
+    </g>
+    <g
+       id="g179"
+       transform="translate(73.52587,-143.55354)">
+      <rect
+         style="fill:#de8787;fill-opacity:1;stroke:#000000;stroke-width:0.172331;stroke-opacity:1"
+         id="rect8-3-9"
+         width="32.294853"
+         height="8.363286"
+         x="253.84752"
+         y="163.92728" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+         x="264.74411"
+         y="168.95151"
+         id="text179"><tspan
+           sodipodi:role="line"
+           id="tspan179"
+           style="stroke-width:0.264583"
+           x="264.74411"
+           y="168.95151">Output</tspan></text>
+    </g>
+    <path
+       id="rect184"
+       style="fill:none;stroke:#000000;stroke-width:0.627501;stroke-dasharray:1.25502, 1.25502"
+       d="M 81.344948,13.677236 H 140.35656 V 177.08983 H 81.344948 Z" />
+    <path
+       id="rect183"
+       style="fill:none;stroke:#000000;stroke-width:0.623926;stroke-dasharray:1.24786, 1.24786"
+       d="m 146.04993,13.675448 h 31.56401 V 177.10971 h -31.56401 z" />
+    <g
+       id="g145"
+       transform="translate(-175.85477,60.917285)">
+      <rect
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.168994;stroke-opacity:1"
+         id="rect143"
+         width="25.305626"
+         height="9.696125"
+         x="261.18051"
+         y="42.372757" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="274.01169"
+         y="46.164658"
+         id="text145"><tspan
+           sodipodi:role="line"
+           id="tspan144"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="274.01169"
+           y="46.164658">FVS</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           x="274.01169"
+           y="50.133408"
+           id="tspan145">(Rx burn)</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:5.64444px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+       x="155.9422"
+       y="19.189156"
+       id="text234"><tspan
+         sodipodi:role="line"
+         id="tspan234"
+         style="font-size:5.64444px;stroke-width:0.264583;fill:#000000"
+         x="155.9422"
+         y="19.189156">2021</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:5.64444px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+       x="104.64132"
+       y="19.189154"
+       id="text233"><tspan
+         sodipodi:role="line"
+         id="tspan233"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="104.64132"
+         y="19.189154">2020</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:5.64444px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+       x="-62.37891"
+       y="32.889267"
+       id="text236"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan236"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="-62.37891"
+         y="32.889267">NT baseline </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:5.64444px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+       x="-111.22401"
+       y="32.889267"
+       id="text237"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan237"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="-111.22401"
+         y="32.889267">Rx fire </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:5.64444px;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke-width:0.264583"
+       x="-170.28267"
+       y="32.889267"
+       id="text235"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan235"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="-170.28267"
+         y="32.889267">Thin + burn </tspan></text>
+    <g
+       id="g242"
+       transform="matrix(0.57430641,0,0,0.57430641,87.080024,49.199577)">
+      <path
+         sodipodi:type="star"
+         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path241"
+         inkscape:flatsided="false"
+         sodipodi:sides="5"
+         sodipodi:cx="21.859852"
+         sodipodi:cy="28.105522"
+         sodipodi:r1="9.9979534"
+         sodipodi:r2="4.9989767"
+         sodipodi:arg1="0.89605538"
+         sodipodi:arg2="1.5243739"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 28.105524,35.912612 -6.013691,-2.813499 -5.726946,3.35892 0.817464,-6.588779 -4.964246,-4.408686 6.518911,-1.258591 2.658873,-6.083637 3.211445,5.810927 6.60752,0.648792 -4.534129,4.84994 z"
+         inkscape:transform-center-x="0.14337227"
+         inkscape:transform-center-y="-0.81733589" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.76111px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="19.411154"
+         y="30.846674"
+         id="text242"><tspan
+           sodipodi:role="line"
+           id="tspan242"
+           style="font-size:7.76111px;stroke-width:0.264583"
+           x="19.411154"
+           y="30.846674">1</tspan></text>
+    </g>
+    <g
+       id="g239"
+       transform="matrix(0.57430641,0,0,0.57430641,24.114253,179.48888)">
+      <path
+         sodipodi:type="star"
+         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path238"
+         inkscape:flatsided="false"
+         sodipodi:sides="5"
+         sodipodi:cx="21.859852"
+         sodipodi:cy="28.105522"
+         sodipodi:r1="9.9979534"
+         sodipodi:r2="4.9989767"
+         sodipodi:arg1="0.89605538"
+         sodipodi:arg2="1.5243739"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 28.105524,35.912612 -6.013691,-2.813499 -5.726946,3.35892 0.817464,-6.588779 -4.964246,-4.408686 6.518911,-1.258591 2.658873,-6.083637 3.211445,5.810927 6.60752,0.648792 -4.534129,4.84994 z"
+         inkscape:transform-center-x="0.14337227"
+         inkscape:transform-center-y="-0.81733589" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.76111px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="19.411154"
+         y="30.846674"
+         id="text239"><tspan
+           sodipodi:role="line"
+           id="tspan239"
+           style="font-size:7.76111px;stroke-width:0.264583"
+           x="19.411154"
+           y="30.846674">1</tspan></text>
+    </g>
+    <g
+       id="g240"
+       transform="matrix(0.57430641,0,0,0.57430641,125.29762,87.743816)">
+      <path
+         sodipodi:type="star"
+         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path239"
+         inkscape:flatsided="false"
+         sodipodi:sides="5"
+         sodipodi:cx="21.859852"
+         sodipodi:cy="28.105522"
+         sodipodi:r1="9.9979534"
+         sodipodi:r2="4.9989767"
+         sodipodi:arg1="0.89605538"
+         sodipodi:arg2="1.5243739"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 28.105524,35.912612 -6.013691,-2.813499 -5.726946,3.35892 0.817464,-6.588779 -4.964246,-4.408686 6.518911,-1.258591 2.658873,-6.083637 3.211445,5.810927 6.60752,0.648792 -4.534129,4.84994 z"
+         inkscape:transform-center-x="0.14337227"
+         inkscape:transform-center-y="-0.81733589" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.76111px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="19.411154"
+         y="30.846674"
+         id="text240"><tspan
+           sodipodi:role="line"
+           id="tspan240"
+           style="font-size:7.76111px;stroke-width:0.264583"
+           x="19.411154"
+           y="30.846674">1</tspan></text>
+    </g>
+    <g
+       id="g241"
+       transform="matrix(0.57430641,0,0,0.57430641,124.31768,139.68054)">
+      <path
+         sodipodi:type="star"
+         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path240"
+         inkscape:flatsided="false"
+         sodipodi:sides="5"
+         sodipodi:cx="21.859852"
+         sodipodi:cy="28.105522"
+         sodipodi:r1="9.9979534"
+         sodipodi:r2="4.9989767"
+         sodipodi:arg1="0.89605538"
+         sodipodi:arg2="1.5243739"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 28.105524,35.912612 -6.013691,-2.813499 -5.726946,3.35892 0.817464,-6.588779 -4.964246,-4.408686 6.518911,-1.258591 2.658873,-6.083637 3.211445,5.810927 6.60752,0.648792 -4.534129,4.84994 z"
+         inkscape:transform-center-x="0.14337227"
+         inkscape:transform-center-y="-0.81733589" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.76111px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="19.411154"
+         y="30.846674"
+         id="text241"><tspan
+           sodipodi:role="line"
+           id="tspan241"
+           style="font-size:7.76111px;stroke-width:0.264583"
+           x="19.411154"
+           y="30.846674">1</tspan></text>
+    </g>
+    <g
+       id="g244"
+       transform="matrix(0.57430641,0,0,0.57430641,72.707596,95.256676)">
+      <path
+         sodipodi:type="star"
+         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path243"
+         inkscape:flatsided="false"
+         sodipodi:sides="5"
+         sodipodi:cx="21.859852"
+         sodipodi:cy="28.105522"
+         sodipodi:r1="9.9979534"
+         sodipodi:r2="4.9989767"
+         sodipodi:arg1="0.89605538"
+         sodipodi:arg2="1.5243739"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 28.105524,35.912612 -6.013691,-2.813499 -5.726946,3.35892 0.817464,-6.588779 -4.964246,-4.408686 6.518911,-1.258591 2.658873,-6.083637 3.211445,5.810927 6.60752,0.648792 -4.534129,4.84994 z"
+         inkscape:transform-center-x="0.14337227"
+         inkscape:transform-center-y="-0.81733589" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.76111px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="19.411154"
+         y="30.846674"
+         id="text244"><tspan
+           sodipodi:role="line"
+           id="tspan244"
+           style="font-size:7.76111px;stroke-width:0.264583"
+           x="19.411154"
+           y="30.846674">2</tspan></text>
+    </g>
+    <g
+       id="g153"
+       transform="matrix(0.57430641,0,0,0.57430641,112.89701,179.48888)">
+      <path
+         sodipodi:type="star"
+         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path152"
+         inkscape:flatsided="false"
+         sodipodi:sides="5"
+         sodipodi:cx="21.859852"
+         sodipodi:cy="28.105522"
+         sodipodi:r1="9.9979534"
+         sodipodi:r2="4.9989767"
+         sodipodi:arg1="0.89605538"
+         sodipodi:arg2="1.5243739"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 28.105524,35.912612 -6.013691,-2.813499 -5.726946,3.35892 0.817464,-6.588779 -4.964246,-4.408686 6.518911,-1.258591 2.658873,-6.083637 3.211445,5.810927 6.60752,0.648792 -4.534129,4.84994 z"
+         inkscape:transform-center-x="0.14337227"
+         inkscape:transform-center-y="-0.81733589" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.76111px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;fill:#000000;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="19.411154"
+         y="30.846674"
+         id="text152"><tspan
+           sodipodi:role="line"
+           id="tspan152"
+           style="font-size:7.76111px;stroke-width:0.264583"
+           x="19.411154"
+           y="30.846674">2</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;inline-size:70.5489;display:inline;fill:#000000;stroke-width:0.264583"
+       x="93.476334"
+       y="197.907"
+       id="text245"
+       transform="translate(-49.890312,-5.893435)"><tspan
+         x="93.476334"
+         y="197.907"
+         id="tspan89">Indicates a potential problem with how FVS </tspan><tspan
+         x="93.476334"
+         y="201.87575"
+         id="tspan90">handles fuel accumulation and decay during a </tspan><tspan
+         x="93.476334"
+         y="205.8445"
+         id="tspan91">grow cycle.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;inline-size:115.358;display:inline;fill:#000000;stroke-width:0.264583"
+       x="93.476334"
+       y="197.907"
+       id="text243"
+       transform="translate(39.265524,-9.862185)"><tspan
+         x="93.476334"
+         y="197.907"
+         id="tspan92">Indicates a potential problem with how we implemented Rx burns in FVS. We </tspan><tspan
+         x="93.476334"
+         y="201.87575"
+         id="tspan93">used a single set of burn conditions across the entire CONUS (80F, 8 mph winds, </tspan><tspan
+         x="93.476334"
+         y="205.8445"
+         id="tspan94">'dry' fuels), which may align more with wildfire conditions than Rx conditions in </tspan><tspan
+         x="93.476334"
+         y="209.81325"
+         id="tspan95">certain regions and forest types. We see this reflected in very high flame lengths </tspan><tspan
+         x="93.476334"
+         y="213.782"
+         id="tspan96">(i.e., 10ft +) for some Rx burns.</tspan></text>
+  </g>
+</svg>
