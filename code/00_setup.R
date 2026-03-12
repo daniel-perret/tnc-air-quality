@@ -12,6 +12,7 @@ library(performance)
 library(ggeffects)
 library(plotrix)
 library(tidyterra)
+library(RSQLite)
 
 select <- dplyr::select
 
