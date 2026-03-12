@@ -31,15 +31,16 @@ nt_fl <- rast("data/flamstat/flamelength_rasters/PreTreatment_CONUS/CONUS_PreT_C
 names(nt_fl) <- "NT_fire_Flamstat_flamelength"
 nt_fl[is.na(rx_fl)] <- NA
 
-# fvs.info <- rast("data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif") %>% 
-#   crop(pyrome,mask=T)
+fvs.info <- rast("data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif") %>%
+  crop(pyrome,mask=T)
+activeCat(fvs.info) <- 8
 
 gc()
 
 ## combining rasters into dataframe
 
-fl.com <- c(rx_fl, nt_fl, rx_e_2020, ce_2020, diff_2020, lf_fbfm)
-names(fl.com) <- c("rx_fl","nt_fl","rx_e","nt_e", "rx_nt_e_diff", "lf_fbfm")
+fl.com <- c(rx_fl, nt_fl, rx_e_2020, ce_2020, diff_2020, lf_fbfm, fvs.info)
+names(fl.com) <- c("rx_fl","nt_fl","rx_e","nt_e", "rx_nt_e_diff", "lf_fbfm", "StandID")
 
 fl.df <- fl.com %>% 
   as.data.frame() %>% 
@@ -107,7 +108,7 @@ fl.df %>%
              scales = "free") +
   scale_fill_manual(name = "",
                     values= c("Rx" = "dodgerblue3",
-                             "NT" = "firebrick3"))
+                              "NT" = "firebrick3"))
 
 
 # plot E distributions by FBFM
@@ -128,7 +129,7 @@ fl.df %>%
   labs(x = "Emissions") + 
   scale_fill_manual(name = "",
                     values= c("Rx" = "dodgerblue3",
-                             "NT" = "firebrick3"))
+                              "NT" = "firebrick3"))
 
 fl.df %>% 
   filter(rx_nt_e_ratio>1) %>% 
@@ -148,7 +149,7 @@ fl.df %>%
   geom_vline(xintercept=1) +
   scale_fill_manual(name = "",
                     values= c("Emissions" = "dodgerblue3",
-                             "Flame length" = "firebrick3"))
+                              "Flame length" = "firebrick3"))
 
 
 ## bar chart of fbfm40
@@ -210,5 +211,3 @@ fl.df %>%
   summarise(count = n()) %>% 
   group_by(`rx_nt_e_ratio > 1`) %>% 
   mutate(prop = count/sum(count)) %>% view()
-
-
