@@ -2,9 +2,13 @@ library(tidyverse)
 library(terra)
 
 
-ce_baseline_list <- list.files("data/flamstat/by_pyrome/emissions/conditional/2020_baseline/", full.names=T) %>%
+merge_list <- list.files("data/flamstat/by_pyrome/emissions/treatments/Rx_NT_ratio/", full.names=T) %>%
   str_subset(".xml",negate = T)
-ce_baseline <- sprc(ce_baseline_list) %>% merge()
-writeRaster(ce_baseline, "data/flamstat/emissions_rasters/dp_merged/2020_cond_baseline_conus.tif", overwrite=T)
+
+merged <- sprc(merge_list) %>% merge()
+
+writeRaster(merged, "data/flamstat/emissions_rasters/dp_merged/Rx_baseline_2020_ratio.tif", overwrite=T)
+
 gc()
-rm(ce_baseline)
+
+rm(merged)

@@ -2,7 +2,7 @@
 
 ## loading up data
 
-pyrome <- vect("../../SHARED_DATA/pyromes/Data/Pyromes_CONUS_20200206.shp")[14,] %>% project(crs("EPSG:5070"))
+pyrome <- vect("../../../../LOCAL_WORKSPACE/SHARED_DATA/pyromes/Data/Pyromes_CONUS_20200206.shp")[14,] %>% project(crs("EPSG:5070"))
 
 
 #conditional wildfire emissions following Rx treatment
@@ -17,7 +17,7 @@ rx_e_2020 <- rast("data/flamstat/by_pyrome/emissions/treatments/Rxfire/Rx_treat_
 #rx-ce diff 2020
 diff_2020 <- rast("data/flamstat/by_pyrome/emissions/treatments/Rx_NT_difference/rx_nt_diff_pyrome_14.tif")
 
-lf_fbfm <- rast("../../SHARED_DATA/LANDFIRE/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif") %>% 
+lf_fbfm <- rast("../../../../LOCAL_WORKSPACE/SHARED_DATA/LANDFIRE/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif") %>% 
   crop(pyrome, mask=T)
 
 # fvs_fbfm <- rast("data/troubleshooting/fvs_fbfm.tif") %>%
@@ -33,7 +33,6 @@ nt_fl[is.na(rx_fl)] <- NA
 
 fvs.info <- rast("data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif") %>%
   crop(pyrome,mask=T)
-activeCat(fvs.info) <- 8
 
 gc()
 
