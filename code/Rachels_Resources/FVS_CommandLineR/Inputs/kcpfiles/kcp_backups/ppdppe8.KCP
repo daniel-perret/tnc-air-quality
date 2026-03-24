@@ -1,0 +1,136 @@
+****Ponderosa Pine Dry Thresholds************
+
+** This prescription thins a stand based on basal area (Rx Action #2 & 3)
+** or t/a (Rx Action #1) if the trigger stocking conditions are met. 
+** Activity surface fuels are treated by a Rx Burn (SIMFIRE) for poletimber/sawtimber stands.
+** Activity surface fuels are treated by piling (PILEBURN) for seedling/sappling stands.
+
+** SIMFIRE activity would be scheduled to remove excess surface fuel (Rx Action #5) 
+** or ingrowth (Rx Action #4).
+
+** No Rx Action can occur in back-to-back 5 year cycles.
+
+COMPUTE           1
+FLOAD = -1
+end
+
+COMPUTE           0
+RxAction = 0
+RxYear = 1
+PCFLOAD = FLOAD 
+FLOAD = fuelload(1,3)
+BAGT21 = SPMCDBH (2,0,0,21,999,0,999,0)
+Tpa_LT4 = spmcdbh(1,0,0,0,4,0,999,0)
+TARGET = 80
+TRIGGER = 100
+end
+
+SDIMax           All       290                         85.00    100.00
+
+****Rx ACTION # 1 (THINBTA, PILEBURN)*************************************
+
+IF                10
+Selected EQ Yes AND SizCls EQ 3 and Tpa_LT4 GE 400 and RxAction eq 0
+Then
+ThinBTA            1    320.0    0.9500       0.0       6.0       0.0     999.0
+Fmin
+PileBurn           3         1        70        10        80         2
+End
+compute 
+RxAction = 1
+RxYear = YEAR + 3
+end
+endif
+
+****Rx ACTION # 2 (THINBBA, BIOMASS REMOVAL, Rx BURN)*************************************
+
+** If the stand basal area is greater than 80 thin only trees less thank 21 inch.          
+** NOTE: IF BA IN THE GT21" CLASS IS > 80, TARGET WON'T BE MET; RESIDUAL STAND BA WILL BE > 80; 
+**       AND ALL TREES LESS THAN 21" WILL BE REMOVED.
+
+IF               10
+Selected EQ Yes AND BBA GE TRIGGER AND SizCls EQ 1 AND RxAction eq 0
+Then
+COMPUTE           0
+THINTARG = MAX(0,(TARGET - BAGT21))
+RxAction = 2
+RxYear = YEAR + 3
+END
+
+ThinBBA            1     Parms(THINTARG, 1.0000, 0.0, 21., 0., 999.)
+FMIN
+FUELMOVE           2         4         0         0        .9
+FUELMOVE           2         5         0         0        .9
+FUELMOVE           2         3         0         0        .9
+MOISTURE           3        12        13        14        15       100        90        94
+SIMFIRE            3         8         2        70
+END
+endif
+
+****Rx ACTION # 2a (THINBBA, BIOMASS REMOVAL, Rx BURN)*************************************
+
+** Same as Rx ACTION # 2 except target BA for poletimber stands is increased to 100 
+** to allow for additional burn mortality. 
+
+** If the stand basal area is greater than 100 thin only trees less thank 21 inch.          
+** NOTE: IF BA IN THE GT21" CLASS IS > 100, TARGET WON'T BE MET; RESIDUAL STAND BA WILL BE > 100; 
+**       AND ALL TREES LESS THAN 21" WILL BE REMOVED.
+
+IF               10
+Selected EQ Yes AND BBA GE 120 AND SizCls EQ 2 AND RxAction eq 0
+Then
+COMPUTE           0
+THINTARG = MAX(0,(100 - BAGT21))
+RxAction = 2
+RxYear = YEAR + 3
+END
+
+ThinBBA            1     Parms(THINTARG, 1.0000, 0.0, 21., 0., 999.)
+FMIN
+FUELMOVE           2         4         0         0        .9
+FUELMOVE           2         5         0         0        .9
+FUELMOVE           2         3         0         0        .9
+MOISTURE           3        12        13        14        15       100        90        94
+SIMFIRE            3         8         2        70
+END
+endif
+***********Rx ACTION # 4 (Rx BURN ONLY)**********************************************************************************************
+
+**  if (ba is not greater than 100) i.e. does not need thinning, and (fuels > 6) then just burn it**
+****simulate a burn in cycle 4, with 8mph wind, moderate (1hr 12%, live 90%) fuel moisture.
+
+IF                10
+Selected EQ Yes AND BBA LT TRIGGER AND PCFLOAD LT 20 AND Tpa_LT4 GE 300 &
+and RxAction eq 0 AND SizCls LE 2
+THEN
+FMIN
+MOISTURE           3       12        13        14        15       100        90       94
+SIMFIRE            3        8         2        70
+END
+compute
+RxAction = 4
+RxYear = YEAR + 3
+end
+ENDIF
+
+***********Rx ACTION # 5 (BIOMASS REMOVAL, THEN BURN)**********************************************************************************************
+
+** If 0-3" surface fuels > 20 then do a FUELMOVE to reduce fire intensity 
+** before the SIMFIRE.
+
+IF                10
+Selected EQ Yes AND BBA LT TRIGGER AND PCFLOAD GE 20 and RxAction eq 0 AND SizCls LE 2
+THEN
+FMIN
+FUELMOVE           2         4         0         0        .9
+FUELMOVE           2         5         0         0        .9
+FUELMOVE           2         3         0         0        .9
+MOISTURE           3        12        13        14        15       100        90       94
+SIMFIRE            3         8         2        70
+END
+compute
+RxAction = 5
+RxYear = YEAR + 3
+end
+ENDIF
+

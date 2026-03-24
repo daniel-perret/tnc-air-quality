@@ -1,0 +1,4 @@
+* Minimum harvest level 450 cuft/acre
+ThinDBH            0   Parms(07.0,99.0,1.0,All,0.0, &                           
+(SpMcDBH(2,All,0,07.0,99.0)-(0450*PropStk)/(SpMcDBH(9,All,0,07.0,99.0)/ &       
+SpMcDBH(2,All,0,07.0,99.0)))/PropStk)                                           

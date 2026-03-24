@@ -1,0 +1,374 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!     _                _____ _           !!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!    | |    __ _ _ __ |  ___(_)_ __      !!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!    | |   / _` | '_ \| |_  | | '_ \     !!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!    | |__| (_| | | | |  _| | | | | |    !!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!    |_____\__,_|_| |_|_|   |_|_| |_|    !!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+!!#######################################################################################!!
+!!
+!!Landscape Financial Planner developed by Kevin Vogler (OSU) and Alan Ager (USFS/RMRS)
+!!
+!!To Run LanFin FVS KCP:
+!!
+!!Step 1: Update thinning prescription 
+!!
+!!Step 2: Update harvest costs 
+!!
+!!Log Pond Value calculation removed from script - Post process based on varient specific log values
+!!
+!!Step 3: Update output database location
+!!
+!!
+!!Direct comments and questions to: KevinCVogler@gmail.com
+!!
+!!#######################################################################################!!
+
+
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!Step 1: Update thinning prescription 
+!!#######################################################################################!!
+
+Database
+DSNIN
+C:\Users\houtmanr\FVS_Tradeoffs\Western_US_FVS\WesternUS_FVS_RUN.mdb
+SQLIN              1
+SELECT BA_TARG FROM FVS_StandInit
+WHERE  STAND_CN  = '%stand_cn%'
+EndSQL
+End  
+
+Compute           0
+ba_wb=SPMCDBH(2,wb,0,0,999,0,999)
+height_wb=SPMCDBH(6,wb,0,0,999,0,999)  
+ZZTARG = BA_TARG
+End
+
+CycleAt         2017
+YardLoss        2017     Parms(0,0,1)
+ThinBBA         2017     Parms(ZZTARG,1-0.05,0.0,21.0,0,999)
+CycleAt         2018
+
+
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!Set Sim fire values
+!!#######################################################################################!!
+fmin
+PotFTemp          90       80.
+PotFWind          15        5.
+PotFSeas           2         1
+PotFPAB         100.      100.
+PotFMois           1         3         3         6        12                 100        80
+PotFMois           2         6         6        12        24                 100        80
+potfire
+end
+
+
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!Step 2: Update harvesting costs 
+!!#######################################################################################!!
+!!Step 2 notes: Harvest cost data was developed from PNW-GTR-752 - http://www.fs.fed.us/pnw/pubs/pnw_gtr752.pdf
+!!
+!!Costs are $/CCF based on number of trees present in each size class     
+!!Tree Size                 Number of cut trees per acre
+!!DBH (inch)	5	20	50	100	200	400
+!!1 - 6	 	 	 	 	        104      97
+!!6 - 7	 	 	 	         85	 78      73
+!!7 - 9	 	 	        67	 61	 57	 54
+!!9 - 16                41      38       38	 36      36
+!!16 - 21      38	38	38	 38	 36	 35
+
+!!LanFin calculates costs for ground and cable based harvesting by calculating volume and TPA in each size class
+!! Steps:
+!! 1.First sum volume by DBH size class
+!! 2.Calculate TPA by size class
+!! 3.Divide Volume / 100 and multiply by number grouping
+!! 4.Sum all Values to get total cost per acre.
+!! 5.Compare values to recent harvest costs (outside of FVS)
+
+!!Values are calculated using SPMCDBH keyword: http://www.fs.fed.us/fmsc/ftp/fvs/docs/gtr/event_monitor.pdf
+
+!!SPMCDBH fields:
+!! Argument 1 - code indicating which measurement to use => 3 = total cubic volume/ac, 1 = TPA
+!! Argument 2 = alpha or numeric species code where 0 (or All) indicates that the sum over all species is desired
+!! Argument 3 = tree-value class (IMC codes 1,2, or 3; see Wykoff and others 1982, p. 16) where 0 indicates that the sum over all tree-value classes is desired
+!! Arguments 4 and 5 = diameter range for trees included in the sum. The default values are 0.0 and 999.0.
+!! Arguments 6 and 7 = height range for trees included in the sum. The default values are 0.0 and 999.0.
+!! Argument 8 = tree status for trees included in the sum, where 0indicates live trees, 1 indicates recent mortality trees, and 2 indicates harvested trees. The default value is 0.
+
+
+!!1)Calculate Harvested Volume for all size classes
+Compute           0  
+VOL0_6 = SPMCDBH(3,All,0,0.,6,0.,999,0)
+VOL6_7 = SPMCDBH(3,All,0,6,7,0.,999,0)
+VOL7_9 = SPMCDBH(3,All,0,7,9,0.,999,0)          
+VOL9_16 = SPMCDBH(3,All,0,9,16,0.,999,0)           
+Vol16_21 = SPMCDBH(3,All,0,16,999,0.,999,0)  
+        
+!!2) Calculate Harvested TPA for all size classes
+TPA0_6 = SPMCDBH(1,All,0,0.,6,0.,999,0)
+TPA6_7 = SPMCDBH(1,All,0,6,7,0.,999,0)
+TPA7_9 = SPMCDBH(1,All,0,7,9,0.,999,0)          
+TPA9_16 = SPMCDBH(1,All,0,9,16,0.,999,0)           
+TPA16_21 = SPMCDBH(1,All,0,16,999,0.,999,0)     
+End
+
+!! Calculate cost per size class based on number of trees harvested
+!! Ground Based Harvesting COSTS = CG
+!! Cable Based Harvesting COSTS = CC
+
+!!0 - 6" size class 
+IF                 0     
+TPA0_6 lt 300
+THEN
+Compute            0  
+CG0_6 = VOL0_6/100*104
+CC0_6 = VOL0_6/100*368
+zFlag = 0
+End
+Endif
+
+IF                 0    
+TPA0_6 ge 300
+THEN
+Compute           0  
+CG0_6 = VOL0_6/100*97
+CC0_6 = VOL0_6/100*257
+zFlag = 0
+End
+Endif
+
+!!6" - 7" size class
+IF                 0 
+TPA6_7 lt 150
+THEN
+Compute           0  
+CG6_7 = VOL6_7/100*85
+CC6_7 = VOL6_7/100*385
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA6_7 ge 150 AND TPA6_7 lt 300
+THEN
+Compute           0 
+CG6_7 = VOL6_7/100*78
+CC6_7 = VOL6_7/100*232
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA6_7 ge 300
+THEN
+Compute           0 
+CG6_7 = VOL6_7/100*73
+CC6_7 = VOL6_7/100*178
+zFlag = 0
+End
+Endif
+
+!!7" - 9" size class
+IF                 0 
+TPA7_9 lt 75
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*67
+CC7_9 = VOL7_9/100*296
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA7_9 ge 75 AND TPA7_9 lt 150
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*61
+CC7_9 = VOL7_9/100*207
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA7_9 ge 150 AND TPA7_9 lt 300
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*57
+CC7_9 = VOL7_9/100*141
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA7_9 ge 300
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*54
+CC7_9 = VOL7_9/100*119
+zFlag = 0
+End
+Endif
+
+!!9" - 16 " size class  
+IF                 0 
+TPA9_16 lt 35
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*41
+CC9_16 = VOL9_16/100*86
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 35 AND TPA9_16 lt 75
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*38
+CC9_16 = VOL9_16/100*82
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 75 AND TPA9_16 lt 150
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*38
+CC9_16 = VOL9_16/100*75
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 150 AND TPA9_16 lt 300
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*36
+CC9_16 = VOL9_16/100*73
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 300
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*35
+CC9_16 = VOL9_16/100*72
+zFlag = 0
+End
+Endif
+       
+!!16 - 21" size class
+IF                 0 
+TPA16_21 lt 10
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*71
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 10 AND TPA16_21 lt 35
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*59
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 35 AND TPA16_21 lt 75
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*57
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 75 AND TPA16_21 lt 150
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*57
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 150 AND TPA16_21 lt 300
+THEN
+Compute           0 
+CG16_21 = VOL9_16/100*36
+CC16_21 = VOL9_16/100*56
+zFlag = 0
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 300
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*35
+CC16_21 = VOL16_21/100*56
+zFlag = 0
+End
+Endif
+
+!!Sum costs for all size classes
+IF                 0 
+zFlag lt 1
+THEN
+Compute           0 
+!!Calculate Total Harvest cost for Ground Ops
+TotGHCst = CG0_6 + CG6_7 + CG7_9 + CG9_16 + CG16_21 
+
+!!Calculate Total Harvest cost for Cable Ops
+TotCHCst = CC0_6 + CC6_7 + CC7_9 + CC9_16 + CC16_21 
+!!Flag Value checks that calculation occurs at propper time step
+zFlag = 1
+End
+EndIf
+
+
+!!#######################################################################################!!
+!!COMPUTE VARIABLES: BIOMASS
+Compute           0  
+!!Calculate total Merch Volume by Size class
+RM5_8 = SpMcDBH(4,ALL,0,5,8,0.,500.,2,0.)
+RM8_12 = SpMcDBH(4,ALL,0,8,12,0.,500.,2,0.)
+RM12_18 = SpMcDBH(4,ALL,0,12,18,0.,500.,2,0.)
+RM18 = SpMcDBH(4,ALL,0,18,999,0.,500.,2,0.)
+!!Calculate Biomass generated from harvest
+TtlBio = TREEBIO(0,0,-1,0) - TREEBIO(0,0,-1,PP) + TREEBIO(0,0,0,0)
+END
+
+!!Calculate Biomass generated from harvest 
+Compute           0  
+CUTBIO = TREEBIO(0,1,1,0)
+STEMBIO = TREEBIO(0,1,-1,0)
+End
+
+Compute           0  
+REMAINb = CUTBIO - STEMBIO
+END
+
+
+
+
+
+
+

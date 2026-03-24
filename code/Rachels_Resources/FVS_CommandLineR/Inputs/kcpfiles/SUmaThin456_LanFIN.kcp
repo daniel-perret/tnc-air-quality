@@ -1,0 +1,400 @@
+**********************************************************************************
+*****THIS KCP IS INTENDED TO MODEL A COMMERIAL THIN IN BIOGROUPS 4, 5, AND 6******
+*******ASSOCIATED WITH DRY, WARM DRY, and SOME MOIST FOREST TYPES*****************
+***************INCLUDES LanFin KCP TO COMPUTE ECON COSTS**************************
+****************************SOUTH UMATILLA****************************************
+**********************************************************************************
+
+*****************************************************************************************************
+*This sets the species preference for Biogroups 4, 5, and 6.  This preference cuts the 
+*CP first and retains GF.  This also sets the defect at 10-percent (Kone Hancock, 2/1/2019)
+*and the sawtimber minimum specifications as defined by the Umatilla NF Sale Prep Guide ver
+*4/2017 (Pg. 40). The Volume keyword does not specify log length for those 8 (All other spp.)
+*and 16 (CP) ft that would be associated with eastside forests in the Blue Mtns of SE WA 
+*and East. OR. The volume keyword is set to use the FVS Method volume equation code 2 (i.e. 
+*Region 6 eastside taper equations previously in FVS).
+*
+*This also simulates a prescribed fire following the thinning treatment in the 2nd year following
+*the thinning treatment.  D.Justice, Umatilla NF. Jan. 2020.
+*****************************************************************************************************
+
+SpecPref           0     Parms(PP, -100.)
+SpecPref           0     Parms(WB, -90.0)
+SpecPref           0     Parms(WP, -80.0)
+SpecPref           0     Parms(WL, -70.0)
+SpecPref           0     Parms(DF, -60.0)
+SpecPref           0     Parms(ES, -50.0)
+SpecPref           0     Parms(AF, -40.0)
+SpecPref           0     Parms(LP, -30.0)
+SpecPref           0     Parms(WJ, -20.0)
+SpecPref           0     Parms(GF, -10.0)
+
+****************************************************************************************************
+*The following performs a thin for stands classified as Biogroups 4, 5, and 6.  This thins  
+*stands that are >=55 percent of max sdi down to 30 percent max by performing a thin from below 0.1
+*to 20.9-inches according to species preference above.  If <55 percent of max sdi a thin is performed
+*to 25-percent of max and conducts a prescribed fire treatment in the second year following the 
+*the thinning treatment.
+*
+*ThinSDI Arguments: ResSDI, CutEff, Species, SmDBH, LgDBH, CutCtrl.
+*
+*The Parms portion of the ThinSDI uses the following arguments regarding the amount of residual, 
+*cutting efficiency, species, smallest dia, largest dia, and cutting control. The cutting control
+*is set to a value of 1 which invokes a thin from below.
+*
+*The Moisture keyword modifies the fuel moisture for the prescribed fire that follows.  The SimFire
+*keyword is set to a windspeed of 8-mph, with a moisture of moist (argument 3), temp 70
+*degrees F., mortality based upon FFE-FVS (argument code 1), 60-percent of the stand burned, 
+*and the season set to Fall (argument code 4). The MOISTURE modifier modifies the moisture parameters
+*from FFE-FVS to estimate local conditions. 
+****************************************************************************************************
+
+****************************************************************************************************
+*The inventory year is set to 2020 in order to bring stands to a current year for modeling
+*purposes.  The numcycle is set to 5 to capture the prescribed fire treatment.
+****************************************************************************************************
+
+InvYear         2020
+NumCycle          1.
+
+IF
+BSDIMAX ge    55. AND YEAR EQ 2020
+Then
+ThinSDI           0     Parms(BSDIMAX*.30, 0.9, All, 0.1, 20.9, 1)
+ENDIF
+
+*Reports a potential fire, fuels, burn, mortality, and econ.
+
+DataBase
+Potfire            2
+FuelsOut           2
+BurnRept           2
+MortRept           2 
+ECONRPTS           2
+End
+
+Defect             0       All         0
+        .1        .1        .1        .1        .1        .1        .1        .1
+
+BFVolume           0        PP        9.        6.        1.        0.         2
+Volume             0        PP        9.        6.        1.        0.         2
+BFVolume           0        AF        7.        5.        1.        0.         2
+Volume             0        AF        7.        5.        1.        0.         2
+BFVolume           0        LP        7.        5.        1.        0.         2
+Volume             0        LP        7.        5.        1.        0.         2
+BFVolume           0        WL        7.        5.        1.        0.         2
+Volume             0        WL        7.        5.        1.        0.         2
+BFVolume           0        DF        7.        5.        1.        0.         2
+Volume             0        DF        7.        5.        1.        0.         2
+BFVolume           0        GF        7.        5.        1.        0.         2
+Volume             0        GF        7.        5.        1.        0.         2
+BFVolume           0        ES        7.        5.        1.        0.         2
+Volume             0        ES        7.        5.        1.        0.         2
+BFVolume           0        OS        7.        5.        1.        0.         2
+Volume             0        OS        7.        5.        1.        0.         2
+
+!!!!!!!!!!!!!!!!!!!!!!!     _                _____ _           !!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!    | |    __ _ _ __ |  ___(_)_ __      !!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!    | |   / _` | '_ \| |_  | | '_ \     !!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!    | |__| (_| | | | |  _| | | | | |    !!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!    |_____\__,_|_| |_|_|   |_|_| |_|    !!!!!!!!!!!!!!!!!!!!!!!
+
+!!##################################################################################!!
+!!Rainville Report Methodology: http://www.fs.fed.us/pnw/pubs/pnw_gtr752.pdf
+!!##################################################################################!!
+
+!! Argument 1 - code indicating which measurement to use => 3 = total cubic volume/ac, 1 = TPA
+!! Argument 2 = alpha or numeric species code where 0 (or All) indicates that the sum over all species is desired
+!! Argument 3 = tree-value class (IMC codes 1,2, or 3; see Wykoff and others 1982, p. 16) where 0 indicates that the sum over all tree-value classes is desired
+!! Arguments 4 and 5 = diameter range for trees included in the sum. The default values are 0.0 and 999.0.
+!! Arguments 6 and 7 = height range for trees included in the sum. The default values are 0.0 and 999.0.
+!! Argument 8 = tree status for trees included in the sum, where 0indicates live trees, 1 indicates recent mortality trees, and 2 indicatesharvested trees. The default value is 0.
+
+!!SPMCDBH: http://www.fs.fed.us/fmsc/ftp/fvs/docs/gtr/event_monitor.pdf
+
+!! Steps:
+!! 1.First sum volume by DBH size class
+!! 2.Calculate TPA by size class
+!! 3.Divide Volume / 100 and multiply by number grouping
+!! 4.Sum all Values to get total cost per Acre.
+!! 5.Run numbers by USFS staff to see if we are in the right ball park here
+
+!!1)Calculate Harvested Volume for all size classes
+Compute           0  
+VOL0_6 = SPMCDBH(3,All,0,0.,6.1,0.,999,2)
+VOL6_7 = SPMCDBH(3,All,0,6,7.1,0.,999,2)
+VOL7_9 = SPMCDBH(3,All,0,7,9.1,0.,999,2)          
+VOL9_16 = SPMCDBH(3,All,0,9,16.1,0.,999,2)           
+Vol16_21 = SPMCDBH(3,All,0,16,999,0.,999,2)  
+        
+!!2) Calculate Harvested TPA for all size classes
+TPA0_6 = SPMCDBH(1,All,0,0.,6.1,0.,999,2)
+TPA6_7 = SPMCDBH(1,All,0,6,7.1,0.,999,2)
+TPA7_9 = SPMCDBH(1,All,0,7,9.1,0.,999,2)          
+TPA9_16 = SPMCDBH(1,All,0,9,16.1,0.,999,2)           
+TPA16_21 = SPMCDBH(1,All,0,16,999,0.,999,2)     
+End
+
+!! Calculate cost per size class based on number of trees harvested
+!! Ground Based Harvesting COSTS = CG
+!! Cable Based Harvesting COSTS = CC
+
+!!0 - 6" size class 
+IF                 0     
+TPA0_6 lt 300
+THEN
+Compute            0  
+CG0_6 = VOL0_6/100*104
+CC0_6 = VOL0_6/100*368
+End
+Endif
+
+IF                 0    
+TPA0_6 ge 300
+THEN
+Compute           0  
+CG0_6 = VOL0_6/100*97
+CC0_6 = VOL0_6/100*257
+End
+Endif
+
+!!6" - 7" size class
+IF                 0 
+TPA6_7 lt 150
+THEN
+Compute           0  
+CG6_7 = VOL6_7/100*85
+CC6_7 = VOL6_7/100*385
+End
+Endif
+
+IF                 0 
+TPA6_7 ge 150 AND TPA6_7 lt 300
+THEN
+Compute           0 
+CG6_7 = VOL6_7/100*78
+CC6_7 = VOL6_7/100*232
+End
+Endif
+
+IF                 0 
+TPA6_7 ge 300
+THEN
+Compute           0 
+CG6_7 = VOL6_7/100*73
+CC6_7 = VOL6_7/100*178
+End
+Endif
+
+!!7" - 9" size class
+IF                 0 
+TPA7_9 lt 75
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*67
+CC7_9 = VOL7_9/100*296
+End
+Endif
+
+IF                 0 
+TPA7_9 ge 75 AND TPA7_9 lt 150
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*61
+CC7_9 = VOL7_9/100*207
+End
+Endif
+
+IF                 0 
+TPA7_9 ge 150 AND TPA7_9 lt 300
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*57
+CC7_9 = VOL7_9/100*141
+End
+Endif
+
+IF                 0 
+TPA7_9 ge 300
+THEN
+Compute           0 
+CG7_9 = VOL7_9/100*54
+CC7_9 = VOL7_9/100*119
+End
+Endif
+
+!!9" - 16 " size class  
+IF                 0 
+TPA9_16 lt 35
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*41
+CC9_16 = VOL9_16/100*86
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 35 AND TPA9_16 lt 75
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*38
+CC9_16 = VOL9_16/100*82
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 75 AND TPA9_16 lt 150
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*38
+CC9_16 = VOL9_16/100*75
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 150 AND TPA9_16 lt 300
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*36
+CC9_16 = VOL9_16/100*73
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 300
+THEN
+Compute           0 
+CG9_16 = VOL9_16/100*35
+CC9_16 = VOL9_16/100*72
+End
+Endif
+       
+!!16 - 21" size class
+IF                 0 
+TPA16_21 lt 10
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*71
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 10 AND TPA16_21 lt 35
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*59
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 35 AND TPA16_21 lt 75
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*57
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 75 AND TPA16_21 lt 150
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*38
+CC16_21 = VOL16_21/100*57
+End
+Endif
+
+IF                 0 
+TPA16_21 ge 150 AND TPA16_21 lt 300
+THEN
+Compute           0 
+CG16_21 = VOL9_16/100*36
+CC16_21 = VOL9_16/100*56
+End
+Endif
+
+IF                 0 
+TPA9_16 ge 300
+THEN
+Compute           0 
+CG16_21 = VOL16_21/100*35
+CC16_21 = VOL16_21/100*56
+End
+Endif
+
+Compute           0 
+!!Calculate Total Harvest cost for Ground Ops
+TotGHCst = CG0_6 + CG6_7 + CG7_9 + CG9_16 + CG16_21 
+
+!!Calculate Total Harvest cost for Cable Ops
+TotCHCst = CC0_6 + CC6_7 + CC7_9 + CC9_16 + CC16_21 
+End
+
+!!##################################################################################!!
+!!########################CALCULATE Log Pond Value##################################!!
+!!####################With the ECON Extension to FVS################################!! 
+!!##################################################################################!!
+
+!! Code originally created by AJ MCMAHAN, CHEROKEE NATION TECHNOLOGIES, FHTET, FORT COLLINS on 5/5/15
+!! ECON EXTENSION: http://www.fs.fed.us/fmsc/ftp/fvs/docs/gtr/EconUserGuide.pdf
+
+!! USES ECON EXTENSION TO FETCH LOG VOLUMES and Calculate Total Value from Harvest
+!! RETURNS VOLUMES FOR LOG SIZE CLASSES (SMALL END DIB) 6-15"; 15-21" AND >21" FOR DF, AND FOR SPECIES GROUP PP + SP
+!! AND RETURNS LOG VOLUMES FOR ALL LOG DIAMETERS FOR SPECIES GROUPS: LP + SPRUCE AND HEMLOCK-FIR
+
+!! DOLLAR VALUES CAN BE OBTAINED BY PROVIDING VALUES (PRICE PER UNIT) IN FIELD 1 OF HRVRVN KEYWORD
+!! UNITS ARE SPECIFIED IN FIELD 2
+!! THIS KCP FETCHES 100 cubic-feet/acre for harvested logs (FIELD 2 = 5)
+
+!! Footnotes: Excerpt from users guide
+!! The HRVRVN keyword permits entering only the minimum log or tree diameter to which the revenue value is to be applied. 
+!! Specifying minimum diameters on a succession of HRVRVN keywords defines diameter classes. 
+!! For example, if the minimum diameter on one keyword is eight inches and the minimum on another is ten inches, 
+!! then the first keyword applies to diameters greater than or equal to eight inches but less than ten inches, 
+!! while the second keyword applies to diameters ten inches and larger.
+
+!! HRVRVN: Field 2: Unit-of-measure for the specified price. This field is required or the keyword is ignored.
+!! 1 = tree/acre harvested
+!! 2 = 1000 board-feet/acre for harvested trees
+!! 3 = 100 cubic-feet/acre for harvested trees
+!! 4 = 1000 board-feet/acre for harvested logs
+!! 5 = 100 cubic-feet/acre for harvested logs
+
+!!Updated 1/27/2020 With southern Umatilla NF Values
+Econ
+HRVRVN       325.00         5      17.9        DF
+HRVRVN       300.00         5      12.9        DF
+HRVRVN       300.00         5       7.9        DF
+HRVRVN       225.00         5       5.9        DF
+HRVRVN       325.00         5      17.9        WL
+HRVRVN       300.00         5      12.9        WL
+HRVRVN       300.00         5       7.9        WL
+HRVRVN       225.00         5       5.9        WL
+HRVRVN       325.00         5      17.9        PP
+HRVRVN       300.00         5      12.9        PP
+HRVRVN       300.00         5       7.9        PP
+HRVRVN       225.00         5       5.9        PP
+HRVRVN       325.00         5      17.9        GF
+HRVRVN       320.00         5      12.9        GF
+HRVRVN       300.00         5       7.9        GF
+HRVRVN       275.00         5       5.9        GF
+HRVRVN       325.00         5      17.9        AF
+HRVRVN       320.00         5      12.9        AF
+HRVRVN       300.00         5       7.9        AF
+HRVRVN       275.00         5       5.9        AF
+HRVRVN       325.00         5      17.9        MH
+HRVRVN       320.00         5      11.9        MH
+HRVRVN       300.00         5       7.9        MH
+HRVRVN       275.00         5       4.9        MH
+HRVRVN       300.00         5      17.9        LP
+HRVRVN       300.00         5      12.9        LP
+HRVRVN       300.00         5      17.9        ES
+HRVRVN       300.00         5      12.9        ES
+End
+DATABASE
+DSNOUT
+C:\FVSData\Output\Econ.mdb
+ECONRPTS           2
+END

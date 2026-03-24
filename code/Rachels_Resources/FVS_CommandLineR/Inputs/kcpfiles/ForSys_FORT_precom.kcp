@@ -1,0 +1,74 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!   ______    ______   ______   ___________   !!!
+!!!  |         |      | |      |       |        !!!
+!!!  |         |      | |      |       |        !!!
+!!!  |         |      | |      |       |        !!!
+!!!  |______   |      | |______|       |        !!!
+!!!  |         |      | |\       ___   |        !!!
+!!!  |         |      | | \            |        !!!
+!!!  |         |      | |  \           |        !!!
+!!!  |         |      | |   \          |        !!!
+!!!  |         |______| |    \         |        !!!
+!!!                                             !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!  FVS Add file for CONUS-level thinning     !!!
+!!!!  harvest and hazardous fuel treatments     !!!
+!!!!  Created by: Rachel Houtman                !!!
+!!!!  creation date: 11-29-2018                 !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+!! This code enacts a thinning from below to a target TPA of 100. Stands include a region-level
+!! DBH cap for thinning. The TPA target can only be met if there are fewer than 100 TPA above the 
+!! DBH cap.
+
+!! Treatment is stratified by region (DBHCAP) and by fire adapted/non-fire adapted areas.
+
+
+!! VOLMER = SPMCDBH(9,0,0,0,DBHCAP,0,999)
+!! Start here: Read in the stand-level basal area threshold information from the stand list.
+Database
+DSNIN
+C:\Users\houtmanr\FVS_Tradeoffs\Western_US_FVS\WesternUS_FVS_RUN.mdb
+SQLIN              1
+SELECT BA_TARG FROM FVS_StandInit
+WHERE  STAND_CN  = '%stand_cn%'
+EndSQL
+End  
+
+Compute         0
+ZZTARG = BA_TARG
+TPA_UP = SpMcDBH(1,ALL,0,DBHCAP,999)
+END
+
+CycleAt    2018 
+!! Precommercial thin/dry forest hf reduction
+If         0               
+YEAR EQ 2018 AND FIREADAP EQ 1
+THEN
+ThinBTA         0          Parms(100-TPA_UP,1,0,DBHCAP,0,999)
+FMIN
+PILEBURN      2018         1        70        10        80         2
+SIMFIRE       2018         5         1        75
+END
+ENDIF
+
+!! Precommercial thin/non-FA forest hf combo treatment
+If          0            
+YEAR EQ 2018 AND FIREADAP EQ 0
+THEN
+ThinBTA          0         Parms(100-TPA_UP,1,0,DBHCAP,0,999)
+FMIN
+FUELMOVE           0         4         0         0        .9
+FUELMOVE           0         5         0         0        .9
+FUELMOVE           0         3         0         0        .9
+MOISTURE           3        12        13        14        15       100        90        94
+PILEBURN      2018         1        70        10        80         2
+END
+ENDIF
+
+CycleAt    2019

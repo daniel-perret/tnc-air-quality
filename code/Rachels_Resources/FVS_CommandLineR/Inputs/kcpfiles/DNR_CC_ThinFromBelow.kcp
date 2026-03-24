@@ -1,0 +1,58 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Keyword file for Washington DNR - Harvest to CC target     !!
+!! Excludes all hardwood, trees over 30 in DBH                !!
+!! Created by Rachel Houtman, Oregon State University 11/2022 !!
+!! Last Update: 11/28/2022                                    !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Species preferences per Blake Murphy, USFS:
+
+! Western redcedar and hardwood are no cut, grand fir is preferred for removal, then (preference for leave in order):
+! 1.	WWP
+! 2.	NF
+! 3.	DF
+! 4.	WH
+! 5.	PSF
+! 6.	LPP
+
+!! Create a group that covers western redcedar and all hardwood species in the variant to avoid harvesting.
+SpGroup       NOCUT
+BM RA WA PB GC AS CW WO DG HT CH WI
+
+SpLeave            0     Parms(NOCUT, 1)
+SpecPref           0     Parms(WP, -30)
+SpecPref           0     Parms(NF, -25)
+SpecPref           0     Parms(DF, -20)
+SpecPref           0     Parms(WH, -15)
+SpecPref           0     Parms(SF, -10)
+SpecPref           0     Parms(LP, -5)
+
+Compute         0 
+CCTot = SPMCDBH(7, ALL, 0, 0, 999, 0, 999)
+!! First compute the canopy closure derived from excluded species in cut range
+CCEx = SPMCDBH(7,NOCUT, 0, 0, 30, 0, 999)
+!! Second compute the canopy closure from all trees we are restricted from cutting
+CCHigh = SPMCDBH(7, ALL, 0, 30, 999, 0, 999)
+CCIn = SPMCDBH(7, ALL, 0, 0, 30, 0, 999)
+CCOut = CCEx + CCHigh
+!! Set the stand target here OR in by stand outside of this KCP file
+STarg = 50
+CCTarg = MAX(0.,STarg-CCOut)
+END
+
+!! Thin to a target canopy closure. Need to confirm that NOCUT exclusion works.
+thinCC         2022    Parms(CCTarg, 1, ALL, 0.0, 30, 0, 999)
+
+YardLoss        2022    Parms(0.1,1,0.07)
+
+! This is a starting place for a mechanical fuel removal.
+!FMIN
+!FuelMove        2023    Parms(9,1,0,0.7,999,0)
+!FuelMove        2023    Parms(8,1,0,0.7,999,0)
+!FuelMove        2023    Parms(7,1,0,0.7,999,0)
+!FuelMove        2023    Parms(6,1,0,0.7,999,0)
+!FuelMove        2023    Parms(5,1,0,0.7,999,0)
+!FuelMove        2023    Parms(4,1,0,max(0,min(0.7,4-1)),999,0)
+!FuelMove        2023    Parms(3,1,0,max(0,min(0.7,3-1)),999,0)
+!FuelMove        2023    Parms(2,1,0,max(0,min(0.7,2-1)),999,0)
+!END

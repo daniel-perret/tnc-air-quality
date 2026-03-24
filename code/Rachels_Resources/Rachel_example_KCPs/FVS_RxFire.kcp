@@ -1,0 +1,8 @@
+!! FVS Keyword Component File 
+!! Modeling simple prescribed fire in year 2021. 
+
+
+
+FMIN
+SimFire         2021        8.         2       70.         1       70.         1
+END

@@ -1,0 +1,88 @@
+!! significantly modified by AJM 12/22/10
+!! modified April 2011
+!! Crown Percent consumed being modified so that it is no longer "all-or-nothing"
+!! (i.e. heretofore, CPC was 100% if FL was > FLCRIT, and 0 if FL was < CRITFL
+!! this new method sets CPC to 0.1 when FL=CRITFL and maxes it out to 100% when FL=30% of top ht.
+!! FL_ is flame length in feet and is set to the midpoint of the class.
+!! FLCLASS is an integer 1-20, assumed to be FL in 0.5 m increments (e.g. FLCLASS 10=5 meter
+!! the midpoint of the class 4.5-5.0 meters is 4.75 m = 15.58'
+
+!! FOR % Crowning:
+!! 1) calculate linear function defined by 2 x,y points (where x= FL, y=% crown consumed)such that
+!!    x1,y1 = crit FL, 0.1
+!!    x2,y2 = 30% of top ht, 1.0
+!! 2) transform y values to SQRT(y)
+!! 3) range of y (proportion consumed) is now 0.316 (when FL=crit FL) to 100% (when FL= 30% of top ht) 
+!!    The function is concave downward.
+
+* FL is the variable being incremented
+
+*Keyword | Field 1 | Field 2 | Field 3 | Field 4 | Field 5 | Field 6 | Field 7 |
+* -------+---------+---------+---------+---------+---------+---------+---------+
+!! note: variable FLCLASS is assigned by ArcFuels keywriter via Landscape-->FVS Analysis-->FLP Specific
+
+COMPUTE            1
+TmpHt2Lv=-1
+TmpCBD=-1
+END
+
+COMPUTE           0
+
+!! CPC is initially set to zero to be used if stands have very low CBD
+CPC=0
+
+PCHt2Lv=TmpHt2Lv
+!! this required COMPUTE is done elsewhere in arcfuels--> CBH=CRBASEHT
+TmpHt2Lv = CBH
+
+PCCBD=TmpCBD
+!!THIS REQUIRED COMPUTE IS DONE ELSEWHERE IN ARCFUELS : --> CBD=CRBULKDN
+TmpCBD=CBD
+
+!! SCORCH HEIGHT: convert flame length to scorch height using Van Wagner
+HSM=6.026*(FLEN/3.2808)**1.4466
+HS_=HSM*3.2808
+
+END
+
+IF                 0
+PCCBD GT 0.0001
+THEN
+COMPUTE            0
+Io_=(0.010*PCHt2Lv*0.3048 * (460.0 + 25.9 *100))**(3/2)
+FLCRIT=(0.07749*Io_**0.46)* 3.281
+
+FLCRIT2=0.3 * BTOPHT
+FSLOPE=0.9/(FLCRIT2-FLCRIT)
+NTERCEPT=1.0 -(FSLOPE*FLCRIT2)
+
+!! INTERCEPT MAY BE NEGATIVE, HENCE Y_ MAY BE NEGATIVE AT LOW FLENs
+!! HENCE CONSTRAIN Y_ TO BE NO SMALLER THAN ZERO
+
+Y_=MAX((FLEN*FSLOPE + NTERCEPT),0.0)
+
+YSQRT=SQRT(Y_)
+
+!! find out where FLEN is in relation to FLCRIT
+!! if FLEN is less than CFL, then CFL is > FLEN, set CPC to zero
+!! else use the function and bound it to a max of 1
+
+fplace=maxindex(FLEN,FLCRIT)
+CPC=INDEX(fplace,MIN(YSQRT,1),0)
+
+FDIFF = FLEN - FLCRIT
+!! CPC = LININT(FDIFF,0,0,0,100)
+Done=1
+END
+ENDIF
+
+FMIN
+!!moisture     year       1hr      10hr     100hr    1000hr      duff   lvwoody    lvherb
+MOISTURE          2         8         8        10        15        50       110       110
+
+flameadj          2     PARMS(1.,FLEN,CPC,HS_)
+
+!!simfire      year   wind(mph)  moisture    temp(F)  mortality  %burned   season
+SIMFIRE           2         2                  85         1        70         3
+END
+

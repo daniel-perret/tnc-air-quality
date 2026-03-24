@@ -47,6 +47,32 @@ nt.20ft.db <- dbConnect(SQLite(),
 
 dbListTables(nt.20ft.db)
 
+# pull compute tables
+rx.compute <- dbReadTable(rx.db, "FVS_Compute") %>% 
+  mutate(type = "rx")
+nt.1.compute <- dbReadTable(nt.1ft.db, "FVS_Compute") %>% 
+  mutate(type = "1ft")
+nt.3.compute <- dbReadTable(nt.3ft.db, "FVS_Compute") %>% 
+  mutate(type = "3ft")
+nt.5.compute <- dbReadTable(nt.5ft.db, "FVS_Compute") %>% 
+  mutate(type = "5ft")
+nt.7.compute <- dbReadTable(nt.7ft.db, "FVS_Compute") %>% 
+  mutate(type = "7ft")
+nt.10.compute <- dbReadTable(nt.10ft.db, "FVS_Compute") %>% 
+  mutate(type = "10ft")
+nt.20.compute <- dbReadTable(nt.20ft.db, "FVS_Compute") %>% 
+  mutate(type = "20ft")
+compute.all <- bind_rows(rx.compute, nt.1.compute,
+                         nt.3.compute, nt.5.compute,
+                         nt.7.compute, nt.10.compute,
+                         nt.20.compute) %>% 
+  select(-contains("Variant")) %>% 
+  filter(Year == 2020) %>% 
+  left_join(rx.cases %>% 
+              select(StandID, Variant),
+            by = "StandID")
+
+
 # pull fuel consumption tables
 rx.cases <- dbReadTable(rx.db,"FVS_Cases")
 
@@ -69,6 +95,31 @@ consume.all <- bind_rows(rx.consumption, nt.1.consumption,
                          nt.7.consumption, nt.10.consumption,
                          nt.20.consumption) %>% 
   select(-contains("Variant")) %>% 
+  left_join(rx.cases %>% 
+              select(StandID, Variant),
+            by = "StandID")
+
+# pull fuels tables
+rx.fuels <- dbReadTable(rx.db, "FVS_Fuels") %>% 
+  mutate(type = "rx")
+nt.1.fuels <- dbReadTable(nt.1ft.db, "FVS_Fuels") %>% 
+  mutate(type = "1ft")
+nt.3.fuels <- dbReadTable(nt.3ft.db, "FVS_Fuels") %>% 
+  mutate(type = "3ft")
+nt.5.fuels <- dbReadTable(nt.5ft.db, "FVS_Fuels") %>% 
+  mutate(type = "5ft")
+nt.7.fuels <- dbReadTable(nt.7ft.db, "FVS_Fuels") %>% 
+  mutate(type = "7ft")
+nt.10.fuels <- dbReadTable(nt.10ft.db, "FVS_Fuels") %>% 
+  mutate(type = "10ft")
+nt.20.fuels <- dbReadTable(nt.20ft.db, "FVS_Fuels") %>% 
+  mutate(type = "20ft")
+fuels.all <- bind_rows(rx.fuels, nt.1.fuels,
+                         nt.3.fuels, nt.5.fuels,
+                         nt.7.fuels, nt.10.fuels,
+                         nt.20.fuels) %>% 
+  select(-contains("Variant")) %>% 
+  filter(Year==2020) %>% 
   left_join(rx.cases %>% 
               select(StandID, Variant),
             by = "StandID")
@@ -128,10 +179,16 @@ carbon.all <- bind_rows(rx.carbon, nt.1.carbon,
 ### Consumption-emissions plots
 
 fvs.out <- burn.all %>% 
+  left_join(compute.all,
+            by = c("StandID","type","Variant","Year")) %>% 
   left_join(consume.all,
             by = c("StandID","type","Variant","Year")) %>% 
+  left_join(fuels.all, 
+            by = c("StandID","type","Variant","Year")) %>% 
   left_join(carbon.all,
-            by = c("StandID","type","Variant","Year"))
+            by = c("StandID","type","Variant","Year")) %>% 
+  mutate(problem = ifelse(StandID %in% fvs.tab$StandID,
+                          1,0))
 
 fvs.out %>% 
   ggplot(.,
@@ -158,7 +215,46 @@ fvs.out %>%
   facet_wrap(facets=~Variant,scales="free")
 
 
+### Fuel plots
 
+fvs.out %>% 
+  mutate(problem = ifelse(StandID %in% fvs.tab$StandID,
+                          1,0)) %>% 
+  filter(problem==1) %>% 
+  pivot_wider(names_from = type,
+              values_from = CBH,
+              id_cols = c(StandID,problem,Variant)) %>% 
+  ggplot(.,
+         aes(x = rx)) +
+  geom_point(aes(y = `1ft`,
+                 col = "1ft"),
+             pch = 19, 
+             alpha = 0.6) +
+  geom_point(aes(y = `3ft`,
+                 col = "3ft"),
+             pch = 19,
+             alpha = 0.6) +
+  geom_point(aes(y = `5ft`,
+                 col = "5ft"),
+             pch = 19,
+             alpha = 0.6) +
+  geom_point(aes(y = `10ft`,
+                 col = "10ft"),
+             pch = 19,
+             alpha = 0.6) +
+  geom_abline(slope = 1,
+              intercept = 0,
+              col = "black") +
+  facet_wrap(facets = ~problem) +
+  scale_color_manual(name = "FL",
+                     values = c("1ft" = "dodgerblue2",
+                                "3ft" = "gold2",
+                                "5ft" = "firebrick3",
+                                "10ft" = "purple4")) +
+  labs(x = "CBH (Rx)",
+       y = "CBH (WF)",
+       title = "") +
+  facet_wrap(facets=~problem)
 
 #### Fuel moisture plots ----
 

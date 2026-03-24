@@ -1,0 +1,13 @@
+!!Commercial harvest/hf combo treatment
+
+!!Dry forest
+!!Thinning based on regional dimeter limits and potential veg basal area  pileburn and broadcast burn 
+CycleAt    2019
+YardLoss      2019     Parms(0,0,1)
+ThinBBA       2019     Parms(ZZTARG,1-0.05,0.0,16.0,0,999)
+FMIN
+PILEBURN      2019         1        70        10        80         2
+SIMFIRE      2019         5         1        75
+END
+CycleAt 2020
+

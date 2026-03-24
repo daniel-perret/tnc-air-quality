@@ -1,0 +1,76 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!   ______    ______   ______   ___________   !!!
+!!!  |         |      | |      |       |        !!!
+!!!  |         |      | |      |       |        !!!
+!!!  |         |      | |      |       |        !!!
+!!!  |______   |      | |______|       |        !!!
+!!!  |         |      | |\       ___   |        !!!
+!!!  |         |      | | \            |        !!!
+!!!  |         |      | |  \           |        !!!
+!!!  |         |      | |   \          |        !!!
+!!!  |         |______| |    \         |        !!!
+!!!                                             !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!  FVS Add file for CONUS-level thinning     !!!
+!!!!  harvest and hazardous fuel treatments     !!!
+!!!!  Created by: Rachel Houtman                !!!
+!!!!  creation date: 11-29-2018                 !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!! VOLMER = SPMCDBH(9,0,0,0,DBHCAP,0,999)
+!! Start here: Read in the stand-level basal area threshold information from the stand list.
+Database
+DSNIN
+C:\Users\houtmanr\FVS_Tradeoffs\rFVSProcessing\FVSInputFiles\CommercialTHINBBA\WesternUS_FVS_RUN.mdb
+SQLIN              1
+SELECT BA_TARG FROM FVS_StandInit
+WHERE  STAND_CN  = '%stand_cn%'
+EndSQL
+End  
+
+Compute         0
+ZZTARG = BA_TARG
+BAmn2mx = SpMcDBH(2,All,0,DBHCAP,999)
+END
+
+
+!! Define stand treatments. Treatments are stratified by forest fire adaptability, regional DBH caps, 
+!! volume, and FVS variant.
+CycleAt    2018
+!!Commercial harvest/dry forest hf combo treatment
+If         0
+YEAR EQ 2018 AND FIREADAP EQ 1
+THEN
+YardLoss         0          Parms(0,0,1)
+ThinBBA         0          Parms(ZZTARG-BAmn2mx,1-0.05,0.0,DBHCAP,0,999)
+FMIN
+PILEBURN      2018         1        70        10        80         2
+SIMFIRE       2018         5         1        75
+END
+ENDIF
+
+
+
+!! Commercial harvest/non-FA forest hf combo treatment
+If          0   
+YEAR EQ 2018 AND FIREADAP EQ 0
+THEN
+YardLoss         0          Parms(0,0,1)
+ThinBBA         0          Parms(ZZTARG-BAmn2mx,1-0.05,0.0,DBHCAP,0,999)
+FMIN
+FUELMOVE           0         4         0         0        .9
+FUELMOVE           0         5         0         0        .9
+FUELMOVE           0         3         0         0        .9
+MOISTURE           3        12        13        14        15       100        90        94
+PILEBURN      2018         1        70        10        80         2
+END
+ENDIF
+
+
+
+CycleAt    2019
+

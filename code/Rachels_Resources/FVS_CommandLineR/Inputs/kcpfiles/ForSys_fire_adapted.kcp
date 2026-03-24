@@ -1,0 +1,31 @@
+COMPUTE         0
+FireAd = 1
+End
+!! Treatments stratified by forest fire adaptability and FVS variant.
+
+!!Commercial harvest/hf combo treatment
+
+!!Dry forest
+!!Thinning based on regional dimeter limits and potential veg basal area  pileburn and broadcast burn 
+CycleAt      2021
+Compute      2021
+merch = RMCUFT
+END
+YardLoss     2021        Parms(0,0,1)
+ThinBBA      2021        Parms(ZZTARG,1-0.05,0.0,21.0,0,999)
+CycleAt      2023
+FMIN
+MOISTURE     2023        12        13        14        15       100        90        94
+PILEBURN     2023         1        70        10        80         2
+SIMFIRE      2023         5         1        75
+END
+CycleAt      2024
+CycleAt      2025
+FMIN
+FUELMODL      2025       181         1
+
+MOISTURE     2025         2         3         5         7        15        95        95
+SIMFIRE      2025        15
+END
+CycleAt      2026
+

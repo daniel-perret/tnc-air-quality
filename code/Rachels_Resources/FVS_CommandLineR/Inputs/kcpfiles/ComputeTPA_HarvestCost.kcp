@@ -1,0 +1,47 @@
+!!Modified from LANFIN for volume and species-specific measurements by Rachel Houtman (OSU)
+!!
+!!To Run KCP:
+!!
+!!Step 1: Update user database and thinning prescription (Current BA target code from Kevin 
+!!Vogler)
+!! 
+!!Step 2: Update compute variables for desired outputs
+!!
+!!Direct comments and questions to: rachel.houtman@oregonstate.edu
+!!
+!!#######################################################################################!!
+
+
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!#######################################################################################!!
+!!Step 1: Update thinning prescription 
+!!#######################################################################################!!
+
+!!Database
+!!DSNIN
+!!C:\Users\houtmanr\FVS_Tradeoffs\rFVSProcessing\FVSInputFiles\WesternUS_FVS_RUN.mdb
+!!SQLIN            
+!!SELECT BA_TARG FROM FVS_StandInit
+!!WHERE  STAND_ID  = '%stand_cn%'
+!!EndSQL
+!!End  
+!!
+!!Compute           0
+!!ba_wb=SPMCDBH(2,wb,0,0,999,0,999)
+!!height_wb=SPMCDBH(6,wb,0,0,999,0,999)  
+!!ZZTARG = BA_TARG
+!!End
+
+CycleAt         2017
+YardLoss        2017     Parms(0,0,1)
+ThinBBA         2017     Parms(80,1-0.05,0.0,21.0,0,999)
+CycleAt         2018
+        
+
+!!2) Calculate Harvested TPA for all size classes
+Compute           0
+TPA0_6 = SPMCDBH(1,All,0,0.,6.9,0.,999,3)
+TPA7_12 = SPMCDBH(1,All,0,7,12.9,0.,999,3)
+TPA13 = SPMCDBH(1,All,0,12.9,999,0.,999,3)   
+End

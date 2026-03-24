@@ -1,0 +1,31 @@
+
+!!Non-fire adapted forest, merchantable volume
+!!Thinning based on regional diameter limits and potential veg basal area. Biomass removal, pile burn, mastication
+COMPUTE         0
+FireAd = 0
+End
+
+CycleAt        2021
+YardLoss       2021         Parms(0,0,1)
+ThinBBA        2021         Parms(ZZTARG,1-0.05,0.0,21.0,0,999)
+CycleAt        2022
+
+FMIN
+FUELMOVE        2022         4         0         0        .9
+FUELMOVE        2022         5         0         0        .9
+FUELMOVE        2022         3         0         0        .9
+MOISTURE        2022        12        13        14        15       100        90        94
+PILEBURN        2022         1        70        10        80         2
+END
+CycleAt      2023
+
+CycleAt      2025
+FMIN
+FUELMODL      2025       181         1
+
+MOISTURE     2025         2         3         5         7        15        95        95
+SIMFIRE      2025        15
+END
+CycleAt      2026
+
+
