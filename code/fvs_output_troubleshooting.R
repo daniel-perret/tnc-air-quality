@@ -187,6 +187,11 @@ fvs.out <- burn.all %>%
             by = c("StandID","type","Variant","Year")) %>% 
   left_join(carbon.all,
             by = c("StandID","type","Variant","Year")) %>% 
+  left_join(cats(fvs.info) %>% 
+              as.data.frame() %>% 
+              select(StandID, PLT_CN, FM_CN, FVSVariant) %>% 
+              mutate(StandID = as.character(StandID)), 
+            by = "StandID") %>% 
   mutate(problem = ifelse(StandID %in% fvs.tab$StandID,
                           1,0))
 
