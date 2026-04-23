@@ -186,6 +186,7 @@ rx.test$FVS_BurnReport %>%
   view()
 
 plot(rx.FVS_Consumption$Total_Consumption, rx.test$FVS_Consumption$Total_Consumption)
+
 abline(0,1,col="red")
 
 plot(rx.test$FVS_Carbon %>% 
