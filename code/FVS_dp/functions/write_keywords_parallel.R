@@ -1,10 +1,5 @@
-### This function, written by Laurel Sindewald and Rachel Houtman, and modified by Daniel Perret, writes the keyword file needed for a large multi-stand FVS run.
-### Inputs:
-### database_paths -- list of directory paths for .db files containing FVS input tables
-### stand_subset -- do you want to create a .key for only a portion of stands in the .db, or "all" of them? default is all, can also supply either a vector of standIDs or a number of randomly-sampled rows to pull from the db
-### FSim_scenarios -- data.frame containing simulation parameters
-### treat_kcps -- file paths for treatment .kcp files
-### fire_kcps -- file paths for fire .kcp files
+### This function, written by Laurel Sindewald and Rachel Houtman, and modified by Daniel Perret, writes the keyword file needed for a large multi-stand FVS run. There are extensions for conditioning the run on pre-computed variables (runtype = wet or dry) and for using FVS or LandFire fuel models (fbfm = default or landfire).
+
 
 write_keywords_parallel <- function(database_paths,             # list of directory paths for .db files containing FVS input tables
                                     stand_subset = "all",       # do you want to create a .key for only a portion of stands in the .db, or "all" of them? default is all, can also supply either a vector of standIDs or a number of randomly-sampled rows to pull from the db
@@ -13,8 +8,13 @@ write_keywords_parallel <- function(database_paths,             # list of direct
                                     fire_kcps,                 # file paths for fire .kcp files
                                     ncycles = 10,              # how many simulation cycles?
                                     interval = 1, # how many years per cycle?
-                                    runtype = "dry", # "wet" means conditioned on variables in the STAND_EXTRA database table; "dry" means unconditioned ; "wet_rx" means same as wet but also adding FL
+                                    
+                                    runtype = "dry", # "wet" means conditioned on variables in the STAND_EXTRA database table; "dry" means unconditioned ; "wet_rx" means same as wet but also adding FL,
                                     extraStandDat = NULL, #dataframe with extra data for every StandID
+                                    
+                                    fbfm = "default", # default uses normal FVS logic; "landfire" uses a data.frame of standID and LF FBFM40 assignments, defined in variable below
+                                    fbfmDat = NULL, #dataframe with two rows, first is standIDs and second is fuel models, multiple rows per standID
+                                    
                                     nworkers = parallel::detectCores() # how many cpus?
 ) {
   for(db in seq_along(database_paths)){ # run the function for every variant included in the simulation
@@ -84,48 +84,107 @@ write_keywords_parallel <- function(database_paths,             # list of direct
           
           if(is.null(extraStandDat)){stop("For `wet` run, need to supply additional stand variables!")}
           
-          key_text_all <- c(
-            key_text_all,
-            createKeyText_withExtraStandDat(
-              stand = stand,
-              managementID = scenario_id,
-              outputDatabase = out_db,
-              treat_kcp = inputs$treat_kcp,
-              fire_kcp = inputs$fire_kcp,
-              ncycles = ncycles,
-              interval = interval,
-              inputDatabase = database_paths[[db]],
-              extraStandDat = extraStandDat[which(extraStandDat$Stand_ID == stand),]
-            ))
+          if(fbfm == "default"){
+            key_text_all <- c(
+              key_text_all,
+              createKeyText_wet_fbfm(
+                stand = stand,
+                managementID = scenario_id,
+                outputDatabase = out_db,
+                treat_kcp = inputs$treat_kcp,
+                fire_kcp = inputs$fire_kcp,
+                ncycles = ncycles,
+                interval = interval,
+                inputDatabase = database_paths[[db]],
+                extraStandDat = extraStandDat[which(extraStandDat$Stand_ID == stand),],
+                fbfm.list = NULL
+              ))
+          } else if (fbfm == "landfire") {
+            key_text_all <- c(
+              key_text_all,
+              createKeyText_wet_fbfm(
+                stand = stand,
+                managementID = scenario_id,
+                outputDatabase = out_db,
+                treat_kcp = inputs$treat_kcp,
+                fire_kcp = inputs$fire_kcp,
+                ncycles = ncycles,
+                interval = interval,
+                inputDatabase = database_paths[[db]],
+                extraStandDat = extraStandDat[which(extraStandDat$Stand_ID == stand),],
+                fbfm.list = fbfmDat[which(fbfmDat[,1] == stand),2]
+              ))
+          }
+          
         } else if (runtype == "wet_rx") {
           
           if(is.null(extraStandDat)){stop("For `wet` run, need to supply additional stand variables!")}
+          if(!"FLEN_INIT" %in% names(extraStandDat)){stop("For `wet_rx` run, need to supply `FLEN_init` in extraStandDat!")}
           
-          key_text_all <- c(
-            key_text_all,
-            createKeyText_withExtraStandDat_rx(
-              stand = stand,
-              managementID = scenario_id,
-              outputDatabase = out_db,
-              treat_kcp = inputs$treat_kcp,
-              fire_kcp = inputs$fire_kcp,
-              ncycles = ncycles,
-              interval = interval,
-              inputDatabase = database_paths[[db]],
-              extraStandDat = extraStandDat[which(extraStandDat$Stand_ID == stand),]
-            ))
+          if (fbfm == "default"){
+            key_text_all <- c(
+              key_text_all,
+              createKeyText_wet_fbfm(
+                stand = stand,
+                managementID = scenario_id,
+                outputDatabase = out_db,
+                treat_kcp = inputs$treat_kcp,
+                fire_kcp = inputs$fire_kcp,
+                ncycles = ncycles,
+                interval = interval,
+                inputDatabase = database_paths[[db]],
+                extraStandDat = extraStandDat[which(extraStandDat$Stand_ID == stand),],
+                fbfm.list = NULL
+              ))
+          } else if (fbfm == "landfire"){
+            if(is.null(fbfmDat)){stop("Must supply Landfire FBFM information!")}
+            
+            key_text_all <- c(
+              key_text_all,
+              createKeyText_wet_fbfm(
+                stand = stand,
+                managementID = scenario_id,
+                outputDatabase = out_db,
+                treat_kcp = inputs$treat_kcp,
+                fire_kcp = inputs$fire_kcp,
+                ncycles = ncycles,
+                interval = interval,
+                inputDatabase = database_paths[[db]],
+                extraStandDat = extraStandDat[which(extraStandDat$Stand_ID == stand),],
+                fbfm.list = fbfmDat[which(fbfmDat[,1] == stand),2]
+              ))
+          }
+          
+        } else if (runtype == "dry") {
+          if(fbfm == "default"){
+            key_text_all <- c(
+              key_text_all,
+              createKeyText_dry_fbfm(
+                stand = stand,
+                managementID = scenario_id,
+                outputDatabase = out_db,
+                treat_kcp = inputs$treat_kcp,
+                fire_kcp = inputs$fire_kcp,
+                ncycles = ncycles,
+                interval = interval,
+                inputDatabase = database_paths[[db]],
+                fbfm.list=NULL))
+          } else if (fbfm == "landfire") {
+            key_text_all <- c(
+              key_text_all,
+              createKeyText_dry_fbfm(
+                stand = stand,
+                managementID = scenario_id,
+                outputDatabase = out_db,
+                treat_kcp = inputs$treat_kcp,
+                fire_kcp = inputs$fire_kcp,
+                ncycles = ncycles,
+                interval = interval,
+                inputDatabase = database_paths[[db]],
+                fbfm.list = fbfmDat[which(fbfmDat[,1] == stand),2]))
+          }
         } else {
-          key_text_all <- c(
-            key_text_all,
-            createKeyText2(
-              stand = stand,
-              managementID = scenario_id,
-              outputDatabase = out_db,
-              treat_kcp = inputs$treat_kcp,
-              fire_kcp = inputs$fire_kcp,
-              ncycles = ncycles,
-              interval = interval,
-              inputDatabase = database_paths[[db]]))
+          stop("Runtype must be 'dry', 'wet', or 'wet_rx'")
         }
       }
       
