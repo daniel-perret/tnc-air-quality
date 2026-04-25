@@ -18,7 +18,7 @@ createKeyText_dry_fbfm <- function(stand,            # Unique stand ID present i
   if(!is.null(fbfm.list)){
     for(fbfm in all.fbfm){
       fmodlist <- paste0(fmodlist,
-                         'FMODLIST           0           ',fbfm,'           ',ifelse(fbfm%in%fbfm.list,0,1),'\n')}
+                         'FMODLIST           0      ',fbfm,'          ',ifelse(fbfm%in%fbfm.list,0,1),'\n')}
   }
   
   ### Keytext

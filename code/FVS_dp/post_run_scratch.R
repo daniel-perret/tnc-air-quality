@@ -193,3 +193,47 @@ plot(rx.test$FVS_Carbon %>%
        filter(Year==2020) %>% 
        pull(Carbon_Released_From_Fire),
      rx.test$FVS_Consumption$Smoke_Production_25)
+
+## ------------------------
+
+rx <- extract_sqlite_tables("FVS_runs/RxWetRun_test_Cycle2_complete_20Apr26_1330/outputs/ModRxFire_NoWF_IE.db")
+
+dbs <- list.files("FVS_runs/DryRun_test_Cycle2_complete_20Apr26_1118/outputs", full.names = T)
+wf.1 <- extract_sqlite_tables(dbs[1])
+wf.10 <- extract_sqlite_tables(dbs[2])
+wf.20 <- extract_sqlite_tables(dbs[3])
+wf.3 <- extract_sqlite_tables(dbs[4])
+wf.5 <- extract_sqlite_tables(dbs[5])
+wf.7 <- extract_sqlite_tables(dbs[6])
+
+rx$FVS_Carbon %>% 
+  filter(Year == 2020) %>% 
+  ggplot(.,
+         aes(x = Carbon_Released_From_Fire)) + 
+  geom_point(data = wf.5$FVS_Carbon %>% 
+               filter(Year == 2020),
+             aes(y = Carbon_Released_From_Fire))
+
+
+plot(rx$FVS_Carbon$Carbon_Released_From_Fire, wf.5$FVS_Carbon$Carbon_Released_From_Fire)
+
+
+
+rx.dry <- extract_sqlite_tables("FVS_runs/RxWetRun_test_Cycle2_complete_20Apr26_1330/outputs/ModRxFire_NoWF_IE.db")
+rx.wet <- extract_sqlite_tables("FVS_runs/RxDryRun_fuelmoisture3_22Apr26_1453/outputs/SimpleRxFire_NoWF_IE.db")
+
+plot(rx.dry$FVS_BurnReport$Flame_length, rx.wet$FVS_BurnReport$Flame_length);abline(0,1,col="red")
+plot(rx.dry$FVS_Consumption$Total_Consumption, rx.wet$FVS_Consumption$Total_Consumption);abline(0,1,col="red")
+plot(rx.dry$FVS_Carbon$Carbon_Released_From_Fire, rx.wet$FVS_Carbon$Carbon_Released_From_Fire);abline(0,1,col="red")
+
+### -----
+
+rx.fbfm <- extract_sqlite_tables("FVS_runs//outputs/SimpleRxFire_NoWF_IE.db")
+
+
+plot(rx.wet$FVS_BurnReport$Flame_length, rx.fbfm$FVS_BurnReport$Flame_length); abline(0,1,col="red")
+
+
+
+
+

@@ -10,14 +10,13 @@ activeCat(tm) <- 8
 
 lf.fbfm <- rast("../../SHARED_DATA/LANDFIRE/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif") %>% 
   crop(., tm, mask = T)
+activeCat(lf.fbfm) <- 0
 
 combos <- terra::crosstab(c(tm, lf.fbfm)) %>%
-  as.data.frame()
-
-combos2 <- combos %>% 
+  as.data.frame() %>% 
   filter(Freq>0)
 
-combos2 %>% 
+combos %>% 
   group_by(StandID) %>% 
   summarise(n=n()) %>% 
   pull(n) %>% 

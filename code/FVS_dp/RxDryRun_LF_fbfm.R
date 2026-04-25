@@ -1,4 +1,4 @@
-######## This script puts together an FVS run for a simple prescribed fire in year 1, with canopy variables and flame lengths conditioned from: (1) a "dry" no-fire run, and (2) a "dry" prescribed fire run from which we can grab a flame length. The purpose of this is for canopy consumption calculations to match the fixed-FL logic we use in the wildfire simulations.
+######## This script puts together FVS runs attempting to replicate Rachel Houtman's national emissions runs for wildfire flame length bins. 
 
 
 ######## required libraries
@@ -12,33 +12,13 @@ library(withr) #For parallelization - used to temporarily change the working dir
 library(rFVS)
 library(here)
 
-######## Get pre-calculated variables from other runs ----
+# Set the FVS executable folder
+fvs_bin = "C:/FVS/FVSSoftware/FVSbin"
+
 # Source all required functions
 
 lapply(list.files("/Users/daniel.perret/LOCAL_WORKSPACE/PROJECTS/tnc-air-quality/code/FVS_dp/functions",
                   full.names = T), source)
-setwd(here())
-# this first db is a simple prescribed fire run, no modifications
-rx.db <- extract_sqlite_tables("FVS_runs/RxDryRun_fuelmoisture3_fbfmMatch_24Apr26_1456/outputs/SimpleRxFire_NoWF_IE.db")
-# this second db is a simple grow cycle, no modifications
-dry.db <- extract_sqlite_tables("FVS_runs/DryRun_test_Cycle1_16Apr26_1711/outputs/NoTreat_NoWF_IE.db")
-
-# this is the data that gets read into the .key file
-extraStandDat <- dry.db$FVS_Compute %>% 
-  filter(Year==2020) %>% 
-  select(Stand_ID = StandID, 
-         CBH_init = CBH, 
-         CHT_init = CHT, 
-         CBD_init = CBD) %>% 
-  left_join(rx.db$FVS_BurnReport %>% 
-              select(Stand_ID = StandID,
-                     FLEN_init = Flame_length))
-
-
-######### Set up the run ----
-
-# Set the FVS executable folder
-fvs_bin = "C:/FVS/FVSSoftware/FVSbin"
 
 # Set location of TMFM sqlite databases and read in data
 TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_inputs/TMFM_2020_InputDatabases/"
@@ -49,7 +29,7 @@ dbs <- list.files(TMFM2020_dir_path,
 dbs <- dbs[9]
 
 #Name the FVS run
-run_name <- str_c("RxWetRun_fuelmoisture3_fbfmMatch_",
+run_name <- str_c("RxDryRun_fuelmoisture3_fbfmMatch_",
                   strftime(Sys.Date(), "%d%b%y"),
                   "_", strftime(Sys.time(), "%H%M"))
 
@@ -61,8 +41,24 @@ setwd(paste0(RunDirectory))
 
 log_session_info()
 
-# Specify treatment kcp files, first move treatment kcp over to the directory and modify as needed
+# Specify treatment kcp files
+
 treat_kcps <- list.files(paste0(RunDirectory,"/treat_kcps"), full.names = T)
+
+# Pull out TreeMap - Landfire StandID x FBFM40 combinations to feed into the keyfile
+
+tm <- rast("data/dp_FVS_postprocess/DryRun_test_Cycle2_complete_20Apr26_1118/tm_ref_IE.tif")
+tm.rat <- cats(tm) %>% as.data.frame()
+activeCat(tm) <- 8
+
+lf.fbfm <- rast("../../SHARED_DATA/LANDFIRE/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif") %>% 
+  crop(., tm, mask = T)
+activeCat(lf.fbfm) <- 0
+
+fbfm.dat <- terra::crosstab(c(tm, lf.fbfm)) %>%
+  as.data.frame() %>% 
+  filter(Freq>0) %>% 
+  select(-Freq)
 
 # Write the simulation .key files
 
@@ -73,8 +69,13 @@ write_keywords_parallel(database_paths = dbs,
                         fire_kcps = NA,
                         ncycles = 2,
                         interval = 1,
-                        runtype = "wet_rx",
-                        extraStandDat = extraStandDat)
+                        runtype = "dry",
+                        fbfm = "landfire",
+                        fbfmDat = fbfm.dat)
+
+#Reset parallel backend
+
+plan(sequential)
 
 #Create the data frame of run scenario parameters to parallelize over
 
@@ -93,12 +94,12 @@ runs <- expand.grid(variant=variants,
 
 dir.create(paste0(RunDirectory, "/outputs"))
 
-######## Run FVS **USE BACKGROUND SCRIPT** ----
 
-future::plan(multisession, 
+
+#Run FVS in parallel for all combinations -- use BG script
+future::plan(future.callr::callr, 
              workers = parallel::detectCores())
 
-#Run FVS in parallel for all combinations
 furrr::future_pmap(
   list(
     variant = runs$variant,
@@ -113,9 +114,3 @@ furrr::future_pmap(
 
 plan(sequential)
 gc()
-
-
-# 
-# combine_dbs_general(dbDirectory = paste0(RunDirectory, "/outputs/"), 
-#                     rm.files = FALSE, 
-#                     output_db_name = "Combined_Outputs_All_FLs_txs2.db")

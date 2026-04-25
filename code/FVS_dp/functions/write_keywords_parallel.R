@@ -119,7 +119,7 @@ write_keywords_parallel <- function(database_paths,             # list of direct
         } else if (runtype == "wet_rx") {
           
           if(is.null(extraStandDat)){stop("For `wet` run, need to supply additional stand variables!")}
-          if(!"FLEN_INIT" %in% names(extraStandDat)){stop("For `wet_rx` run, need to supply `FLEN_init` in extraStandDat!")}
+          if(!"FLEN_init" %in% names(extraStandDat)){stop("For `wet_rx` run, need to supply `FLEN_init` in extraStandDat!")}
           
           if (fbfm == "default"){
             key_text_all <- c(
