@@ -1,4 +1,7 @@
 ### This function, written by Laurel Sindewald and Rachel Houtman, and modified by Daniel Perret, writes the keyword file needed for a large multi-stand FVS run. There are extensions for conditioning the run on pre-computed variables (runtype = wet or dry) and for using FVS or LandFire fuel models (fbfm = default or landfire).
+### 
+### 
+### THIS FUNCTION PARALLELIZES ACROSS SCENARIOS, NOT ACROSS VARIANTS -- IT SHOULD PROBABLY BE REWRITTEN AT SOME POINT TO DO THAT
 
 
 write_keywords_parallel <- function(database_paths,             # list of directory paths for .db files containing FVS input tables
@@ -17,6 +20,7 @@ write_keywords_parallel <- function(database_paths,             # list of direct
                                     
                                     nworkers = parallel::detectCores() # how many cpus?
 ) {
+  
   for(db in seq_along(database_paths)){ # run the function for every variant included in the simulation
     # Load stand data once
     con <- DBI::dbConnect(RSQLite::SQLite(), database_paths[[db]])

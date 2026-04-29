@@ -232,7 +232,8 @@ rx.fbfm <- extract_sqlite_tables("FVS_runs//outputs/SimpleRxFire_NoWF_IE.db")
 
 
 plot(rx.wet$FVS_BurnReport$Flame_length, rx.fbfm$FVS_BurnReport$Flame_length); abline(0,1,col="red")
-
+plot(rx.wet$FVS_BurnReport$FuelModl1, rx.fbfm$FVS_BurnReport$FuelModl1); abline(0,1,col="red")
+plot(rx.wet$FVS_Carbon$Carbon_Released_From_Fire, rx.fbfm$FVS_Carbon$Carbon_Released_From_Fire); abline(0,1,col="red")
 
 
 

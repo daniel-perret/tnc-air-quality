@@ -11,7 +11,7 @@ library(future.callr)
 ## ---- setup ----
 setwd(here())
 
-runName <- "RxWetRun_fuelmoisture3_22Apr26_1539"
+runName <- "RxWetRun_fuelmoisture3_fbfmMatch_24Apr26_1630"
 
 tm_path   <- "data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif"
 

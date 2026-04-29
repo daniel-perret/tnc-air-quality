@@ -117,6 +117,8 @@ gc()
 
 ## ---- actuarial calculations ----
 
+
+#stack all flame length rasters to calculate across
 fl.rast <- list.files("data/flamstat/flamelength_rasters/PreTreatment_CONUS/",full.names = T) %>% 
   str_subset("Conditional",negate = T) %>% 
   str_subset(".tif.",negate = T) %>% 
@@ -126,13 +128,16 @@ fl.rast <- list.files("data/flamstat/flamelength_rasters/PreTreatment_CONUS/",fu
   rast() %>% 
   crop(variant, mask = T)
 
+#apply a layer sum across emissions and flame length prob product rasters
 cond.emit <- app(emit_stack*fl.rast, sum)
 
+#calculate emissions standard deviation
 sd.emit <- app(
   fl.rast * ((emit_stack - cond.emit)^2),
   \(x) sqrt(sum(x, na.rm = TRUE))
 )
 
+#and cv
 cv.emit <- sd.emit/cond.emit
 
 
