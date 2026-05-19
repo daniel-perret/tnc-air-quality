@@ -1,6 +1,7 @@
 ### This function, written by Rachel Houtman and Laurel Sindwald and modified by Daniel Perret, writes the core keyword text for an FVS run. This function is intended to be called from another "write_keywords" function that iterates across all stands included in the simulation.
 
-createKeyText_wet_fbfm <- function(stand,            # Unique stand ID present in the standinit data
+createKeyText_wet_fbfm <- function(key,              # unique key
+                                   stand,            # TM stand id
                                    managementID,     # identifier for management scenario
                                    outputDatabase,   # .db for simulation output
                                    treat_kcp,        # optional .kcp specifying treatment
@@ -30,7 +31,7 @@ createKeyText_wet_fbfm <- function(stand,            # Unique stand ID present i
   
   ### Keytext
   keytext <- paste0(
-    'STDIDENT\n', stand, '\n',
+    'STDIDENT\n', key, '\n',
     'STANDCN\n', stand, '\n',
     'MGMTID\n', managementID, '\n',
     'NUMCYCLE        ', ncycles, '\n',

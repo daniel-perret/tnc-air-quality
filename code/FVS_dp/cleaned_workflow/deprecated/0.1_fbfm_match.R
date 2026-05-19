@@ -22,11 +22,21 @@ variants.shp <- sf::read_sf("../../SHARED_DATA/FVSVariantMap20210525/FVS_Variant
 ## parallelize across variants
 
 future::plan(future.callr::callr,
-             workers=parallel::detectCores())
+             workers=4)
 
-furrr::future_pmap(_
+furrr::future_pmap(
   list(variant = variants),
   function(variant){
+    # 
+    # td <- tempfile()
+    # dir.create(td, recursive = TRUE)
+    # terra::terraOptions(tempdir = td, threads = 1)    
+    
+    tm <- rast("data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif")
+    activeCat(tm) <- 8
+    
+    lf.fbfm <- rast("../../SHARED_DATA/LANDFIRE/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif")
+    activeCat(lf.fbfm) <- 0
     
     variant.vect <- variants.shp %>% 
       filter(FVSVariant==variant) %>% 
@@ -43,7 +53,13 @@ furrr::future_pmap(_
                   variant.vect, 
                   mask = T)
     
-    fbfm.dat <- terra::crosstab(c(tm.clip, lf.clip)) %>%
+    lf_aligned <- terra::resample(
+      lf.clip,
+      tm.clip,
+      method = "near"   # categorical-safe
+    )
+    
+    fbfm.dat <- terra::crosstab(c(tm.clip, lf_aligned)) %>%
       as.data.frame() %>% 
       filter(Freq>0) %>% 
       select(StandID,

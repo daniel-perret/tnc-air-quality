@@ -236,5 +236,37 @@ plot(rx.wet$FVS_BurnReport$FuelModl1, rx.fbfm$FVS_BurnReport$FuelModl1); abline(
 plot(rx.wet$FVS_Carbon$Carbon_Released_From_Fire, rx.fbfm$FVS_Carbon$Carbon_Released_From_Fire); abline(0,1,col="red")
 
 
+#### ----- 
 
+old.run <- extract_sqlite_tables("FVS_runs/RH_reptest_WF_VarIE_31Mar26_1806/outputs/NoTreat_FlameAdjust_wildfire_10_IE.db")
 
+fix.run <- extract_sqlite_tables("FVS_runs/DryRun_test_Cycle2_complete_20Apr26_1118/outputs/NoTreat_FlameAdjust_wildfire_10_IE.db")
+
+old.carbon <- old.run$FVS_Carbon %>% filter(Year == 2020)
+fix.carbon <- fix.run$FVS_Carbon %>% filter(Year == 2020)
+
+plot(old.run$FVS_Carbon$Carbon_Released_From_Fire, fix.run$FVS_Carbon$Carbon_Released_From_Fire)
+abline(0,1,col="red")
+
+x <- (fix.carbon$Carbon_Released_From_Fire-old.carbon$Carbon_Released_From_Fire)/old.carbon$Carbon_Released_From_Fire
+
+hist(x)
+summary(x)
+
+sum(x>0.05)/length(x)
+
+##### ----
+
+rx.dry <- extract_sqlite_tables("FVS_runs/RxDryRun_fullLFmatch_11May26_1342/outputs/SimpleRxFire_NoWF_IE.db")
+
+rx.wet <- extract_sqlite_tables("FVS_runs/RxWetRun_fullLFmatch_12May26_1053/outputs/ModRxFire_NoWF_IE.db")
+
+View(rx.wet$FVS_Compute)
+
+tmlfkey <- read.csv("data/tmlf_keys/tmlf_key_conus.csv",header=T,stringsAsFactors = F)
+
+rx.old <- extract_sqlite_tables("FVS_runs/RxWetRun_fuelmoisture3_fbfmMatch_24Apr26_1630/outputs/ModRxFire_NoWF_IE.db")
+
+rx.new <- extract_sqlite_tables("FVS_runs/RxWetRun_fullLFmatch_FLENbin_13May26_0854/outputs/ModRxFire_NoWF_IE.db")
+
+nrow(rx.new$FVS_Carbon)

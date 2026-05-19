@@ -1,19 +1,11 @@
-##### This script turns FVS Rx fire emissions outputs into raster layers based on TreeMap imputation
-
-library(terra)
-library(DBI)
-library(RSQLite)
-library(dplyr)
-library(furrr)
-library(future)
-library(future.callr)
 
 ## ---- setup ----
 setwd(here())
 
-runName <- "RxWetRun_fuelmoisture3_fbfmMatch_24Apr26_1630"
+runName <- "RxWetRun_fullLFmatch_FLENbin_13May26_0854"
 
-tm_path   <- "data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif"
+tm_path   <- "data/tmlf_keys/tmlf_key_conus.tif"
+#tm_path   <- "data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif"
 
 variant_path  <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVSVariantMap20210525/FVS_Variants_and_Locations.shp"
 
@@ -23,18 +15,18 @@ outpath <- paste0("data/dp_FVS_postprocess/", runName)
 dir.create(outpath)
 
 ## ---- load + clip TreeMap raster (just need path now) ----
-# tm.ras   <- terra::rast(tm_path)
-# variant <- vect(variant_path) %>%    # Here we're filtering to IE, but could parallelize over Variants as well
-#   filter(FVSVariant == "IE") %>% 
-#   terra::project(crs(tm.ras))
-# tm.clip  <- crop(tm.ras, variant, mask = TRUE)
-# activeCat(tm.clip) <- 8
-# 
-# writeRaster(tm.clip,
-#             "data/dp_FVS_postprocess/DryRun_test_Cycle2_complete_20Apr26_1118/tm_ref_IE.tif")
-# rm(tm.clip)
+tm.ras   <- terra::rast(tm_path)
+variant <- vect(variant_path) %>%    # Here we're filtering to IE, but could parallelize over Variants as well
+  filter(FVSVariant == "IE") %>%
+  terra::project(crs(tm.ras))
+tm.clip  <- crop(tm.ras, variant, mask = TRUE)
+#activeCat(tm.clip) <- 8
 
-tm.path <- "data/dp_FVS_postprocess/DryRun_test_Cycle2_complete_20Apr26_1118/tm_ref_IE.tif"
+writeRaster(tm.clip,
+            paste0(outpath,"/tmlf_key_IE.tif"))
+rm(tm.clip)
+
+tm.path <- "data/dp_FVS_postprocess/RxWetRun_fullLFmatch_12May26_1053/tmlf_key_IE.tif"
 
 ## ---- db pull ONCE ----
 
@@ -74,7 +66,7 @@ process_var <- function(var) {
 ## ---- parallel reclassification ----
 
 future::plan(future.callr::callr, 
-             workers = parallel::detectCores())
+             workers = parallel::detectCores()-2)
 
 furrr::future_map(
   target_vars,

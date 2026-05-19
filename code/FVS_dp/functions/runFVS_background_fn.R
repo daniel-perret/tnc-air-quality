@@ -1,6 +1,7 @@
 runFVS_background <- function(runs, RunDirectory, fvs_bin, runFVS){
   library(future)
   library(furrr)
+  library(rFVS)
   
   future::plan(multisession,
                workers = parallel::detectCores())

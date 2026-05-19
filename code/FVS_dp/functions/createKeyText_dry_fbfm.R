@@ -1,14 +1,15 @@
 ### This function, written by Rachel Houtman and Laurel Sindwald and modified by Daniel Perret, writes the core keyword text for an FVS run. This function is intended to be called from another "write_keywords" function that iterates across all stands included in the simulation.
 
-createKeyText_dry_fbfm <- function(stand,            # Unique stand ID present in the standinit data
-                                                         managementID,     # identifier for management scenario
-                                                         outputDatabase,   # .db for simulation output
-                                                         treat_kcp,        # optional .kcp specifying treatment
-                                                         fire_kcp,         # optional .kcp specifying fire
-                                                         ncycles = 10,     # How many simulation cycles to carry out
-                                                         interval = 1,     # How many years in each cycle?
-                                                         inputDatabase,     # .db with all input tables
-                                                         fbfm.list = NULL # vector of fuel models to be made available for the stand
+createKeyText_dry_fbfm <- function(key, # unique indentifier simulation
+                                   stand,            # Unique stand ID present in the standinit data
+                                   managementID,     # identifier for management scenario
+                                   outputDatabase,   # .db for simulation output
+                                   treat_kcp,        # optional .kcp specifying treatment
+                                   fire_kcp,         # optional .kcp specifying fire
+                                   ncycles = 10,     # How many simulation cycles to carry out
+                                   interval = 1,     # How many years in each cycle?
+                                   inputDatabase,     # .db with all input tables
+                                   fbfm.list = NULL # vector of fuel models to be made available for the stand
 ) {
   
   ### FMODLIST
@@ -23,7 +24,7 @@ createKeyText_dry_fbfm <- function(stand,            # Unique stand ID present i
   
   ### Keytext
   keytext <- paste0(
-    'STDIDENT\n', stand, '\n',
+    'STDIDENT\n', key, '\n',
     'STANDCN\n', stand, '\n',
     'MGMTID\n', managementID, '\n',
     'NUMCYCLE        ', ncycles, '\n',
