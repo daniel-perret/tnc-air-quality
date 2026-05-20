@@ -1,25 +1,36 @@
-# Set location of TMFM sqlite databases and read in data
+#### 1.0_WildfireWetRun.R
+#### Runs FVS wildfire simulations across six flame length bins for all CONUS variants.
+#### Canopy fuel variables (CBH, CHT, CBD) are conditioned from a completed initial dry run.
+#### Outputs: per-variant SQLite databases in RunDirectory/outputs/
+
+
+## ---- Configuration ----
+
+# Input databases
 TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_inputs/TMFM_2020_InputDatabases/"
 
-dbs <- list.files(TMFM2020_dir_path,
-                  full.names=TRUE)
+# Completed initial dry run to condition canopy fuel variables from
+dry_run_name <- "NoFireDryRun_13May26_1703"
 
-dbs <- dbs[9]
-
-#Name the FVS run
+# FVS run name
 run_name <- str_c("Wildfire_WetRun_",
                   strftime(Sys.Date(), "%d%b%y"),
                   "_", strftime(Sys.time(), "%H%M"))
 
-# Create a dir for this run.
-RunDirectory <- str_c(here(), "/FVS_runs/full/", run_name)
+run_name <- 
+## ---- Run directory setup ----
+
+dbs <- list.files(TMFM2020_dir_path, full.names = TRUE)
+
+RunDirectory <- here("FVS_runs/full", run_name)
 dir.create(RunDirectory)
 
-setwd(paste0(RunDirectory))
+setwd(RunDirectory)
 
 log_session_info()
 
-#Create a table of FSim fire scenario parameters (flame lengths and associated fuel moisture and weather conditions)
+
+## ---- Fire scenario parameters ----
 
 FSim_scenarios <- data.frame(
   fire_year = 1,
@@ -38,85 +49,79 @@ FSim_scenarios <- data.frame(
   season = 3   # post-greenup, not autumn as stated in methods doc
 )
 
-# Write the kcp files for the wildfire parameters set above
-
 write_kcps_wildfire(params_df = FSim_scenarios,
                     output_dir = "fire_kcps/")
 
-fire_kcps <- list.files(paste0(RunDirectory, "/fire_kcps"), full.names = TRUE)
+fire_kcps <- list.files(file.path(RunDirectory, "fire_kcps"), full.names = TRUE)
 
-#
 
-dry.run.paths <- list.files(paste0(here(),"/FVS_runs/full/NoFireDryRun_13May26_1703/outputs"), full.names=T)
+## ---- Load dry run conditioning data ----
+
+dry.run.paths <- list.files(here("FVS_runs/full", dry_run_name, "outputs"), full.names = TRUE)
 
 extraStandDat <- data.frame(Stand_ID = NA,
                             CBH_init = NA,
                             CHT_init = NA,
                             CBD_init = NA)
 
-for(path in dry.run.paths){
+for (path in dry.run.paths) {
   dry.db <- extract_sqlite_tables(path)
   extraStandDat <- bind_rows(extraStandDat,
-                             dry.db$FVS_Compute %>% 
-                               filter(Year == 2020) %>% 
-                               select(Stand_ID = StandID, 
-                                      CBH_init = CBH, 
-                                      CHT_init = CHT, 
+                             dry.db$FVS_Compute %>%
+                               filter(Year == 2020) %>%
+                               select(Stand_ID = StandID,
+                                      CBH_init = CBH,
+                                      CHT_init = CHT,
                                       CBD_init = CBD))
 }
 
-# Write the simulation .key files
+extraStandDat <- extraStandDat %>% filter(!is.na(Stand_ID))
 
-write_keywords_parallel(database_paths = dbs, 
-                        stand_subset = "all", 
-                        FSim_scenarios = FSim_scenarios, #rename this var
-                        treat_kcps=NA, 
-                        fire_kcps=fire_kcps,
-                        ncycles = 2,
-                        runtype = "wet",
-                        interval = 1,
-                        extraStandDat = extraStandDat)
 
-#Reset parallel backend
-plan(sequential)
+## ---- Write FVS keyword files ----
 
-#Create the data frame of run scenario parameters to parallelize over
+write_keywords_fullparallel_fullmatch(RunDirectory = RunDirectory,
+                                      database_paths = dbs,
+                                      stand_subset = "all",
+                                      treat_kcps = NA,
+                                      fire_kcps = fire_kcps,
+                                      ncycles = 2,
+                                      interval = 1,
+                                      runtype = "wet",
+                                      fbfm = "default",
+                                      extraStandDat = extraStandDat,
+                                      nworkers = parallel::detectCores() - 2)
 
-variants <- c("ie")
 
-fire_scenarios <- list.files("./fire_kcps")
-fire_scenarios <- stringr::str_sub(fire_scenarios, end = -5) 
+## ---- Build runs table ----
 
-runs <- expand.grid(variant=variants, 
-                    flame_length = FSim_scenarios$flame_length, #treatment = treatments, 
-                    stringsAsFactors = FALSE) %>% 
-  left_join(data.frame(fire_kcp = fire_scenarios, 
+variants <- dbs %>%
+  str_sub(-5, -4) %>%
+  tolower()
+
+fire_scenarios <- list.files("./fire_kcps") %>%
+  tools::file_path_sans_ext()
+
+runs <- expand.grid(variant = variants,
+                    flame_length = FSim_scenarios$flame_length,
+                    stringsAsFactors = FALSE) %>%
+  left_join(data.frame(fire_kcp = fire_scenarios,
                        flame_length = readr::parse_number(fire_scenarios)),
-            by = "flame_length") %>% 
-  mutate(treatments = "NoTreat")
+            by = "flame_length") %>%
+  mutate(treatment = "NoTreat")
 
 
-#runs <- runs[5,] # just 10 ft for testing
+## ---- Save and dispatch ----
 
-#Make an outputs directory
+dir.create(file.path(RunDirectory, "outputs"))
 
-dir.create(paste0(RunDirectory, "/outputs"))
-
-future::plan(future.callr::callr, 
-             workers = parallel::detectCores())
-
-#Run FVS in parallel for all combinations
-furrr::future_pmap(
+saveRDS(
   list(
-    variant = runs$variant,
-    flame_length=runs$flame_length,
-    treatment=runs$treatment,
-    fire_kcp=runs$fire_kcp
+    runs         = runs,
+    RunDirectory = RunDirectory,
+    fvs_bin      = fvs_bin
   ),
-  runFVS,
-  RunDirectory = RunDirectory,
-  fvs_bin = fvs_bin
+  file = file.path(RunDirectory, "runFVS_inputs.rds")
 )
 
-plan(sequential)
-gc()
+## Run FVS via terminal: Rscript runFVS_batch.R
