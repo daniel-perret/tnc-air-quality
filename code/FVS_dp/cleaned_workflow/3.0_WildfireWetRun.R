@@ -10,14 +10,16 @@
 TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_inputs/TMFM_2020_InputDatabases/"
 
 # Completed initial dry run to condition canopy fuel variables from
-dry_run_name <- "NoFireDryRun_13May26_1703"
+dry_run_name <- "NoFireDryRun_20May26_1629"
 
 # FVS run name
 run_name <- str_c("Wildfire_WetRun_",
                   strftime(Sys.Date(), "%d%b%y"),
                   "_", strftime(Sys.time(), "%H%M"))
 
-run_name <- 
+# or set run_name manually for an interrupted session
+run_name <- "Wildfire_WetRun_21May26_0855"
+
 ## ---- Run directory setup ----
 
 dbs <- list.files(TMFM2020_dir_path, full.names = TRUE)
@@ -59,24 +61,15 @@ fire_kcps <- list.files(file.path(RunDirectory, "fire_kcps"), full.names = TRUE)
 
 dry.run.paths <- list.files(here("FVS_runs/full", dry_run_name, "outputs"), full.names = TRUE)
 
-extraStandDat <- data.frame(Stand_ID = NA,
-                            CBH_init = NA,
-                            CHT_init = NA,
-                            CBD_init = NA)
-
-for (path in dry.run.paths) {
-  dry.db <- extract_sqlite_tables(path)
-  extraStandDat <- bind_rows(extraStandDat,
-                             dry.db$FVS_Compute %>%
-                               filter(Year == 2020) %>%
-                               select(Stand_ID = StandID,
-                                      CBH_init = CBH,
-                                      CHT_init = CHT,
-                                      CBD_init = CBD))
-}
-
-extraStandDat <- extraStandDat %>% filter(!is.na(Stand_ID))
-
+extraStandDat <- map_df(dry.run.paths, ~ {
+  extract_sqlite_tables(.) %>%
+    pluck("FVS_Compute") %>%
+    filter(Year == 2020) %>%
+    select(Stand_ID = StandID,
+           CBH_init = CBH,
+           CHT_init = CHT,
+           CBD_init = CBD)
+})
 
 ## ---- Write FVS keyword files ----
 

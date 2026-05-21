@@ -12,12 +12,17 @@ activeCat(lf.fbfm) <- 2
 rx.fvs <- extract_sqlite_tables("FVS_runs/RxWetRun_fullLFmatch_FLENbin_13May26_0854/outputs/ModRxFire_NoWF_IE.db")
 
 set.seed(4)
-ratio.sample <- spatSample(rx.wf.ratio,size = 5e5,cells= T, na.rm=T) %>% na.omit()
+ratio.sample <- spatSample(rx.wf.ratio,size = 1e6,cells= T, na.rm=T) %>% na.omit()
 fl.sample <- values(rx.fl)[ratio.sample$cell]
 tm.sample <- values(tm)[ratio.sample$cell]
 #lf.sample <- values(lf.fbfm)[ratio.sample$cell]
 
 r.sample <- ratio.sample %>% 
+  mutate(Rx_FlameLength = fl.sample,
+         StandID = as.numeric(tm.sample)) %>% 
+  # left_join(cats(lf.fbfm) %>% 
+  #             as.data.frame() %>% 
+  #             select(Value, FBFM40),
   mutate(Rx_FlameLength = fl.sample,
          StandID = as.numeric(tm.sample)) %>% 
   # left_join(cats(lf.fbfm) %>% 
@@ -112,3 +117,21 @@ sum(old.sample>1)/nrow(r.sample)
 length(unique(r.sample$StandID[which(old.sample>1)]))/length(unique(r.sample$StandID))
 
 r.sample %>% filter(Rx_WF_Ratio>1) %>% pull(Rx_WF_Ratio) %>% mean()
+
+
+
+
+wf.list <- list.files("FVS_runs/dev/DryRun_test_Cycle2_complete_20Apr26_1118/outputs/",
+                      full.names = T)
+wf.compute <- data.frame()
+for(path in wf.list){
+  x <- extract_sqlite_tables(path)
+  wf.compute <- wf.compute %>% 
+    bind_rows(x$FVS_Compute)
+}
+wf.consume <- data.frame()
+for(path in wf.list){
+  x <- extract_sqlite_tables(path)
+  wf.consume <- wf.consume %>% 
+    bind_rows(x$FVS_Consumption)
+}
