@@ -45,13 +45,13 @@ rcl <- keys %>%
   select(comp.key, real.key) %>%
   as.matrix()
 
-# combine_raster <- classify(
-#   key,
-#   rcl = rcl,
-#   others = NA,
-#   filename = "data/tmlf_keys/tmlf_key_conus.tif",
-#   overwrite = TRUE
-# )
+combine_raster <- classify(
+  key,
+  rcl = rcl,
+  others = NA,
+  filename = "data/tmlf_keys/tmlf_key_conus.tif",
+  overwrite = TRUE
+)
 
 write.table(keys, 
             file = "data/tmlf_keys/tmlf_key_conus.csv",

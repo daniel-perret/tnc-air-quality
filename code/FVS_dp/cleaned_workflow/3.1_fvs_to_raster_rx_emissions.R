@@ -36,7 +36,7 @@ dir.create(outpath_root, showWarnings = FALSE)
 tmlf.ras <- rast(tmlf_path)
 activeCat(tmlf.ras) <- 1  # verify column index for tmlf_key_conus.tif
 
-variants_vect <- vect(variant_path) %>%
+variants_vect <- vect(variant_path) %>% 
   project(crs(tmlf.ras))
 
 # TMLF lookup table (key → TreeMap StandID and LandFire FBFM)

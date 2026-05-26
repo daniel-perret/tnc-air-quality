@@ -3,7 +3,6 @@
 #### For each FVS variant: reclassifies the TMFM2020 raster using per-stand emissions
 #### for each flame length bin, then computes conditional expected emissions weighted
 #### by FlamStat flame length probability rasters.
-#### Parallelizes over variants (not FL bins) for full worker utilization.
 #### Outputs: per-variant rasters in data/dp_FVS_postprocess/{wf_run_name}/{VARIANT}/
 #### Variant rasters are mosaicked into CONUS layers in 3.2_variant_rasters_merge.R
 
@@ -33,86 +32,82 @@ dir.create(outpath_root, showWarnings = FALSE)
 # Unique variants present in run outputs
 run_variants <- str_sub(basename(all_dbs), -5, -4) %>% unique()
 
-# Assume all variants have the same FL levels (from wildfire config)
-# If variants have different FL levels, this will need to be computed per-variant
-fl_levels <- c(1, 3, 5, 7, 10, 20)
-fl_colnames <- paste0("FL", fl_levels)
 
+## ---- Per-variant rasterization loop ----
 
-## ---- Per-variant processing function (to be parallelized) ----
+for (variant in run_variants) {
 
-process_variant_all_fls <- function(variant, all_dbs_input, tm_clip_dir_input, 
-                                     fl_clip_dir_input, fl_colnames_input, 
-                                     outpath_root_input) {
-  
   message("Processing variant: ", variant)
-  
-  terra::terraOptions(memmax = 6, progress = 0, parallel = FALSE)
-  
-  outpath <- file.path(outpath_root_input, variant)
+
+  outpath <- file.path(outpath_root, variant)
   dir.create(outpath, showWarnings = FALSE)
-  
+
   # Use pre-clipped TreeMap raster for this variant
-  tm.clip.path <- file.path(tm_clip_dir_input, paste0("tm_ref_", variant, ".tif"))
-  
+  tm.clip.path <- file.path(tm_clip_dir, paste0("tm_ref_", variant, ".tif"))
+
   # Build reclass table from all FL databases for this variant
-  variant_dbs <- all_dbs_input[str_detect(all_dbs_input, paste0("_", variant, "\\.db$"))]
-  
+  variant_dbs <- all_dbs[str_detect(all_dbs, paste0("_", variant, "\\.db$"))]
+
   reclass.long <- map_dfr(variant_dbs, function(db_path) {
     fl_val <- parse_number(basename(db_path))
     con    <- dbConnect(SQLite(), db_path)
     dat    <- dbGetQuery(con, "SELECT StandID, Carbon_Released_From_Fire
                                FROM FVS_Carbon WHERE Year = 2020")
     dbDisconnect(con)
-    mutate(dat, FL = fl_val, StandID = as.integer(StandID))
+    
+    dat %>% 
+      mutate(FL = fl_val,
+             StandID = as.integer(StandID))
   })
-  
-  fl_levels_present   <- sort(unique(reclass.long$FL))
-  fl_colnames_present <- paste0("FL", fl_levels_present)
-  
+
+  fl_levels   <- sort(unique(reclass.long$FL))
+  fl_colnames <- paste0("FL", fl_levels)
+
   reclass.df <- reclass.long %>%
     pivot_wider(names_from   = FL,
                 values_from  = Carbon_Released_From_Fire,
                 names_prefix = "FL") %>%
-    select(StandID, all_of(fl_colnames_present))
-  
-  # Reclassify raster for each FL bin SEQUENTIALLY (no inner parallelization)
-  for (var in fl_colnames_present) {
+    select(StandID, all_of(fl_colnames))
+
+  # Reclassify raster for each FL bin in parallel
+  process_var <- function(var) {
     reclass.mat <- reclass.df %>%
       select(from = StandID, to = all_of(var)) %>%
       as.matrix()
-    
+
     out <- terra::classify(rast(tm.clip.path), reclass.mat, others = NA)
     names(out) <- var
-    
-    terra::writeRaster(out, file.path(outpath, paste0(var, ".tif")), overwrite = TRUE)
-    rm(out)
+
+    writeRaster(out, file.path(outpath, paste0(var, ".tif")), overwrite = TRUE)
     gc()
   }
-  
+
+  future::plan(future.callr::callr, workers = parallel::detectCores() - 2)
+  furrr::future_map(fl_colnames, process_var)
+
   # Stack FL emissions rasters (already in ascending FL order)
-  emit_stack <- rast(file.path(outpath, paste0(fl_colnames_present, ".tif")))
+  emit_stack <- rast(file.path(outpath, paste0(fl_colnames, ".tif")))
   gc()
-  
+
   # Load pre-cropped FL rasters for this variant
-  fl.rast <- rast(file.path(fl_clip_dir_input, paste0("fl_clip_", variant, ".tif")))
+  fl.rast <- rast(file.path(fl_clip_dir, paste0("fl_clip_", variant, ".tif")))
   
-  # Align extents
+  # Align extents by cropping each to the other
   emit_stack <- crop(emit_stack, fl.rast)
   #fl.rast <- crop(fl.rast, emit_stack)
-  
+
   # Conditional expected emissions (probability-weighted mean across FL bins)
   cond.emit <- app(emit_stack * fl.rast, sum)
-  
+
   # Conditional standard deviation
   sd.emit <- app(
     fl.rast * (emit_stack - cond.emit)^2,
     \(x) sqrt(sum(x, na.rm = FALSE))
   )
-  
+
   # Coefficient of variation
   cv.emit <- sd.emit / cond.emit
-  
+
   writeRaster(cond.emit,
               file.path(outpath, "Conditional_mean_CarbonReleasedFromFire.tif"),
               overwrite = TRUE)
@@ -122,25 +117,8 @@ process_variant_all_fls <- function(variant, all_dbs_input, tm_clip_dir_input,
   writeRaster(cv.emit,
               file.path(outpath, "Conditional_cv_CarbonReleasedFromFire.tif"),
               overwrite = TRUE)
-  
+
   rm(reclass.long, reclass.df, emit_stack, fl.rast, cond.emit, sd.emit, cv.emit)
   gc()
   message("Variant ", variant, " complete.")
-  
 }
-
-
-## ---- Parallel execution over variants ----
-
-future::plan(future.callr::callr, workers = 10)
-furrr::future_map(run_variants,
-                  ~ process_variant_all_fls(., 
-                                           all_dbs, 
-                                           tm_clip_dir, 
-                                           fl_clip_dir,
-                                           fl_colnames,
-                                           outpath_root),
-                  .progress = TRUE)
-future::plan(sequential)
-
-message("Wildfire rasterization complete.")

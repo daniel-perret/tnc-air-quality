@@ -18,7 +18,8 @@ select <- dplyr::select
 #### source all FVS helper function
 
 lapply(list.files(here::here("code/FVS_dp/functions"),
-                  full.names = TRUE), source)
+                  full.names = TRUE,
+                  pattern = ".R"), source)
 
 
 # setting my preferred ggplot2 theme
