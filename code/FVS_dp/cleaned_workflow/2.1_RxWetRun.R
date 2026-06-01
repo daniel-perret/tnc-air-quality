@@ -13,7 +13,7 @@ TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_input
 
 # Completed runs to condition from
 init_dry_run_name <- "NoFireDryRun_20May26_1629"   # 0.2 output
-rx_dry_run_name   <- "RxDryRun_XXXXXxXX_XXXX"      # 2.0 output — set before running
+rx_dry_run_name   <- "RxDryRun_26May26_1222"      # 2.0 output — set before running
 
 # FVS run name
 run_name <- str_c("RxWetRun_",
@@ -83,6 +83,11 @@ extraStandDat <- fl_dat %>%
 
 
 ## ---- Specify treatment keyword files ----
+
+treat_kcp_dir <- file.path(RunDirectory, "treat_kcps")
+if (!dir.exists(treat_kcp_dir)) {
+  stop("Treatment .kcp directory not found: ", treat_kcp_dir)
+}
 
 treat_kcps <- list.files(file.path(RunDirectory, "treat_kcps"), full.names = TRUE)
 

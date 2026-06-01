@@ -40,9 +40,12 @@ fbfm.key <- read.csv(here("data/tmlf_keys/tmlf_key_conus.csv"),
 
 ## ---- Specify treatment keyword files ----
 
+treat_kcp_dir <- file.path(RunDirectory, "treat_kcps")
+if (!dir.exists(treat_kcp_dir)) {
+  stop("Treatment .kcp directory not found: ", treat_kcp_dir)
+}
 
-
-treat_kcps <- list.files(file.path(RunDirectory, "treat_kcps"), full.names = TRUE)
+treat_kcps <- list.files(treat_kcp_dir, full.names = TRUE)
 
 
 ## ---- Write FVS keyword files ----

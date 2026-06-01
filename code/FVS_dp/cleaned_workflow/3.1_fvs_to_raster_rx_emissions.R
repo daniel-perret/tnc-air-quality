@@ -6,14 +6,17 @@
 #### Outputs: per-variant rasters in data/dp_FVS_postprocess/{rx_run_name}/{VARIANT}/
 #### Variant rasters are mosaicked into CONUS layers in 3.4_variant_raster_merge.R
 
+source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
 
 ## ---- Configuration ----
 
+setwd(here())
+
 # Completed prescribed fire wet run to rasterize
-rx_run_name <- "RxWetRun_XXXX"
+rx_run_name <- "RxWetRun_28May26_1323"
 
 # Completed wildfire run for ratio calculations
-wf_run_name <- "Wildfire_WetRun_XXXX"
+wf_run_name <- "Wildfire_WetRun_21May26_0855"
 
 # TreeMap-LandFire combination raster (pixel → unique TM-LF combination)
 tmlf_path <- "data/tmlf_keys/tmlf_key_conus.tif"
@@ -34,7 +37,7 @@ dir.create(outpath_root, showWarnings = FALSE)
 
 # Load TMLF raster and variant boundaries
 tmlf.ras <- rast(tmlf_path)
-activeCat(tmlf.ras) <- 1  # verify column index for tmlf_key_conus.tif
+#activeCat(tmlf.ras) <- 1  # verify column index for tmlf_key_conus.tif
 
 variants_vect <- vect(variant_path) %>% 
   project(crs(tmlf.ras))
@@ -47,6 +50,8 @@ run_variants <- str_sub(basename(all_dbs), -5, -4) %>% unique()
 
 
 ## ---- Per-variant rasterization loop ----
+
+terraOptions(memfrac = 0.8, memmax = 24)
 
 for (variant in run_variants) {
 
@@ -125,6 +130,10 @@ for (variant in run_variants) {
 
   rx_emit <- rast(file.path(outpath,
                             "Rx_CarbonReleasedFromFire.tif"))
+
+  # Align extents
+  rx_emit <- crop(rx_emit, wf_cond)
+  #wf_cond <- crop(wf_cond, rx_emit)
 
   ratio <- rx_emit / wf_cond
 

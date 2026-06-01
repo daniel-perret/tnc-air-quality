@@ -49,10 +49,19 @@ write_keywords_fullparallel_fullmatch <- function(RunDirectory = here::here(),
           filter(Stand_ID %in% db.in$Stand_ID)
         
         rm(db.in)
+        
       } else if(runtype == "wet_rx") {
         
         if(is.null(extraStandDat)){stop("must supply extraStandDat")}
-        standinit <- extraStandDat
+        
+        con <- dbConnect(SQLite(), db_path)
+        db.in <- dbReadTable(con, "FVS_STANDINIT")
+        dbDisconnect(con)
+        
+        standinit <- extraStandDat %>% 
+          filter(TM_StandID %in% db.in$Stand_ID)
+        
+        rm(db.in)
         
       } else if (runtype == "wet"){stop("full FBFM match not implemented for wet runtype")}
       
@@ -96,6 +105,9 @@ write_keywords_fullparallel_fullmatch <- function(RunDirectory = here::here(),
     if (!runtype %in% c("dry", "wet", "wet_rx")){
       stop("Runtype must be 'dry', 'wet', or 'wet_rx'")
     }
+    
+    
+    ## STAND LOOP #####################################################
     
     for (j in stand.indices) {
       
