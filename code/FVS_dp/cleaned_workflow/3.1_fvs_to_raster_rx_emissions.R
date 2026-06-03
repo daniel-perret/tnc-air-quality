@@ -89,6 +89,7 @@ for (variant in run_variants) {
   dbDisconnect(con)
 
   # Join emissions and flame length, then join to TMLF key to get combination IDs
+  # Note: StandID from rx FVS output tables corresponds with TMLF key field
   reclass.df <- rx_carbon %>%
     rename(Rx_CarbonReleasedFromFire = Carbon_Released_From_Fire) %>%
     left_join(rx_burnrep %>%
@@ -98,14 +99,14 @@ for (variant in run_variants) {
     left_join(tmlf_key %>%
                 select(real.key, tm, lf) %>%
                 rename(key = real.key, TM_StandID = tm),
-              by = c("StandID" = "TM_StandID"))
+              by = c("StandID" = "key"))
 
   target_vars <- c("Rx_CarbonReleasedFromFire", "Rx_FlameLength")
 
   # Reclassify raster for emissions and flame length in parallel
   process_var <- function(var) {
     reclass.mat <- reclass.df %>%
-      select(from = key, to = all_of(var)) %>%
+      select(from = StandID, to = all_of(var)) %>%
       as.matrix()
 
     out <- terra::classify(rast(tmlf.clip.path), reclass.mat, others = NA)

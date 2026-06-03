@@ -13,7 +13,7 @@ TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_input
 
 # Completed runs to condition from
 init_dry_run_name <- "NoFireDryRun_20May26_1629"   # 0.2 output
-rx_dry_run_name   <- "RxDryRun_26May26_1222"      # 2.0 output — set before running
+rx_dry_run_name   <- "RxDryRun_02Jun26_2233"      # 2.0 output — set before running
 
 # FVS run name
 run_name <- str_c("RxWetRun_",
@@ -35,13 +35,13 @@ log_session_info()
 
 ## ---- Load TM-LF FBFM key ----
 
-fbfm.key <- read.csv(here("data/tmlf_keys/tmlf_key_conus.csv"),
+fbfm.key <- read.csv(here("data/tmlf_keys/tmlf_key_conus_64bit.csv"),
                      header = TRUE,
                      stringsAsFactors = FALSE) %>%
-  select(key        = real.key,
+  select(key = real.key,
          TM_StandID = tm,
-         FBFM       = lf) %>%
-  mutate(key        = as.character(key),
+         FBFM = lf) %>%
+  mutate(key = as.character(key),
          TM_StandID = as.character(TM_StandID))
 
 
@@ -104,7 +104,7 @@ write_keywords_fullparallel_fullmatch(RunDirectory   = RunDirectory,
                                       runtype        = "wet_rx",
                                       fbfm           = "full",
                                       extraStandDat  = extraStandDat,
-                                      nworkers       = parallel::detectCores() - 2)
+                                      nworkers       = parallel::detectCores() - 4)
 
 
 ## ---- Build runs table ----

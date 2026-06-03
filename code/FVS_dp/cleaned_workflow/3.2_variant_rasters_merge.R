@@ -8,7 +8,7 @@
 
 # Completed post-processing runs to mosaic
 wf_run_name <- "Wildfire_WetRun_21May26_0855"
-rx_run_name <- "RxWetRun_XXXX"
+rx_run_name <- "RxWetRun_28May26_1323"
 
 
 ## ---- Setup ----
@@ -80,7 +80,7 @@ for (layer in rx_layers) {
   
   # Write mosaicked layer
   writeRaster(mosaic,
-              file.path(mosaic_outpath, paste0("Rx_", layer)),
+              file.path(mosaic_outpath, paste0(layer)),
               overwrite = TRUE)
   
   rm(variant_rasters, mosaic)

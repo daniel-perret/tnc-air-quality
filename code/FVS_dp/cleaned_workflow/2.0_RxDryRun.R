@@ -30,7 +30,7 @@ log_session_info()
 
 ## ---- Load TM-LF FBFM key ----
 
-fbfm.key <- read.csv(here("data/tmlf_keys/tmlf_key_conus.csv"),
+fbfm.key <- read.csv(here("data/tmlf_keys/tmlf_key_conus_64bit.csv"),
                      header = TRUE,
                      stringsAsFactors = FALSE) %>%
   select(key     = real.key,

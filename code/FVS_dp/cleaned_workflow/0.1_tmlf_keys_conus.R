@@ -16,7 +16,7 @@ activeCat(tm) <- 8
 activeCat(lf) <- 0
 
 # Geometry check
-stopifnot(compareGeom(tm, lf, stopOnError = FALSE))
+stopifnot(compareGeom(tm, lf, stopOnError = T))
 
 # ------------------------------------------------------------
 # Encode (tm, lf) using numeric key: max(lf)+1
@@ -24,8 +24,9 @@ stopifnot(compareGeom(tm, lf, stopOnError = FALSE))
 mult <- cats(lf) %>% 
   as.data.frame() %>% 
   pull(Value) %>% 
-  max()
+  max() + 1
 
+terraOptions(datatype = "INT4S")
 key  <- tm * mult + lf
 names(key) <- "combo_key"
 
@@ -49,14 +50,16 @@ combine_raster <- classify(
   key,
   rcl = rcl,
   others = NA,
-  filename = "data/tmlf_keys/tmlf_key_conus.tif",
+  filename = "data/tmlf_keys/tmlf_key_conus_64bit.tif",
   overwrite = TRUE
 )
 
 write.table(keys, 
-            file = "data/tmlf_keys/tmlf_key_conus.csv",
+            file = "data/tmlf_keys/tmlf_key_conus_64bit.csv",
             sep = ",",
             row.names = F)
+
+terraOptions(datatype = "FLT4S")
 
 # Outputs:
 # - combine_raster: integer raster with values 1:n(combinations)
