@@ -13,16 +13,16 @@ source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
 setwd(here())
 
 # Completed prescribed fire wet run to rasterize
-rx_run_name <- "RxWetRun_28May26_1323"
+rx_run_name <- "RxWetRun_03Jun26_2229"
 
 # Completed wildfire run for ratio calculations
 wf_run_name <- "Wildfire_WetRun_21May26_0855"
 
 # TreeMap-LandFire combination raster (pixel → unique TM-LF combination)
-tmlf_path <- "data/tmlf_keys/tmlf_key_conus.tif"
+tmlf_path <- "data/tmlf_keys/tmlf_key_conus_64bit.tif"
 
 # TreeMap-LF combination lookup table
-tmlf_key_path <- "data/tmlf_keys/tmlf_key_conus.csv"
+tmlf_key_path <- "data/tmlf_keys/tmlf_key_conus_64bit.csv"
 
 # FVS variant boundaries shapefile
 variant_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVSVariantMap20210525/FVS_Variants_and_Locations.shp"

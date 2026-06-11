@@ -8,7 +8,7 @@
 
 # Completed post-processing runs to mosaic
 wf_run_name <- "Wildfire_WetRun_21May26_0855"
-rx_run_name <- "RxWetRun_28May26_1323"
+rx_run_name <- "RxWetRun_03Jun26_2229"
 
 
 ## ---- Setup ----
