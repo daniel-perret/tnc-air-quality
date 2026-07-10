@@ -19,10 +19,10 @@ rx_run_name <- "RxWetRun_03Jun26_2229"
 wf_run_name <- "Wildfire_WetRun_21May26_0855"
 
 # TreeMap-LandFire combination raster (pixel → unique TM-LF combination)
-tmlf_path <- "data/tmlf_keys/tmlf_key_conus_64bit.tif"
+ tmlf_path <- "data/tmlf_keys/tmlf_key_conus_64bit.tif"
 
 # TreeMap-LF combination lookup table
-tmlf_key_path <- "data/tmlf_keys/tmlf_key_conus_64bit.csv"
+ tmlf_key_path <- "data/tmlf_keys/tmlf_key_conus_64bit.csv"
 
 # FVS variant boundaries shapefile
 variant_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVSVariantMap20210525/FVS_Variants_and_Locations.shp"
@@ -122,20 +122,30 @@ for (variant in run_variants) {
   furrr::future_map(target_vars, 
                     process_var)
 
-  # Load WF conditional emissions for this variant and compute ratio
+  # Load WF conditional emissions for this variant and compute ratios
   wf_outpath <- here("data/dp_FVS_postprocess",
                      wf_run_name,
                      variant)
+  wf_outpath_90p <- here("data/dp_FVS_postprocess",
+                         paste0(wf_run_name, "_90p"),
+                         variant)
+
+  # Load standard mean emissions (from 3.0)
   wf_cond <- rast(file.path(wf_outpath,
                             "Conditional_mean_CarbonReleasedFromFire.tif"))
+
+  # Load 90th percentile mean emissions (from 3.0.1)
+  wf_cond_90p <- rast(file.path(wf_outpath_90p,
+                                "top10pct_mean_CarbonReleasedFromFire.tif"))
 
   rx_emit <- rast(file.path(outpath,
                             "Rx_CarbonReleasedFromFire.tif"))
 
   # Align extents
   rx_emit <- crop(rx_emit, wf_cond)
-  #wf_cond <- crop(wf_cond, rx_emit)
+  wf_cond_90p <- crop(wf_cond_90p, wf_cond)
 
+  # Calculate Rx:WF ratio using standard mean
   ratio <- rx_emit / wf_cond
 
   writeRaster(ratio,
@@ -143,7 +153,15 @@ for (variant in run_variants) {
                         "Rx_WF_ratio.tif"),
               overwrite = TRUE)
 
-  rm(rx_carbon, rx_burnrep, reclass.df, wf_cond, rx_emit, ratio)
+  # Calculate Rx:WF ratio using 90th percentile mean
+  ratio_90p <- rx_emit / wf_cond_90p
+
+  writeRaster(ratio_90p,
+              file.path(outpath,
+                        "Rx_WF_ratio_90p.tif"),
+              overwrite = TRUE)
+
+  rm(rx_carbon, rx_burnrep, reclass.df, wf_cond, wf_cond_90p, rx_emit, ratio, ratio_90p)
   gc()
   message("Variant ", variant, " complete.")
 }

@@ -10,10 +10,14 @@
 wf_run_name <- "Wildfire_WetRun_21May26_0855"
 rx_run_name <- "RxWetRun_03Jun26_2229"
 
+# 90th percentile runs
+wf_run_name_90p <- paste0(wf_run_name, "_90p")
+
 
 ## ---- Setup ----
 
 wf_outpath_root <- here("data/dp_FVS_postprocess", wf_run_name)
+wf_outpath_root_90p <- here("data/dp_FVS_postprocess", wf_run_name_90p)
 rx_outpath_root <- here("data/dp_FVS_postprocess", rx_run_name)
 
 mosaic_outpath <- here("data/dp_FVS_postprocess", "CONUS_mosaic")
@@ -21,6 +25,9 @@ dir.create(mosaic_outpath, showWarnings = FALSE)
 
 # Identify variants in WF outputs
 wf_variants <- list.dirs(wf_outpath_root, full.names = FALSE, recursive = FALSE)
+
+# Identify variants in WF 90p outputs
+wf_variants_90p <- list.dirs(wf_outpath_root_90p, full.names = FALSE, recursive = FALSE)
 
 # Identify variants in Rx outputs
 rx_variants <- list.dirs(rx_outpath_root, full.names = FALSE, recursive = FALSE)
@@ -30,10 +37,14 @@ wf_layers <- c("Conditional_mean_CarbonReleasedFromFire.tif",
                "Conditional_sd_CarbonReleasedFromFire.tif",
                "Conditional_cv_CarbonReleasedFromFire.tif")
 
+# WF 90p output layers to mosaic
+wf_layers_90p <- c("top10pct_mean_CarbonReleasedFromFire.tif")
+
 # Rx output layers to mosaic
 rx_layers <- c("Rx_CarbonReleasedFromFire.tif",
                "Rx_FlameLength.tif",
-               "Rx_WF_ratio.tif")
+               "Rx_WF_ratio.tif",
+               "Rx_WF_ratio_90p.tif")
 
 
 ## ---- Mosaic wildfire layers ----
@@ -55,6 +66,32 @@ for (layer in wf_layers) {
   # Write mosaicked layer
   writeRaster(mosaic,
               file.path(mosaic_outpath, paste0("WF_", layer)),
+              overwrite = TRUE)
+  
+  rm(variant_rasters, mosaic)
+  gc()
+}
+
+
+## ---- Mosaic wildfire 90p layers ----
+
+message("Mosaicking wildfire 90p layers...")
+
+for (layer in wf_layers_90p) {
+  
+  message("  Processing: ", layer)
+  
+  # Load all variant rasters for this layer
+  variant_rasters <- map(wf_variants_90p, ~ {
+    rast(file.path(wf_outpath_root_90p, .x, layer))
+  })
+  
+  # Mosaic via terra::merge()
+  mosaic <- do.call(terra::merge, variant_rasters)
+  
+  # Write mosaicked layer
+  writeRaster(mosaic,
+              file.path(mosaic_outpath, paste0("WF_90p_", layer)),
               overwrite = TRUE)
   
   rm(variant_rasters, mosaic)
