@@ -2,8 +2,14 @@
 .Rhistory
 .RData
 .Ruserdata
-
 data/
 FVS_runs/
 docs/
 .posit/assistant
+tnc-air-quality.Rproj
+arc_project/
+.Rproj
+backup.Rproj.user/
+AGENTS.md
+.RDataTmp
+.RDataTmp1
