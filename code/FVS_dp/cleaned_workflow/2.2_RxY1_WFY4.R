@@ -111,7 +111,7 @@ FSim_scenarios <- data.frame(
 )
 
 write_kcps_wildfire(params_df = FSim_scenarios,
-                    output_dir = "fire_kcps/")
+                    output_dir = "fire_kcps/")  # make sure these don't use '_init' vars
 
 fire_kcps <- list.files(file.path(RunDirectory, "fire_kcps"), full.names = TRUE)
 
