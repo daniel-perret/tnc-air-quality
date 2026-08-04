@@ -14,7 +14,7 @@ TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_input
 dry_run_name <- "NoFireDryRun_20May26_1629"
 
 # FVS run name
-run_name <- str_c("Wildfire_Y3_",
+run_name <- str_c("Wildfire_Y4_",
                   strftime(Sys.Date(), "%d%b%y"),
                   "_", strftime(Sys.time(), "%H%M"))
 
@@ -36,7 +36,7 @@ log_session_info()
 ## ---- Fire scenario parameters ----
 
 FSim_scenarios <- data.frame(
-  fire_year = 3,
+  fire_year = 4,
   flame_length = c(1, 3, 5, 7, 10, 20),
   fm1 = c(8, 7, 6, 5, 4, 3),
   fm10 = c(8, 7, 6, 5, 4, 4),
