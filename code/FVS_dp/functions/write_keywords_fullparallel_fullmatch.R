@@ -172,6 +172,7 @@ write_keywords_fullparallel_fullmatch <- function(RunDirectory = here::here(),
           key_text_all <- c(
             key_text_all,
             createKeyText_wet_fbfm(
+              key = key,
               stand = stand,
               managementID = scenario_id,
               outputDatabase = out_db,

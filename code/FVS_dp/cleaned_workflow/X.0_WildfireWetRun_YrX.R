@@ -35,8 +35,10 @@ log_session_info()
 
 ## ---- Fire scenario parameters ----
 
+fire_year <- 4
+
 FSim_scenarios <- data.frame(
-  fire_year = 4,
+  fire_year = fire_year,
   flame_length = c(1, 3, 5, 7, 10, 20),
   fm1 = c(8, 7, 6, 5, 4, 3),
   fm10 = c(8, 7, 6, 5, 4, 4),
@@ -79,7 +81,7 @@ write_keywords_fullparallel_fullmatch(RunDirectory = RunDirectory,
                                       stand_subset = "all",
                                       treat_kcps = NA,
                                       fire_kcps = fire_kcps,
-                                      ncycles = 3,
+                                      ncycles = fire_year,
                                       interval = 1,
                                       runtype = "dry",
                                       fbfm = "default",
