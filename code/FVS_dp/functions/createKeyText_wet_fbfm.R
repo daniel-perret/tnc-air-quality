@@ -81,10 +81,16 @@ createKeyText_wet_fbfm <- function(key,              # unique key
     'CC = acancov\n',
     'FML = fuelmods(1,1)\n',
     flen.init,
-    #'FLEN_init = ', extraStandDat$FLEN_init, '\n',
     'CHT_init = ', extraStandDat$CHT_init, '\n',      # These are the the "wet" variables from the initial "dry" run
     'CBH_init = ', extraStandDat$CBH_init, '\n',
     'CBD_init = ', extraStandDat$CBD_init, '\n',
+    
+    #adding these to see if they help with the issue of wildfire not running in the post-treat run
+    'CBD = crbulkdn \n',
+    'CBH = crbaseht \n',
+    'CHT = ATOPHT \n',
+    ################################################################
+    
     'YR = year\n',
     'END\n',
     

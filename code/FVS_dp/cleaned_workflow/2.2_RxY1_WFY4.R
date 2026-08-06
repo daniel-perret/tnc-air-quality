@@ -25,6 +25,8 @@ run_name <- str_c("RxY1_WFY4_",
 
 dbs <- list.files(TMFM2020_dir_path, full.names = TRUE)
 
+dbs <- dbs
+
 RunDirectory <- here("FVS_runs/full", run_name)
 dir.create(RunDirectory)
 
@@ -110,8 +112,8 @@ FSim_scenarios <- data.frame(
   season = 3   # post-greenup, not autumn as stated in methods doc
 )
 
-write_kcps_wildfire(params_df = FSim_scenarios,
-                    output_dir = "fire_kcps/")  # make sure these don't use '_init' vars
+# write_kcps_wildfire(params_df = FSim_scenarios,
+#                     output_dir = "fire_kcps/")  # make sure these don't use '_init' vars
 
 fire_kcps <- list.files(file.path(RunDirectory, "fire_kcps"), full.names = TRUE)
 
@@ -126,7 +128,7 @@ write_keywords_fullparallel_fullmatch(RunDirectory   = RunDirectory,
                                       ncycles        = 4,
                                       interval       = 1,
                                       runtype        = "wet_rx",
-                                      fbfm           = "default", #FBFM doesn't matter because FL is specified in all cases
+                                      fbfm           = "full", #FBFM doesn't matter because FL is specified in all cases
                                       extraStandDat  = extraStandDat,
                                       nworkers       = parallel::detectCores() - 4)
 
@@ -165,4 +167,4 @@ saveRDS(
   file = file.path(RunDirectory, "runFVS_inputs.rds")
 )
 
-## Run FVS via terminal: Rscript runFVS_batch.R
+## Run FVS via terminal: Rscript ..\..\..\code\FVS_dp\runFVS_batch.R

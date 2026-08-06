@@ -7,7 +7,7 @@ write_keywords_fullparallel_fullmatch <- function(RunDirectory = here::here(),
                                                   ncycles = 10,              # how many simulation cycles?
                                                   interval = 1, # how many years per cycle?
                                                   
-                                                  runtype = "dry", # "wet" means conditioned on variables in the STAND_EXTRA database table; "dry" means unconditioned ; "wet_rx" means same as wet but also adding FL,
+                                                  runtype = "dry", # "wet" means conditioned on variables in extraStandDat; "dry" means unconditioned ; "wet_rx" means same as wet but also adding FL,
                                                   extraStandDat = NULL, #dataframe with extra data for every StandID
                                                   
                                                   fbfm = "default", # default uses normal FVS logic; "fuzzy" constrains FVS matching to LF set, "full" is a full match of all TM-LF combinations
