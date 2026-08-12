@@ -9,26 +9,26 @@
 ## ---- Configuration ----
 
 # Input databases
-TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_inputs/TMFM_2020_InputDatabases/"
+TMFM2020_dir_path <- "D:/DONNY_WORKSPACE/SHARED_DATA/FVS_inputs/TMFM_2020_InputDatabases/"
 
 # Completed runs to condition from
 init_dry_run_name <- "NoFireDryRun_20May26_1629"   # 0.2 output
 rx_dry_run_name   <- "RxDryRun_02Jun26_2233"      # 2.0 output — set before running
 
 # FVS run name
-run_name <- str_c("RxY1_WFY4_",
-                  strftime(Sys.Date(), "%d%b%y"),
-                  "_", strftime(Sys.time(), "%H%M"))
+# run_name <- str_c("RxY1_WFY4_",
+#                   strftime(Sys.Date(), "%d%b%y"),
+#                   "_", strftime(Sys.time(), "%H%M"))
+
+run_name <- "RxY1_WFY4_06Aug26_1030"
 
 
 ## ---- Run directory setup ----
 
 dbs <- list.files(TMFM2020_dir_path, full.names = TRUE)
 
-dbs <- dbs
-
 RunDirectory <- here("FVS_runs/full", run_name)
-dir.create(RunDirectory)
+#dir.create(RunDirectory)
 
 setwd(RunDirectory)
 
