@@ -24,17 +24,16 @@ fvs_bin      <- inputs$fvs_bin
 
 ## ---- 3. Source runFVS definition ----
 ## Adjust path if runFVS.R lives elsewhere
-source("D:/DONNY_WORKSPACE/PROJECTS/tnc-air-quality/code/FVS_dp/functions/runFVS.R")
+source("C:/Users/Donny/LOCAL_WORKSPACE/DONNY_WORKSPACE/PROJECTS/tnc-air-quality/code/FVS_dp/functions/runFVS.R")
 
 ## ---- 4. Execute SCRIPT 2 logic ----
 
 setwd(RunDirectory)
-
 message("Starting batch run at ", Sys.time())
 
 future::plan(
   future.callr::callr,
-  workers = parallel::detectCores()-2
+  workers = 26
 )
 
 furrr::future_pmap(
