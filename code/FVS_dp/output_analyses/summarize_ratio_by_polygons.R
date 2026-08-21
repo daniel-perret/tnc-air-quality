@@ -14,15 +14,15 @@ library(future.callr)
 # 1. Load and prepare inputs
 # ============================================================================
 
-raster_path <- "data/dp_FVS_postprocess/CONUS_mosaic/Rx_CarbonReleasedFromFire_FRG_masked.tif"
+raster_path <- "data/dp_FVS_postprocess/CONUS_mosaic/WF_Conditional_mean_CarbonReleasedFromFire_FRG_masked.tif"
 
 ratio_raster <- terra::rast(raster_path)
 
-zone_name <- "huc12"
+zone_name <- "huc8"
 
-polygons <- sf::st_read("../../SHARED_DATA/HUC_boundaries/huc12_conus/WBDHU12 selection.shp") %>%
+polygons <- sf::st_read("../../SHARED_DATA/HUC_boundaries/huc8_conus/HUC8_US.shp") %>%
   sf::st_transform(terra::crs(ratio_raster)) %>% 
-  mutate(ID = huc12)
+  mutate(ID = HUC8)
 
 # ============================================================================
 # 2. Parallel zonal statistics via exactextractr
@@ -73,4 +73,4 @@ polygon_summaries %>%
   sf::st_drop_geometry() %>%
   select(ID, mean, median, sd) %>%
   write_csv(paste0("data/dp_FVS_postprocess/CONUS_mosaic/zonal_summaries/",
-                   zone_name,"_RxCarbon.csv"))
+                   zone_name,"_WFCarbon.csv"))

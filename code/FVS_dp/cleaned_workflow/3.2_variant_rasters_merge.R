@@ -125,3 +125,35 @@ for (layer in rx_layers) {
 }
 
 message("Mosaicking complete. Output directory: ", mosaic_outpath)
+
+
+## ---- Mosaic wildfire FL layers ----
+
+fl_levels <- c(1, 3, 5, 7, 10, 20)
+
+message("Mosaicking wildfire FL layers...")
+
+for (fl in fl_levels) {
+
+  layer <- paste0("FL", fl, ".tif")
+  message("  Processing: ", layer)
+
+  # Load all variant rasters for this FL
+  variant_rasters <- map(wf_variants, ~ {
+    rast(file.path(wf_outpath_root, .x, layer))
+  })
+
+  # Mosaic via terra::merge() — variants are non-overlapping
+  mosaic <- do.call(terra::merge, variant_rasters)
+
+  # Write mosaicked layer
+  writeRaster(mosaic,
+              file.path(mosaic_outpath, paste0("WF_", layer)),
+              overwrite = TRUE)
+
+  rm(variant_rasters, mosaic)
+  gc()
+
+}
+
+message("FL mosaicking complete. Output directory: ", mosaic_outpath)
