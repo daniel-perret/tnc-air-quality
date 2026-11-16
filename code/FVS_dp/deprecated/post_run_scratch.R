@@ -1,4 +1,4 @@
-test <- dbConnect(SQLite(), "outputs/NoTreat_FlameAdjust_wildfire_10_IE.db")
+test <- dbConnect(SQLite(), "FVS_runs/full/RxWetRun_03Jun26_2229/outputs/")
 
 test.burn <- dbReadTable(test, "FVS_BurnReport")
 
@@ -270,3 +270,10 @@ rx.old <- extract_sqlite_tables("FVS_runs/RxWetRun_fuelmoisture3_fbfmMatch_24Apr
 rx.new <- extract_sqlite_tables("FVS_runs/RxWetRun_fullLFmatch_FLENbin_13May26_0854/outputs/ModRxFire_NoWF_IE.db")
 
 nrow(rx.new$FVS_Carbon)
+
+######################
+
+rx <- extract_sqlite_tables("FVS_runs/full/RxWetRun_03Jun26_2229/outputs/ModRxFire_NoWF_IE.db")
+
+
+wf <- extract_sqlite_tables("FVS_runs/full/Wildfire_WetRun_21May26_0855/outputs/NoTreat_FlameAdjust_wildfire_3_IE.db")

@@ -238,25 +238,31 @@ summarize_drivers(eco_decomp,   "Eco x ForType")
 variance_decomp <- function(df, scale_label) {
   d <- df %>% filter(!is.na(log_T), !is.na(log_Rx), !is.na(log_WF))
 
-  var_logT  <- var(d$log_T)
+  # var(log(mean_T)): uses the zone mean of T directly
+  var_logT_direct <- var(d$log_T)
   var_logRx <- var(d$log_Rx)
   var_logWF <- var(d$log_WF)
   cov_RxWF  <- cov(d$log_Rx, d$log_WF)
 
-  # Verify: var_logRx + var_logWF - 2*cov == var_logT (up to Jensen residual)
-  recon      <- var_logRx + var_logWF - 2 * cov_RxWF
+  # Var(log Rx - log WF) is the exact identity; used as the denominator so
+  # the three percentages sum to 100. It differs from var(log(mean_T)) by
+  # the zone-level Jensen gap.
+  var_logT_decomp <- var_logRx + var_logWF - 2 * cov_RxWF
 
   tibble(
-    scale           = scale_label,
-    var_logT        = var_logT,
-    var_logRx       = var_logRx,
-    var_logWF       = var_logWF,
-    cov_logRx_logWF = cov_RxWF,
-    recon_check     = recon,         # should ≈ var_logT
-    pct_from_Rx     = 100 * var_logRx / var_logT,
-    pct_from_WF     = 100 * var_logWF / var_logT,
-    pct_cov_term    = 100 * (-2 * cov_RxWF) / var_logT
-    # pct_from_Rx + pct_from_WF + pct_cov_term = 100 (by definition)
+    scale             = scale_label,
+    var_logT          = var_logT_direct,
+    var_logT_decomp   = var_logT_decomp,
+    jensen_gap_var    = var_logT_decomp - var_logT_direct,
+    jensen_gap_pct    = 100 * (var_logT_decomp - var_logT_direct) / var_logT_direct,
+    var_logRx         = var_logRx,
+    var_logWF         = var_logWF,
+    cov_logRx_logWF   = cov_RxWF,
+    cor_logRx_logWF   = cov_RxWF / sqrt(var_logRx * var_logWF),
+    pct_from_Rx       = 100 * var_logRx / var_logT_decomp,
+    pct_from_WF       = 100 * var_logWF / var_logT_decomp,
+    pct_cov_term      = 100 * (-2 * cov_RxWF) / var_logT_decomp
+    # pct_from_Rx + pct_from_WF + pct_cov_term = 100 by construction
   )
 }
 
@@ -300,6 +306,7 @@ eco_out <- eco_decomp %>%
     total_pull_abs, rx_frac, wf_frac,
     driver, T_direction, reinforcing
   )
+
 
 write_csv(eco_out, file.path(out_csv_dir, "ecofortype_logdecomp.csv"))
 cat("Eco x ForType decomposition written:", nrow(eco_out), "rows\n")

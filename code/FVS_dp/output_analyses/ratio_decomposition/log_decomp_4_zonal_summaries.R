@@ -36,9 +36,9 @@ library(future.callr)
 # 0. Configuration
 # ============================================================================
 
-n_workers          <- 20
-threads_per_worker <- 3    # 20 * 3 = 60 of 64 cores
-mem_per_worker_gb  <- 5    # 20 * 5 = 100 GB
+n_workers          <- 5
+threads_per_worker <- 3 # 20 * 3 = 60 of 64 cores
+mem_per_worker_gb  <- 4    # 20 * 5 = 100 GB
 
 decomp_dir  <- "data/dp_FVS_postprocess/CONUS_mosaic/ratio_decomposition"
 out_csv_dir <- "data/dp_FVS_postprocess/ratio_decomposition/zonal_summaries"

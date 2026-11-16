@@ -10,7 +10,7 @@
 # processing time.
 
 
-source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
+source("code/FVS_dp/FVS_workflow/0.0_setup.R")
 
 terraOptions(memfrac = 0.8,
              threads = 16,

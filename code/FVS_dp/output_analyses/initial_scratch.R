@@ -3,7 +3,7 @@
 ##### goal is to get a sense of what problems are remaining and whether 
 ##### there are any other fixes I need to explore.
 
-source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
+source("code/FVS_dp/FVS_workflow/0.0_setup.R")
 
 t.rast <- rast("data/dp_FVS_postprocess/CONUS_mosaic/Rx_WF_ratio_masked.tif")
 

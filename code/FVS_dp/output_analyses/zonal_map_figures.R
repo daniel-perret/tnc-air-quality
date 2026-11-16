@@ -2,7 +2,7 @@
 ################## Zonal summary figures for T ratio ###########################
 ################################################################################
 
-source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
+source("code/FVS_dp/FVS_workflow/0.0_setup.R")
 
 ratio.rast <- rast("data/dp_FVS_postprocess/CONUS_mosaic/Rx_WF_ratio_masked_FRG.tif")
 

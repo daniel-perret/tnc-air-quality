@@ -9,7 +9,10 @@
 #   delta_log(T_i) = delta_log(Rx_i) - delta_log(WF_i)      [exact]
 #                  = rx_pull_i + wf_pull_i
 #
-# All inputs use the FRG mask. Rx has no zero pixels under the FRG mask.
+# All inputs use the FRG mask. A small number of Rx pixels are exactly zero
+# (stands with no surface fuel; FVS releases no carbon); 35 such LS stands are
+# excluded via data/LS_zerofuel_stands.csv, and any remaining non-positive
+# WF/Rx pixels are set to NA before the log transform.
 # All output rasters are written to disk immediately (no large in-memory objects).
 #
 # Inputs:
@@ -60,6 +63,11 @@ wf_path <- file.path(mosaic_dir, "WF_Conditional_mean_CarbonReleasedFromFire_FRG
 rx_path <- file.path(mosaic_dir, "Rx_CarbonReleasedFromFire_FRG_masked.tif")
 t_path  <- file.path(mosaic_dir, "Rx_WF_ratio_masked_FRG.tif")   # for verification only
 
+# Zero-fuel stand exclusion (see section 1b)
+excl_stands_csv <- "data/LS_zerofuel_stands.csv"
+tmlf_key_path   <- "data/tmlf_keys/tmlf_key_conus_64bit.csv"
+ls_key_path     <- "data/dp_FVS_postprocess/RxWetRun_03Jun26_2229/LS/tmlf_key_LS.tif"
+
 # Output raster paths
 log_wf_path  <- file.path(out_dir, "log_WF.tif")
 log_rx_path  <- file.path(out_dir, "log_Rx.tif")
@@ -73,7 +81,7 @@ rxfrac_path  <- file.path(out_dir, "rx_frac.tif")
 driver_path  <- file.path(out_dir, "driver_class.tif")
 
 # Terra memory options: use most of available RAM, write intermediates to disk
-terraOptions(memfrac = 0.80, memmax = 100)
+terraOptions(memfrac = 0.80, memmax = 40)
 
 # ============================================================================
 # 1. Load input rasters
@@ -93,27 +101,75 @@ cat("  WF raster:", terra::ncell(wf_r), "cells,", terra::nrow(wf_r), "rows x", t
 cat("  CRS:", terra::crs(wf_r, describe = TRUE)$name, "\n")
 
 # ============================================================================
+# 1b. Exclusion mask: zero-surface-fuel LS stands
+# ============================================================================
+
+# 35 LS TreeMap stands have zero surface fuel in the TMFM inputs, so Rx (and
+# 1 ft WF) release no carbon. They are excluded here (set to NA in all log
+# rasters) pending a decision on how to treat them. Every TM-LF combination
+# belonging to these stands is masked, not only those with Rx == 0.
+
+excl_mask_path <- file.path(out_dir, "excluded_zerofuel_mask.tif")
+
+if (!file.exists(excl_mask_path)) {
+  cat("\nBuilding exclusion mask for zero-fuel stands...\n")
+
+  excl_ids  <- readr::read_csv(excl_stands_csv, show_col_types = FALSE)$Stand_ID
+  excl_keys <- readr::read_csv(tmlf_key_path, show_col_types = FALSE) %>%
+    dplyr::filter(tm %in% excl_ids) %>%
+    dplyr::pull(real.key)
+  cat("  Stands:", length(excl_ids), " TM-LF combinations:", length(excl_keys), "\n")
+
+  # The stands are all in the LS variant; the LS key raster shares the CONUS
+  # mosaic grid (same CRS, resolution, origin), so it can be extended to it.
+  excl_ls_r <- terra::ifel(
+    terra::rast(ls_key_path) %in% excl_keys, 1L, NA,
+    wopt = list(datatype = "INT1U")
+  )
+  n_excl_px <- terra::global(excl_ls_r, "notNA")[1, 1]
+  cat("  Excluded pixels:", n_excl_px, "(", round(n_excl_px * 0.09, 1), "ha )\n")
+
+  terra::extend(excl_ls_r, wf_r, filename = excl_mask_path, overwrite = TRUE,
+                wopt = list(datatype = "INT1U"))
+
+  readr::write_csv(
+    tibble(n_stands = length(excl_ids), n_tmlf_combos = length(excl_keys),
+           n_pixels = n_excl_px, area_ha = n_excl_px * 0.09),
+    file.path(ref_dir, "excluded_zerofuel_summary.csv")
+  )
+  rm(excl_ls_r); gc()
+}
+
+excl_r <- terra::rast(excl_mask_path)
+stopifnot(
+  "Exclusion mask must match the WF/Rx grid" =
+    all(terra::compareGeom(wf_r, excl_r, stopOnError = FALSE))
+)
+
+# ============================================================================
 # 2. Compute log rasters
 # ============================================================================
 
 # All intermediates written directly to disk via filename= argument.
 
+# Non-positive values give -Inf/NaN, which terra::global(na.rm = TRUE) does not
+# drop (it only removes NA) and which would poison the reference means. Set
+# them to NA so they drop out of every downstream step (log_T, departures, pulls).
+# Pixels in the excluded zero-fuel stands (section 1b) are also set to NA.
 cat("\nComputing log_WF...\n")
-log_wf_r <- terra::app(
-  wf_r,
-  fun      = log,
-  filename = log_wf_path,
+log_wf_r <- terra::ifel(
+  wf_r > 0 & is.na(excl_r), log(wf_r), NA,
+  filename  = log_wf_path,
   overwrite = TRUE,
-  wopt     = list(datatype = "FLT4S")
+  wopt      = list(datatype = "FLT4S")
 )
 
 cat("Computing log_Rx...\n")
-log_rx_r <- terra::app(
-  rx_r,
-  fun      = log,
-  filename = log_rx_path,
+log_rx_r <- terra::ifel(
+  rx_r > 0 & is.na(excl_r), log(rx_r), NA,
+  filename  = log_rx_path,
   overwrite = TRUE,
-  wopt     = list(datatype = "FLT4S")
+  wopt      = list(datatype = "FLT4S")
 )
 
 cat("Computing log_T = log_Rx - log_WF...\n")
@@ -156,6 +212,11 @@ cat("\nComputing CONUS reference values (global means)...\n")
 ref_log_WF <- terra::global(log_wf_r, "mean", na.rm = TRUE)[1, 1]
 ref_log_Rx <- terra::global(log_rx_r, "mean", na.rm = TRUE)[1, 1]
 ref_log_T  <- terra::global(log_t_r,  "mean", na.rm = TRUE)[1, 1]
+
+stopifnot(
+  "Reference log means must be finite (check for non-positive WF/Rx pixels)" =
+    all(is.finite(c(ref_log_WF, ref_log_Rx, ref_log_T)))
+)
 
 cat("  ref_log_WF =", round(ref_log_WF, 5), "\n")
 cat("  ref_log_Rx =", round(ref_log_Rx, 5), "\n")
