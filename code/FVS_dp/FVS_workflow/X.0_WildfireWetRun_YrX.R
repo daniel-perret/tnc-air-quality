@@ -5,7 +5,7 @@
 
 ## ---- Configuration ----
 
-source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
+source("code/FVS_dp/FVS_workflow/0.0_setup.R")
 
 # Input databases
 TMFM2020_dir_path <- "/Users/daniel.perret/LOCAL_WORKSPACE/SHARED_DATA/FVS_inputs/TMFM_2020_InputDatabases/"

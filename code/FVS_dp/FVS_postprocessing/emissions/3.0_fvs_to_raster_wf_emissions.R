@@ -11,7 +11,7 @@
 ## ---- Configuration ----
 
 library(here)
-source(here("code/FVS_dp/cleaned_workflow/0.0_setup.R"))
+source(here("code/FVS_dp/FVS_workflow/0.0_setup.R"))
 
 # Completed wildfire wet run to rasterize
 wf_run_name <- "Wildfire_WetRun_21May26_0855"

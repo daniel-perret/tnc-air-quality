@@ -4,7 +4,7 @@
 #### Requires completed 3.2 run (mosaicked rasters).
 #### Outputs: masked Rx_WF_ratio.tif in data/dp_FVS_postprocess/CONUS_mosaic/
 
-source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
+source("code/FVS_dp/FVS_workflow/0.0_setup.R")
 
 ## ---- Configuration ----
 

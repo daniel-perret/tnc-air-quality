@@ -5,7 +5,7 @@
 #
 # This uses terra::encode() as the canonical solution.
 # terra::crosstab() is used ONLY to supply frequencies (optional, but useful).
-source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
+source("code/FVS_dp/FVS_workflow/0.0_setup.R")
 
 ## encode and write function ----
 encode_combinations <- function(variant) {

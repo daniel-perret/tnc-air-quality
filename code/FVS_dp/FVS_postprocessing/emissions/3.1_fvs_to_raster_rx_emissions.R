@@ -6,7 +6,7 @@
 #### Outputs: per-variant rasters in data/dp_FVS_postprocess/{rx_run_name}/{VARIANT}/
 #### Variant rasters are mosaicked into CONUS layers in 3.4_variant_raster_merge.R
 
-source("code/FVS_dp/cleaned_workflow/0.0_setup.R")
+source("code/FVS_dp/FVS_workflow/0.0_setup.R")
 
 ## ---- Configuration ----
 

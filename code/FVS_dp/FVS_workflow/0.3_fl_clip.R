@@ -7,7 +7,7 @@
 ## ---- Configuration ----
 
 library(here)
-source(here("code/FVS_dp/cleaned_workflow/0.0_setup.R"))
+source(here("code/FVS_dp/FVS_workflow/0.0_setup.R"))
 
 # FlamStat flame length probability rasters directory (pre-treatment baseline)
 fl_prob_dir <- "data/flamstat/flamelength_rasters/PreTreatment_CONUS/"

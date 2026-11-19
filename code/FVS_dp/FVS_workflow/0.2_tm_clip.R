@@ -5,7 +5,7 @@
 
 ## ---- Configuration ----
 library(here)
-source(here("code/FVS_dp/cleaned_workflow/0.0_setup.R"))
+source(here("code/FVS_dp/FVS_workflow/0.0_setup.R"))
 
 # TreeMap raster (pixel -> TreeMap StandID)
 tm_path <- "data/flamstat/metadata/TMFM2020_FVSVariant_Key/TMFM2020_FVSVariant_Key.tif"
