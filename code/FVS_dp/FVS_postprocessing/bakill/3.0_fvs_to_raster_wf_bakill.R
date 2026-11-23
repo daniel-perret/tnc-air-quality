@@ -43,6 +43,18 @@ dir.create(outpath_root, showWarnings = FALSE)
 # Unique variants present in run outputs
 run_variants <- str_sub(basename(all_dbs), -5, -4) %>% unique()
 
+# Rerun only variants with missing/empty rasters (set FALSE to redo all variants)
+rerun_incomplete_only <- TRUE
+
+if (rerun_incomplete_only) {
+  source(here("code/FVS_dp/functions/bakill_incomplete_variants.R"))
+  run_variants <- incomplete_bakill_variants(
+    stage    = "3.0",
+    run_name = wf_run_name,
+    metrics  = metrics
+  )
+}
+
 
 ## ---- Block-wise conditional mean / SD / CV ----
 
@@ -131,7 +143,9 @@ process_variant_all_fls <- function(
 ) {
     fl_val <- parse_number(basename(db_path))
     con    <- dbConnect(SQLite(), db_path)
-    dat    <- dbGetQuery(con, "SELECT c.StandID,
+    # Eastern variants (CS, LS, NE, SN) write FVS_Summary_East instead of FVS_Summary
+    summary_tbl <- if ("FVS_Summary" %in% dbListTables(con)) "FVS_Summary" else "FVS_Summary_East"
+    dat    <- dbGetQuery(con, paste0("SELECT c.StandID,
                                       COALESCE(m.Bakill, 0) AS BAkill,
                                       CASE WHEN s.BA > 0
                                            THEN 100.0 * COALESCE(m.Bakill, 0) / s.BA
@@ -141,9 +155,9 @@ process_variant_all_fls <- function(
                                  ON c.CaseID = m.CaseID
                                 AND m.SpeciesFVS = 'ALL'
                                 AND m.Year = 2020
-                               LEFT JOIN FVS_Summary s
+                               LEFT JOIN ", summary_tbl, " s
                                  ON c.CaseID = s.CaseID
-                                AND s.Year = 2020")
+                                AND s.Year = 2020"))
     dbDisconnect(con)
     mutate(dat, FL = fl_val, StandID = as.integer(StandID))
   })
@@ -208,6 +222,7 @@ process_variant_all_fls <- function(
 ## ---- Parallel execution over variants ----
 
 future::plan(future.callr::callr, workers = 5)
+
 furrr::future_map(run_variants,
                   ~ process_variant_all_fls(.,
                                             all_dbs,

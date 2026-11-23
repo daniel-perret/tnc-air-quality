@@ -51,6 +51,20 @@ variants_vect <- vect(variant_path) %>%
 # Unique variants present in run outputs
 run_variants <- str_sub(basename(all_dbs), -5, -4) %>% unique()
 
+# Rerun only variants with missing/empty rasters whose wildfire 3.0 inputs exist
+# (set FALSE to redo all variants)
+rerun_incomplete_only <- TRUE
+
+if (rerun_incomplete_only) {
+  source(here("code/FVS_dp/functions/bakill_incomplete_variants.R"))
+  run_variants <- incomplete_bakill_variants(
+    stage       = "3.1",
+    run_name    = rx_run_name,
+    wf_run_name = wf_run_name,
+    metrics     = metrics
+  )
+}
+
 
 ## ---- Per-variant rasterization loop ----
 
@@ -87,8 +101,10 @@ for (variant in run_variants) {
   # Note: StandID from rx FVS output tables corresponds with TMLF key field
   con <- dbConnect(SQLite(),
                    rx_db)
+  # Eastern variants (CS, LS, NE, SN) write FVS_Summary_East instead of FVS_Summary
+  summary_tbl <- if ("FVS_Summary" %in% dbListTables(con)) "FVS_Summary" else "FVS_Summary_East"
   reclass.df <- dbGetQuery(con,
-                           "SELECT c.StandID,
+                           paste0("SELECT c.StandID,
                                    COALESCE(m.Bakill, 0) AS BAkill,
                                    CASE WHEN s.BA > 0
                                         THEN 100.0 * COALESCE(m.Bakill, 0) / s.BA
@@ -98,16 +114,16 @@ for (variant in run_variants) {
                               ON c.CaseID = m.CaseID
                              AND m.SpeciesFVS = 'ALL'
                              AND m.Year = 2020
-                            LEFT JOIN FVS_Summary s
+                            LEFT JOIN ", summary_tbl, " s
                               ON c.CaseID = s.CaseID
-                             AND s.Year = 2020")
+                             AND s.Year = 2020"))
   dbDisconnect(con)
 
   reclass.df <- reclass.df %>%
     mutate(StandID = as.integer(StandID))
 
   wf_outpath     <- here("data/dp_FVS_postprocess", wf_run_name, variant)
-  wf_outpath_90p <- here("data/dp_FVS_postprocess", paste0(wf_run_name, "_90p"), variant)
+  # wf_outpath_90p <- here("data/dp_FVS_postprocess", paste0(wf_run_name, "_90p"), variant)
 
   for (metric in metrics) {
 
@@ -129,23 +145,23 @@ for (variant in run_variants) {
     # WF conditional mean (from 3.0) and top-10% mean (from 3.0.1)
     wf_cond     <- rast(file.path(wf_outpath,
                                   paste0("Conditional_mean_", metric, ".tif")))
-    wf_cond_90p <- rast(file.path(wf_outpath_90p,
-                                  paste0("top10pct_mean_", metric, ".tif")))
+    # wf_cond_90p <- rast(file.path(wf_outpath_90p,
+    #                               paste0("top10pct_mean_", metric, ".tif")))
 
     # Align extents
     rx_rast     <- crop(rx_rast, wf_cond)
-    wf_cond_90p <- crop(wf_cond_90p, wf_cond)
+    #wf_cond_90p <- crop(wf_cond_90p, wf_cond)
 
     # Rx:WF ratios
     writeRaster(rx_rast / wf_cond,
                 file.path(outpath, paste0("Rx_WF_", metric, "_ratio.tif")),
                 overwrite = TRUE)
 
-    writeRaster(rx_rast / wf_cond_90p,
-                file.path(outpath, paste0("Rx_WF_", metric, "_ratio_90p.tif")),
-                overwrite = TRUE)
+    # writeRaster(rx_rast / wf_cond_90p,
+    #             file.path(outpath, paste0("Rx_WF_", metric, "_ratio_90p.tif")),
+    #             overwrite = TRUE)
 
-    rm(reclass.mat, rx_rast, wf_cond, wf_cond_90p)
+    rm(reclass.mat, rx_rast, wf_cond)#, wf_cond_90p)
     gc()
   }
 
